@@ -74,7 +74,9 @@
 
 
 /* v1.0.1 Commit 5: contextual help buttons and tooltips */
-.help-btn{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-left:6px;border:1px solid var(--line);border-radius:999px;background:rgba(56,189,248,.10);color:var(--accent);font-weight:900;font-size:.78rem;line-height:1;cursor:pointer;vertical-align:middle}
+.help-btn{display:none;align-items:center;justify-content:center;width:22px;height:22px;margin-left:6px;border:1px solid var(--line);border-radius:999px;background:rgba(56,189,248,.10);color:var(--accent);font-weight:900;font-size:.78rem;line-height:1;cursor:pointer;vertical-align:middle}
+.help-enabled .help-btn{display:inline-flex}
+#helpToggle[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,.14)}
 .help-btn:hover,.help-btn:focus{border-color:var(--accent);background:rgba(56,189,248,.18);outline:none}
 .help-btn[aria-expanded="true"]{border-color:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,.16)}
 .action-help{margin-left:0;align-self:center}

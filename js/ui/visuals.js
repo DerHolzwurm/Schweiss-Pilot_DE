@@ -1,7 +1,7 @@
 const SVG_DEFS = `
   <defs>
-    <marker id="arr" markerWidth="10" markerHeight="10" refX="7" refY="4" orient="auto">
-      <path d="M0,0 L0,8 L8,4 z" fill="currentColor"/>
+    <marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,7 L6,3.5 z" fill="#34d399"/>
     </marker>
   </defs>`;
 
@@ -21,8 +21,8 @@ const FASE_SVGS = {
 };
 
 const JOINT_SVGS = {
-  stumpf: '<rect x="42" y="76" width="80" height="18" class="metal"/><rect x="138" y="76" width="80" height="18" class="metal"/><line x1="84" y1="66" x2="130" y2="66" class="weld"/><circle cx="132" cy="66" r="4" class="arc"/><line x1="170" y1="28" x2="134" y2="62" class="torch"/><line x1="84" y1="44" x2="176" y2="44" class="arrow"/>',
-  kehl: '<rect x="56" y="84" width="150" height="18" class="metal"/><rect x="98" y="34" width="18" height="68" class="metal"/><path d="M116 84 L148 84" class="weld"/><circle cx="150" cy="84" r="4" class="arc"/><line x1="184" y1="42" x2="152" y2="80" class="torch"/><line x1="116" y1="58" x2="188" y2="58" class="arrow"/>',
+  stumpf: '<rect x="42" y="76" width="84" height="18" class="metal"/><rect x="134" y="76" width="84" height="18" class="metal"/><path d="M126 76 L134 76 L139 94 L121 94 Z" class="weld-fill"/><line x1="72" y1="48" x2="188" y2="48" class="arrow"/>',
+  kehl: '<rect x="56" y="84" width="150" height="18" class="metal"/><rect x="98" y="34" width="18" height="68" class="metal"/><path d="M116 84 L148 84 A32 32 0 0 0 116 52 Z" class="weld-fill"/><line x1="124" y1="58" x2="190" y2="58" class="arrow"/>',
   ueberlapp: '<rect x="54" y="80" width="140" height="18" class="metal"/><rect x="86" y="58" width="140" height="18" class="metal"/><line x1="98" y1="78" x2="152" y2="78" class="weld"/><circle cx="154" cy="78" r="4" class="arc"/><line x1="188" y1="32" x2="156" y2="74" class="torch"/><line x1="98" y1="42" x2="190" y2="42" class="arrow"/>'
 };
 

@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 130">
-  <rect width="260" height="130" rx="14" fill="#0f172a"/>
-  <text x="130" y="70" text-anchor="middle" fill="#e5e7eb" font-family="Arial" font-size="18">pc</text>
-  <text x="130" y="96" text-anchor="middle" fill="#94a3b8" font-family="Arial" font-size="11">SchweißPilot Illustration</text>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 130"><defs><marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L0,7 L6,3.5 z" fill="#34d399"/></marker></defs><style>.metal{fill:#64748b}.metal-line{stroke:#64748b;stroke-width:6;stroke-linejoin:round;fill:none}.weld{stroke:#38bdf8;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;fill:none}.weld-fill{fill:#38bdf8;stroke:#38bdf8;stroke-width:2;stroke-linejoin:round}.torch{stroke:#fbbf24;stroke-width:5.5;stroke-linecap:round;fill:none}.arc{fill:#f8fafc;stroke:#38bdf8;stroke-width:1.4}.arrow{stroke:#34d399;stroke-width:3.5;stroke-linecap:round;marker-end:url(#arr);fill:none}</style><rect x="126" y="20" width="20" height="95" class="metal"/><line x1="116" y1="34" x2="116" y2="64" class="weld"/><circle cx="116" cy="66" r="4" class="arc"/><line x1="58" y1="66" x2="112" y2="66" class="torch"/><line x1="92" y1="34" x2="92" y2="100" class="arrow"/></svg>

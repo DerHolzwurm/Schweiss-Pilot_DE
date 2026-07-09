@@ -3,5 +3,7 @@ export const paths = {
   processes: './data/processes.json',
   corrections: './data/corrections.json',
   lexicon: './data/lexicon.json',
-  help: './data/help.json'
+  help: './data/help.json',
+  manufacturers: './data/manufacturers.json',
+  sources: './data/sources.json'
 };

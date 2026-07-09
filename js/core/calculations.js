@@ -1,3 +1,5 @@
+import { findManufacturerReferences, getManufacturerName } from './manufacturers.js';
+
 const round = (value, digits = 0) => Number(value).toFixed(digits);
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
@@ -51,6 +53,10 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const factor = material.factor * joint.factor * position.factor * shape.factor * totalTrimFactor;
 
   const isCut = process.type === 'cut';
+  const manufacturerReferences = findManufacturerReferences(input, data);
+  const manufacturerSummary = manufacturerReferences.length
+    ? `${manufacturerReferences.length} Hersteller-/Referenzdatensatz vorbereitet: ${manufacturerReferences.map(entry => getManufacturerName(data, entry.manufacturerId)).join(', ')}`
+    : 'Kein passender Herstellerdatensatz im aktuellen C07-Seed.';
   const currentRange = calculateCurrentRange(thickness, process, factor, isCut);
   const amps = clamp(thickness * process.baseAmpPerMm * factor, currentRange.min, currentRange.max);
   const volt = calculateVoltage(process, thickness, amps);
@@ -76,6 +82,8 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     currentRange,
     currentRangeLabel: makeRangeLabel(currentRange.min, currentRange.max),
     formulaReference: process.reference || null,
+    manufacturerReferences,
+    manufacturerSummary,
     polarity: process.polarity,
     gas: process.gas,
     heroMain,
@@ -88,6 +96,6 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     jointLabel: joint.label,
     shapeId: shape.id,
     shapeLabel: shape.label,
-    why: isCut ? `Orientierungswert aus Verfahren, Materialstärke und Materialfaktor. Gerätehandbuch, Probeschnitt und Arbeitsschutz haben Vorrang. Referenzbereich: ${makeRangeLabel(currentRange.min, currentRange.max) || 'geräteabhängig'}.` : `Berechnet aus validierter Faustformel, Materialstärke, Material-, Naht-, Positions- und Formfaktor. Referenzbereich: ${makeRangeLabel(currentRange.min, currentRange.max)}. Aktive Gesamtkorrektur: ${round(manualTrim + feedbackTrim)} %. ${process.reference || ''}`
+    why: isCut ? `Orientierungswert aus Verfahren, Materialstärke und Materialfaktor. Gerätehandbuch, Probeschnitt und Arbeitsschutz haben Vorrang. Referenzbereich: ${makeRangeLabel(currentRange.min, currentRange.max) || 'geräteabhängig'}. ${manufacturerSummary}` : `Berechnet aus validierter Faustformel, Materialstärke, Material-, Naht-, Positions- und Formfaktor. Referenzbereich: ${makeRangeLabel(currentRange.min, currentRange.max)}. Aktive Gesamtkorrektur: ${round(manualTrim + feedbackTrim)} %. ${process.reference || ''} ${manufacturerSummary}`
   };
 }

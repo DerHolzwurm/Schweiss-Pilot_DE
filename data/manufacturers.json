@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "status": "development-seed",
+  "notes": "Herstellerdatenbank fuer C07. Die Struktur ist produktiv vorbereitet; konkrete Herstellerkennlinien werden in C08 gegen Herstellerunterlagen verglichen.",
+  "manufacturers": [
+    {
+      "id": "fronius",
+      "name": "Fronius",
+      "country": "AT",
+      "sourceStatus": "prepared"
+    },
+    {
+      "id": "ewm",
+      "name": "EWM",
+      "country": "DE",
+      "sourceStatus": "prepared"
+    },
+    {
+      "id": "kemppi",
+      "name": "Kemppi",
+      "country": "FI",
+      "sourceStatus": "prepared"
+    },
+    {
+      "id": "esab",
+      "name": "ESAB",
+      "country": "SE",
+      "sourceStatus": "prepared"
+    },
+    {
+      "id": "lincoln-electric",
+      "name": "Lincoln Electric",
+      "country": "US",
+      "sourceStatus": "prepared"
+    },
+    {
+      "id": "boehler",
+      "name": "Böhler Welding",
+      "country": "AT",
+      "sourceStatus": "prepared"
+    },
+    {
+      "id": "stahlwerk",
+      "name": "STAHLWERK",
+      "country": "DE",
+      "sourceStatus": "prepared"
+    }
+  ],
+  "parameterSets": [
+    {
+      "id": "seed-mag-stahl-08-2mm",
+      "manufacturerId": "stahlwerk",
+      "deviceFamily": "MIG/MAG Kombigeräte",
+      "process": "mag",
+      "material": "stahl",
+      "thicknessMinMm": 1.5,
+      "thicknessMaxMm": 2.5,
+      "wireMm": 0.8,
+      "gas": "M21 / C18 Mischgas",
+      "currentMinA": 70,
+      "currentMaxA": 115,
+      "voltageMinV": 17.5,
+      "voltageMaxV": 19.5,
+      "wireFeedMinMMin": 3.0,
+      "wireFeedMaxMMin": 5.5,
+      "sourceIds": ["homberg-mag-parameters", "schweisshelden-current-strength"],
+      "confidence": "orientation",
+      "comment": "Startdatensatz fuer Datenmodell und Lookup; vor C08 mit Original-Herstellerdaten abgleichen."
+    },
+    {
+      "id": "seed-mag-stahl-09-3mm",
+      "manufacturerId": "stahlwerk",
+      "deviceFamily": "MIG/MAG Kombigeräte",
+      "process": "mag",
+      "material": "stahl",
+      "thicknessMinMm": 2.5,
+      "thicknessMaxMm": 3.5,
+      "wireMm": 0.9,
+      "gas": "M21 / C18 Mischgas",
+      "currentMinA": 110,
+      "currentMaxA": 155,
+      "voltageMinV": 18.8,
+      "voltageMaxV": 21.2,
+      "wireFeedMinMMin": 4.5,
+      "wireFeedMaxMMin": 7.0,
+      "sourceIds": ["homberg-mag-parameters", "schweisshelden-current-strength"],
+      "confidence": "orientation",
+      "comment": "Startdatensatz fuer Datenmodell und Lookup; vor C08 mit Original-Herstellerdaten abgleichen."
+    },
+    {
+      "id": "seed-fcaw-stahl-09-3mm",
+      "manufacturerId": "stahlwerk",
+      "deviceFamily": "Fülldraht / Kombigeräte",
+      "process": "fcaw_s",
+      "material": "stahl",
+      "thicknessMinMm": 2.5,
+      "thicknessMaxMm": 3.5,
+      "wireMm": 0.9,
+      "gas": "kein Schutzgas",
+      "currentMinA": 90,
+      "currentMaxA": 135,
+      "voltageMinV": 17.0,
+      "voltageMaxV": 20.5,
+      "wireFeedMinMMin": 3.5,
+      "wireFeedMaxMMin": 6.5,
+      "sourceIds": ["schweisshelden-current-strength"],
+      "confidence": "orientation",
+      "comment": "Fülldraht-Datensatz als konservativer Startwert; exakte Polung und Kennlinie vom Draht-/Gerätehersteller priorisieren."
+    },
+    {
+      "id": "seed-wig-dc-stahl-3mm",
+      "manufacturerId": "ewm",
+      "deviceFamily": "WIG DC",
+      "process": "wig_dc",
+      "material": "stahl",
+      "thicknessMinMm": 2.5,
+      "thicknessMaxMm": 3.5,
+      "wireMm": null,
+      "gas": "Argon 4.6",
+      "currentMinA": 90,
+      "currentMaxA": 125,
+      "voltageMinV": null,
+      "voltageMaxV": null,
+      "wireFeedMinMMin": null,
+      "wireFeedMaxMMin": null,
+      "sourceIds": ["bosch-wig-current"],
+      "confidence": "orientation",
+      "comment": "WIG-Startbereich; Zusatzwerkstoff, Nahtvorbereitung und Wärmeführung bleiben praxisrelevant."
+    },
+    {
+      "id": "seed-mma-stahl-32mm-electrode",
+      "manufacturerId": "boehler",
+      "deviceFamily": "Stabelektrode",
+      "process": "mma",
+      "material": "stahl",
+      "thicknessMinMm": 3.0,
+      "thicknessMaxMm": 8.0,
+      "wireMm": 3.2,
+      "gas": "kein Schutzgas",
+      "currentMinA": 90,
+      "currentMaxA": 130,
+      "voltageMinV": null,
+      "voltageMaxV": null,
+      "wireFeedMinMMin": null,
+      "wireFeedMaxMMin": null,
+      "sourceIds": ["mannisweldingchannel-mma-current"],
+      "confidence": "orientation",
+      "comment": "Elektrodentyp und Verpackungsangabe haben Vorrang."
+    }
+  ]
+}

@@ -1,7 +1,0 @@
-[
-  {"term":"Ampere","text":"Stromstärke. Bestimmt maßgeblich Einbrand und Wärmeeintrag."},
-  {"term":"Volt","text":"Lichtbogenspannung. Beeinflusst Lichtbogenlänge, Nahtbreite und Spritzerverhalten."},
-  {"term":"Drahtvorschub","text":"Geschwindigkeit, mit der der Schweißdraht gefördert wird. Bei MIG/MAG eng mit dem Strom gekoppelt."},
-  {"term":"Stickout","text":"Abstand zwischen Stromdüse und Werkstück. Zu lang macht die Naht kälter und instabiler."},
-  {"term":"Fase","text":"Nahtvorbereitung bei dickeren Werkstücken, damit die Wurzel sicher erfasst wird."}
-]

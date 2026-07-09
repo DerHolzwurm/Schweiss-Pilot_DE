@@ -1,6 +1,6 @@
 # SchweißPilot
 
-Version **1.0.0** – Foundation
+Version 1.0.1 – Maintenance
 
 Offlinefähiger Schweißparameter-Assistent als Progressive Web App.
 
@@ -34,11 +34,11 @@ Diese Funktionen sind für spätere Versionen vorgesehen.
 Entwicklung auf:
 
 ```text
-feature/core-v1.0.0
+Entwicklung-V1.0.1
 ```
 
 Merge-Reihenfolge:
 
 ```text
-feature/core-v1.0.0 -> develop -> main -> tag v1.0.0
+Entwicklung-V1.0.1 -> develop -> main -> tag v1.0.1
 ```

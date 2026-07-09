@@ -1,0 +1,9 @@
+{
+  "feedback": [
+    {"min":-10,"max":-6,"label":"Naht liegt stark auf – mehr Energie","trim":12},
+    {"min":-5,"max":-2,"label":"Etwas zu kalt – leicht erhöhen","trim":6},
+    {"min":-1,"max":1,"label":"Optimal – keine Anpassung","trim":0},
+    {"min":2,"max":5,"label":"Etwas zu heiß – leicht reduzieren","trim":-6},
+    {"min":6,"max":10,"label":"Durchbrandrisiko – deutlich reduzieren","trim":-12}
+  ]
+}

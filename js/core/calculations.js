@@ -1,4 +1,4 @@
-import { findManufacturerReferences, getManufacturerName } from './manufacturers.js';
+import { buildManufacturerComparison, findManufacturerReferences, getManufacturerName } from './manufacturers.js';
 
 const round = (value, digits = 0) => Number(value).toFixed(digits);
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -55,13 +55,14 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const isCut = process.type === 'cut';
   const manufacturerReferences = findManufacturerReferences(input, data);
   const manufacturerSummary = manufacturerReferences.length
-    ? `${manufacturerReferences.length} Hersteller-/Referenzdatensatz vorbereitet: ${manufacturerReferences.map(entry => getManufacturerName(data, entry.manufacturerId)).join(', ')}`
-    : 'Kein passender Herstellerdatensatz im aktuellen C07-Seed.';
+    ? `${manufacturerReferences.length} Hersteller-/Referenzdatensatz gefunden: ${manufacturerReferences.map(entry => getManufacturerName(data, entry.manufacturerId)).join(', ')}`
+    : 'Kein passender Herstellerdatensatz im aktuellen Datenstand.';
   const currentRange = calculateCurrentRange(thickness, process, factor, isCut);
   const amps = clamp(thickness * process.baseAmpPerMm * factor, currentRange.min, currentRange.max);
   const volt = calculateVoltage(process, thickness, amps);
   const wire = Number(input.wire || 0.9);
   const wfs = calculateWireFeed(process, amps, wire);
+  const manufacturerComparison = buildManufacturerComparison({ amps, volt, wfs, processType: process.type }, manufacturerReferences, data);
 
   const fase = thickness < 4
     ? { visual: 'none', level: 'info', text: 'Keine Fase nötig, Kanten sauber vorbereiten.' }
@@ -84,6 +85,7 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     formulaReference: process.reference || null,
     manufacturerReferences,
     manufacturerSummary,
+    manufacturerComparison,
     polarity: process.polarity,
     gas: process.gas,
     heroMain,

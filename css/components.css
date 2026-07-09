@@ -85,3 +85,22 @@
 .help-tooltip p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.35}
 .actions{align-items:center;flex-wrap:wrap}
 @media (max-width:720px){.help-tooltip{left:12px!important;right:12px;max-width:none}.action-help{width:28px;height:28px}}
+
+/* v1.0.1 Commit 8: calculated values compared with manufacturer ranges */
+.manufacturer-compare{border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 16px;background:rgba(34,197,94,.055)}
+.compare-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.compare-header h3{margin:0 0 4px}
+.compare-header .small{margin:0;color:var(--muted)}
+.compare-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:.82rem;font-weight:900;color:var(--text);background:rgba(255,255,255,.04);white-space:nowrap}
+.compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.compare-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.035)}
+.compare-item span{display:block;color:var(--muted);font-size:.86rem;font-weight:700}
+.compare-item strong{display:block;margin-top:5px;font-size:1.4rem;line-height:1.1}
+.compare-item small{display:block;margin-top:4px;color:var(--muted)}
+.compare-item em{display:inline-flex;margin-top:8px;border-radius:999px;padding:4px 8px;font-style:normal;font-size:.78rem;font-weight:900;border:1px solid var(--line)}
+.compare-state.match{color:var(--good);border-color:var(--good);background:rgba(34,197,94,.10)}
+.compare-state.below,.compare-state.above{color:var(--warn);border-color:var(--warn);background:rgba(245,158,11,.10)}
+.compare-state.missing{color:var(--muted);background:rgba(148,163,184,.08)}
+.compare-notes{margin:12px 0 0;color:var(--muted)}
+.compare-missing{background:rgba(148,163,184,.05)}
+@media (max-width:720px){.compare-header{display:block}.compare-badge{margin-top:8px}.compare-grid{grid-template-columns:1fr}}

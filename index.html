@@ -63,6 +63,22 @@
           <div class="tile" id="refFeedBox"><span id="refFeedLabel">Referenz Vorschub</span><strong id="refFeed">–</strong></div>
         </div>
 
+        <section id="manufacturerComparePanel" class="manufacturer-compare hidden" aria-label="Herstellervergleich">
+          <div class="compare-header">
+            <div>
+              <h3>Vergleich mit Herstellerwerten</h3>
+              <p id="manufacturerCompareMeta" class="small">–</p>
+            </div>
+            <span id="manufacturerCompareBadge" class="compare-badge">–</span>
+          </div>
+          <div class="compare-grid">
+            <div class="compare-item"><span>Strom</span><strong id="cmpAmpCalculated">–</strong><small id="cmpAmpRange">–</small><em id="cmpAmpStatus">–</em></div>
+            <div class="compare-item" id="cmpVoltItem"><span>Spannung</span><strong id="cmpVoltCalculated">–</strong><small id="cmpVoltRange">–</small><em id="cmpVoltStatus">–</em></div>
+            <div class="compare-item" id="cmpFeedItem"><span>Drahtvorschub</span><strong id="cmpFeedCalculated">–</strong><small id="cmpFeedRange">–</small><em id="cmpFeedStatus">–</em></div>
+          </div>
+          <p id="manufacturerCompareNotes" class="small compare-notes">–</p>
+        </section>
+
         <section id="feedbackPanel" class="feedback-panel" aria-label="Live-Nahtfeedback">
           <h3>Naht-Rückmeldung <button class="help-btn" type="button" data-help="feedback" aria-label="Hilfe zur Naht-Rückmeldung">i</button></h3>
           <p>Regler direkt nach der Probenaht verschieben. Die Startwerte werden sofort neu berechnet. Die Referenzwerte bleiben als Optimalwert sichtbar.</p>
@@ -103,7 +119,7 @@
 
     <section id="screen-data" class="screen">
       <article class="card"><h2>Version</h2><div id="versionDetails">Version wird geladen …</div></article>
-      <article class="card"><h2>Datenstatus</h2><p>Build C06 nutzt validierte, konservative Startwerte mit Referenzbereichen. Die Werte sind Orientierung; Herstellerangaben, WPS, Arbeitsschutz und Aufsicht haben Vorrang. Herstellerdatenbanken folgen in C07.</p></article>
+      <article class="card"><h2>Datenstatus</h2><p>Build C08 vergleicht berechnete Startwerte mit hinterlegten Hersteller- und Handbuchwerten. Die Werte sind Orientierung; Herstellerangaben, WPS, Arbeitsschutz und Aufsicht haben Vorrang.</p></article>
     </section>
   </main>
 

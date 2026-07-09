@@ -4,8 +4,6 @@ const fmt = (value, unit, digits = 0) => value === null || value === undefined ?
 
 export function renderResult(result) {
   document.getElementById('resultCard').classList.remove('hidden');
-  document.getElementById('heroMain').textContent = result.heroMain;
-  document.getElementById('heroSub').textContent = result.heroSub;
   document.getElementById('amp').textContent = fmt(result.amps, 'A', 0);
   document.getElementById('volt').textContent = result.volt === null ? 'geregelt / geräteabhängig' : fmt(result.volt, 'V', 1);
   document.getElementById('feed').textContent = result.wfs === null ? '–' : fmt(result.wfs, 'm/min', 1);

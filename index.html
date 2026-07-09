@@ -43,12 +43,6 @@
 
       <article id="resultCard" class="card hidden">
         <h2>Empfohlene Einstellung</h2>
-        <h3>Startwerte</h3>
-        <div class="hero">
-          <span>Empfohlene Startwerte</span>
-          <strong id="heroMain">–</strong>
-          <small id="heroSub">–</small>
-        </div>
 
         <section class="feedback-panel" aria-label="Live-Nahtfeedback">
           <h3>Naht-Rückmeldung</h3>
@@ -58,10 +52,13 @@
           <div class="feedback-readout"><strong id="feedbackValue">0</strong><span id="feedbackMeaning">Optimal – keine Anpassung</span></div>
         </section>
 
-        <div class="result-grid start-values">
-          <div class="tile start-tile align-left"><span>A</span><strong id="amp">–</strong></div>
-          <div class="tile start-tile align-center"><span>V</span><strong id="volt">–</strong></div>
-          <div class="tile start-tile align-right"><span>Vorschub m/min</span><strong id="feed">–</strong></div>
+        <div class="hero start-hero" aria-label="Empfohlene Startwerte">
+          <span class="start-title">Empfohlene Startwerte</span>
+          <div class="start-values">
+            <div class="start-value align-left"><span>A</span><strong id="amp">–</strong></div>
+            <div class="start-value align-center"><span>V</span><strong id="volt">–</strong></div>
+            <div class="start-value align-right"><span>Vorschub m/min</span><strong id="feed">–</strong></div>
+          </div>
         </div>
 
         <div class="result-grid details-grid">

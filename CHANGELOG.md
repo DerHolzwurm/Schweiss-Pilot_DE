@@ -22,3 +22,9 @@
 - Moves Naht-Rückmeldung above A/V/Vorschub start values.
 - Renames Empfohlener Startpunkt to Empfohlene Startwerte.
 - Aligns A left, V centered and Vorschub m/min right.
+
+
+### Fixed - UI Startwerte Alignment
+- Moves Naht-Rückmeldung above the complete Startwerte block.
+- Displays A, V and Vorschub m/min as three equal-sized primary values.
+- Aligns A left, V centered and Vorschub right inside the Startwerte card.

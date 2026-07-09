@@ -45,14 +45,9 @@
         <h2>Empfohlene Einstellung</h2>
         <h3>Startwerte</h3>
         <div class="hero">
-          <span>Empfohlener Startpunkt</span>
+          <span>Empfohlene Startwerte</span>
           <strong id="heroMain">–</strong>
           <small id="heroSub">–</small>
-        </div>
-        <div class="result-grid start-values">
-          <div class="tile"><span>Strom</span><strong id="amp">–</strong></div>
-          <div class="tile"><span>Spannung</span><strong id="volt">–</strong></div>
-          <div class="tile"><span>Drahtvorschub / Zusatz</span><strong id="feed">–</strong></div>
         </div>
 
         <section class="feedback-panel" aria-label="Live-Nahtfeedback">
@@ -62,6 +57,12 @@
           <input id="feedbackSlider" type="range" min="-10" max="10" step="1" value="0">
           <div class="feedback-readout"><strong id="feedbackValue">0</strong><span id="feedbackMeaning">Optimal – keine Anpassung</span></div>
         </section>
+
+        <div class="result-grid start-values">
+          <div class="tile start-tile align-left"><span>A</span><strong id="amp">–</strong></div>
+          <div class="tile start-tile align-center"><span>V</span><strong id="volt">–</strong></div>
+          <div class="tile start-tile align-right"><span>Vorschub m/min</span><strong id="feed">–</strong></div>
+        </div>
 
         <div class="result-grid details-grid">
           <div class="tile"><span>Polarität</span><strong id="polarity">–</strong></div>

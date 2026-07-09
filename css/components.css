@@ -1,3 +1,14 @@
 .card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;margin:16px 0;box-shadow:0 14px 36px rgba(0,0,0,.18)}.primary,.secondary,.ghost,.tab{border:1px solid var(--line);border-radius:14px;padding:12px 14px;color:var(--text);background:var(--panel);cursor:pointer}.primary{background:linear-gradient(135deg,#0284c7,#0ea5e9);border-color:#38bdf8;color:#fff;font-weight:800}.secondary:hover,.ghost:hover,.tab:hover{border-color:var(--accent)}.tab.active{outline:2px solid var(--accent)}.hero{border:1px solid var(--line);border-radius:18px;padding:16px;margin-bottom:14px;background:rgba(56,189,248,.08)}.hero strong{display:block;font-size:clamp(2rem,7vw,4rem);line-height:1}.tile{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(255,255,255,.03)}.tile span{display:block;color:var(--muted);font-size:.9rem}.tile strong{display:block;margin-top:6px}.feedback-panel{margin-top:16px;border:1px solid var(--line);border-radius:18px;padding:16px}.slider-labels,.feedback-readout{display:flex;justify-content:space-between;gap:10px;color:var(--muted)}#feedbackSlider{margin:12px 0}.notice{margin-top:14px;border-left:4px solid var(--accent);background:rgba(56,189,248,.08);padding:12px;border-radius:12px}
 
 .visual-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}.visual-card{border:1px solid var(--line);border-radius:16px;padding:14px;background:rgba(255,255,255,.03)}.svgbox{width:100%;height:130px;margin-top:8px}.metal{fill:#64748b}.weld{stroke:#38bdf8;stroke-width:6;stroke-linecap:round}.torch{stroke:#fbbf24;stroke-width:5;stroke-linecap:round}.arrow{stroke:#34d399;stroke-width:4;marker-end:url(#arr)}.notice.warn{border-left-color:var(--warn);background:rgba(245,158,11,.1)}.notice.danger{border-left-color:var(--bad);background:rgba(239,68,68,.1)}.details-grid{margin-top:16px}
+
+
+/* v1.0.0 UI-Fix: Naht-Rückmeldung über Startwerten, Startwerte ausrichten */
+.feedback-panel{margin-top:14px;margin-bottom:16px}
+.start-values{align-items:stretch}
+.start-tile{min-height:84px;display:flex;flex-direction:column;justify-content:center}
+.start-tile.align-left{text-align:left}
+.start-tile.align-center{text-align:center}
+.start-tile.align-right{text-align:right}
+.start-tile span{font-weight:700;letter-spacing:.02em}
+.lexicon-visual-block{margin-top:18px}.lexicon-visual-block h3{margin:0 0 8px}.lexicon-grid{margin-bottom:14px}.lexicon-basics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:12px}.table-wrap{overflow-x:auto;margin-top:12px}table{width:100%;border-collapse:collapse}th,td{border:1px solid var(--line);padding:10px;text-align:left}th{background:rgba(255,255,255,.05)}

@@ -3,9 +3,11 @@ import { renderVersion } from './core/version.js';
 import { initNavigation } from './ui/navigation.js';
 import { initTheme } from './ui/theme.js';
 import { initWelding } from './features/welding.js';
+import { renderLexiconVisuals } from './ui/visuals.js';
 
 function renderLexicon(items) {
-  document.getElementById('lexiconList').innerHTML = items.map(item => `<section class="tile"><strong>${item.term}</strong><p>${item.text}</p></section>`).join('');
+  const basics = items.map(item => `<section class="tile"><strong>${item.term}</strong><p>${item.text}</p></section>`).join('');
+  document.getElementById('lexiconList').innerHTML = `${renderLexiconVisuals()}<section class="lexicon-visual-block"><h3>Grundlagen</h3><div class="lexicon-basics">${basics}</div></section>`;
 }
 
 async function init() {

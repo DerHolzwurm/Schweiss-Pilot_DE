@@ -32,3 +32,43 @@ export function renderOutputVisuals({ position, positionLabel, fase }) {
     card('Nahtvorbereitung / Fase', fase.text, svgBox(FASE_SVGS[fase.visual] || FASE_SVGS.none))
   ].join('');
 }
+
+
+export function renderLexiconVisuals() {
+  const positionCards = [
+    ['PA/PB – flach', 'Einfachste Lage: Das Schmelzbad liegt ruhig und ist gut kontrollierbar.', 'pa'],
+    ['PC – horizontal', 'Naht an senkrechter Fläche: Schmelzbad klein halten und gleichmäßig führen.', 'pc'],
+    ['PF – steigend', 'Von unten nach oben: bessere Kontrolle und sicherer Einbrand in Zwangslage.', 'pf'],
+    ['PG – fallend', 'Von oben nach unten: eher dünnes Material, kleines Schmelzbad, schnellere Führung.', 'pg'],
+    ['PD/PE – über Kopf', 'Schwierige Lage: geringe Wärmeeinbringung, kurze Lichtbogenführung, kleines Bad.', 'pe']
+  ].map(([title, description, key]) => card(title, description, svgBox(POSITION_SVGS[key]))).join('');
+
+  const faseCards = [
+    ['Keine Fase', 'Bis ca. 3 mm meist ohne Fase. Kanten sauber anlegen und Wärmeeintrag kontrollieren.', 'none'],
+    ['Leichte V-Fase optional', 'Bei ca. 4–5 mm kann eine leichte Fase helfen, wenn mehr Einbrand benötigt wird.', 'optional'],
+    ['V-Fase empfohlen', 'Ab ca. 6–9 mm wird Nahtvorbereitung deutlich wichtiger, besonders bei Stumpfnähten.', 'recommended'],
+    ['Mehrlagig', 'Ab ca. 10 mm sind Fase und mehrere Lagen in der Praxis häufig erforderlich.', 'multilayer']
+  ].map(([title, description, key]) => card(title, description, svgBox(FASE_SVGS[key]))).join('');
+
+  return `
+    <section class="lexicon-visual-block">
+      <h3>Schweißpositionen als Skizze</h3>
+      <p class="small">Grau = Werkstück, Blau = Naht, Gelb = Brenner, Grün = Schweißrichtung.</p>
+      <div class="visual-grid lexicon-grid">${positionCards}</div>
+    </section>
+    <section class="lexicon-visual-block">
+      <h3>Fase, Spalt und Mehrlagen</h3>
+      <p class="small">Die Skizzen zeigen die grundsätzliche Nahtvorbereitung. Herstellerdaten, WPS und Bauteilanforderungen haben Vorrang.</p>
+      <div class="visual-grid lexicon-grid">${faseCards}</div>
+      <div class="table-wrap">
+        <table>
+          <tr><th>Materialstärke</th><th>Praxis-Hinweis</th></tr>
+          <tr><td>bis ca. 3 mm</td><td>Fase meist nicht nötig.</td></tr>
+          <tr><td>4–5 mm</td><td>Fase optional, abhängig von Nahtart und Einbrandbedarf.</td></tr>
+          <tr><td>6–9 mm</td><td>Fase prüfen; Mehrlagen können sinnvoll werden.</td></tr>
+          <tr><td>ab ca. 10 mm</td><td>Fase und Mehrlagen praktisch Standard.</td></tr>
+        </table>
+      </div>
+    </section>
+  `;
+}

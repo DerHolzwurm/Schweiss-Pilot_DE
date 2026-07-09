@@ -28,3 +28,11 @@
 - Moves Naht-Rückmeldung above the complete Startwerte block.
 - Displays A, V and Vorschub m/min as three equal-sized primary values.
 - Aligns A left, V centered and Vorschub right inside the Startwerte card.
+
+
+## v1.0.0 Fix 5
+
+- Slider-Korrektur jetzt stufenweise über den gesamten Bereich von -10 bis +10 wirksam.
+- Startwerte: große Zahlen, kleinere Einheitenbezeichnungen A, V und m/min.
+- Fülldraht gasgeschützt entfernt.
+- Plasmaschneiden als Verfahren ergänzt.

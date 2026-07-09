@@ -25,3 +25,8 @@
 .start-value.align-center{text-align:center}
 .start-value.align-right{text-align:right}
 @media (max-width:720px){.start-hero .start-values{grid-template-columns:1fr;gap:14px}.start-value,.start-value.align-left,.start-value.align-center,.start-value.align-right{text-align:left}.start-value strong{font-size:clamp(2.4rem,14vw,4rem)}}
+
+
+/* v1.0.0 UI-Fix 3: Einheiten klein, Werte groß; Slider wirkt stufenlos */
+.start-value span{font-size:clamp(.72rem,1.8vw,.95rem);font-weight:700;opacity:.82;text-transform:none}
+.start-value strong{font-size:clamp(2.6rem,7vw,5rem);font-weight:900}

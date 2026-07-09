@@ -6,7 +6,10 @@ function byId(list, id) {
 }
 
 export function findFeedback(corrections, sliderValue) {
-  return corrections.feedback.find(item => sliderValue >= item.min && sliderValue <= item.max) || corrections.feedback[2];
+  const item = corrections.feedback.find(entry => sliderValue >= entry.min && sliderValue <= entry.max) || corrections.feedback[2];
+  // Jeder Slider-Schritt verändert die Energie.
+  // Negativ = Naht liegt auf => mehr Energie; positiv = Durchbrand => weniger Energie.
+  return { ...item, trim: -Number(sliderValue) * 2 };
 }
 
 export function calculateWelding(input, data, feedbackTrim = 0) {
@@ -44,7 +47,7 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     gas: process.gas,
     heroMain,
     heroSub,
-    practice: thickness <= 2 ? 'Kurze Heftpunkte, Wärmeeintrag niedrig halten.' : thickness >= 8 ? 'Mehrlagig arbeiten und Zwischenlagen reinigen.' : 'Probenaht setzen und Laufgeräusch prüfen.',
+    practice: process.type === 'cut' ? 'Schnittprobe machen, Luftdruck und Schnittgeschwindigkeit prüfen.' : thickness <= 2 ? 'Kurze Heftpunkte, Wärmeeintrag niedrig halten.' : thickness >= 8 ? 'Mehrlagig arbeiten und Zwischenlagen reinigen.' : 'Probenaht setzen und Laufgeräusch prüfen.',
     fase,
     positionId: position.id,
     positionLabel: position.label,

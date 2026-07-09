@@ -39,7 +39,7 @@ function updateProcessVisibility() {
   const processData = state.data.processes.find(item => item.id === process);
   document.getElementById('wireBox').classList.toggle('hidden', processData.type !== 'wire');
   if (process === 'mig' || process === 'wig_ac') document.getElementById('material').value = 'alu';
-  if ((process === 'mag' || process === 'wig_dc' || process === 'fcaw_s' || process === 'fcaw_g') && document.getElementById('material').value === 'alu') document.getElementById('material').value = 'stahl';
+  if ((process === 'mag' || process === 'wig_dc' || process === 'fcaw_s' || process === 'plasma') && document.getElementById('material').value === 'alu') document.getElementById('material').value = 'stahl';
 }
 
 export function initWelding(data, corrections) {

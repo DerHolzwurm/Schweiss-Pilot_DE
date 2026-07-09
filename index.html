@@ -44,14 +44,6 @@
       <article id="resultCard" class="card hidden">
         <h2>Empfohlene Einstellung</h2>
 
-        <section class="feedback-panel" aria-label="Live-Nahtfeedback">
-          <h3>Naht-Rückmeldung</h3>
-          <p>Regler direkt nach der Probenaht verschieben. Die Werte werden sofort neu berechnet.</p>
-          <div class="slider-labels"><span>Naht liegt auf</span><span>Optimal</span><span>Durchbrand</span></div>
-          <input id="feedbackSlider" type="range" min="-10" max="10" step="1" value="0">
-          <div class="feedback-readout"><strong id="feedbackValue">0</strong><span id="feedbackMeaning">Optimal – keine Anpassung</span></div>
-        </section>
-
         <div class="hero start-hero" aria-label="Empfohlene Startwerte">
           <span class="start-title">Empfohlene Startwerte</span>
           <div class="start-values">
@@ -60,6 +52,20 @@
             <div class="start-value align-right"><span>Vorschub m/min</span><strong id="feed">–</strong></div>
           </div>
         </div>
+
+        <div class="result-grid reference-grid" aria-label="Referenzwerte ohne Nahtkorrektur">
+          <div class="tile"><span>Referenz Strom</span><strong id="refAmp">–</strong></div>
+          <div class="tile"><span>Referenz Spannung</span><strong id="refVolt">–</strong></div>
+          <div class="tile"><span>Referenz Vorschub</span><strong id="refFeed">–</strong></div>
+        </div>
+
+        <section class="feedback-panel" aria-label="Live-Nahtfeedback">
+          <h3>Naht-Rückmeldung</h3>
+          <p>Regler direkt nach der Probenaht verschieben. Die Startwerte werden sofort neu berechnet. Die Referenzwerte bleiben als Optimalwert sichtbar.</p>
+          <div class="slider-labels"><span>Naht liegt auf</span><span>Optimal</span><span>Durchbrand</span></div>
+          <input id="feedbackSlider" type="range" min="-10" max="10" step="1" value="0">
+          <div class="feedback-readout"><strong id="feedbackValue">0</strong><span id="feedbackMeaning">Optimal – keine Anpassung</span></div>
+        </section>
 
         <div class="result-grid details-grid">
           <div class="tile"><span>Polarität</span><strong id="polarity">–</strong></div>

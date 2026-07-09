@@ -30,3 +30,9 @@
 /* v1.0.0 UI-Fix 3: Einheiten klein, Werte groß; Slider wirkt stufenlos */
 .start-value span{font-size:clamp(.72rem,1.8vw,.95rem);font-weight:700;opacity:.82;text-transform:none}
 .start-value strong{font-size:clamp(2.6rem,7vw,5rem);font-weight:900}
+
+/* v1.0.1 Commit 1: Startwerte zuerst, Referenzwerte und danach Naht-Rückmeldung */
+.reference-grid{margin-top:0;margin-bottom:16px}
+.reference-grid .tile strong{font-size:1.2rem}
+.feedback-panel{margin-top:0;margin-bottom:16px;background:rgba(255,255,255,.025)}
+.feedback-panel h3{margin-top:0}

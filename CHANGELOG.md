@@ -1,3 +1,11 @@
+
+## v1.0.1 – In Entwicklung
+
+### Fixed
+- Naht-Rückmeldung unter die empfohlenen Startwerte verschoben.
+- Referenzwerte für Strom, Spannung und Vorschub ergänzt.
+- Referenzwerte bleiben bei Slider-Anpassungen als Optimalwerte sichtbar.
+
 # Changelog
 
 ## 1.0.0 - 2026-07-09

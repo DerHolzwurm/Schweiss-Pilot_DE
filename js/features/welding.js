@@ -30,8 +30,9 @@ function readInput() {
 function renderCalculation() {
   const input = readInput();
   state.lastInput = input;
+  const reference = calculateWelding(input, state.data, 0);
   const result = calculateWelding(input, state.data, state.feedbackTrim);
-  renderResult(result);
+  renderResult(result, reference);
 }
 
 function updateProcessVisibility() {

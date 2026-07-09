@@ -18,7 +18,10 @@
       <h1>SchweißPilot</h1>
       <p class="lead">Schweißparameter-Assistent mit Live-Nahtfeedback.</p>
     </div>
-    <button id="themeToggle" class="ghost" type="button">Dark Mode</button>
+    <div class="header-actions">
+      <button id="appInfoBtn" class="ghost" type="button" aria-haspopup="dialog">Info</button>
+      <button id="themeToggle" class="ghost" type="button">Dark Mode</button>
+    </div>
   </header>
 
   <main class="wrap">
@@ -102,6 +105,23 @@
       <article class="card"><h2>Datenstatus</h2><p>Version 1.0.0 nutzt bewusst konservative Startwerte. Herstellerdatenbanken folgen in späteren Versionen.</p></article>
     </section>
   </main>
+
+  <footer class="app-footer wrap" aria-label="Versionsinformation">
+    <button id="footerVersionBtn" class="version-badge" type="button" aria-haspopup="dialog">
+      <span id="footerAppName">SchweißPilot</span>
+      <span>v<span data-version>–</span></span>
+      <span id="footerBuild">Build –</span>
+      <span id="footerStatus">–</span>
+    </button>
+  </footer>
+
+  <dialog id="appInfoDialog" class="info-dialog" aria-labelledby="appInfoTitle">
+    <div class="info-dialog-header">
+      <h2 id="appInfoTitle">SchweißPilot</h2>
+      <button id="appInfoClose" class="ghost" type="button" aria-label="Info schließen">×</button>
+    </div>
+    <div id="appInfoContent" class="info-dialog-content">Versionsinformationen werden geladen …</div>
+  </dialog>
 
   <nav class="tabs" aria-label="Hauptnavigation">
     <button class="tab active" data-target="calculator" type="button">Rechner</button>

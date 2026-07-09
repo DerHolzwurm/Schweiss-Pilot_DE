@@ -11,6 +11,7 @@ Offlinefähiger Schweißparameter-Assistent als Progressive Web App.
 - Slider-Korrektur über den gesamten Bereich von -10 bis +10
 - Startwerte in drei Spalten: A links, V mittig, Vorschub m/min rechts
 - sichtbare Versionsanzeige
+- Build-Anzeige im Footer und Info-Dialog
 - modulare Struktur
 - PWA-Manifest
 - Service Worker für Offlinebetrieb

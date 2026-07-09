@@ -1,5 +1,5 @@
 import { loadAppData } from './core/app.js';
-import { renderVersion } from './core/version.js';
+import { initVersionDialog, renderVersion } from './core/version.js';
 import { initNavigation } from './ui/navigation.js';
 import { initTheme } from './ui/theme.js';
 import { initWelding } from './features/welding.js';
@@ -13,6 +13,7 @@ function renderLexicon(items) {
 async function init() {
   const app = await loadAppData();
   renderVersion(app.version);
+  initVersionDialog();
   initNavigation();
   initTheme();
   initWelding(app.welding, app.corrections);

@@ -1,6 +1,12 @@
 
 ## v1.0.1 – In Entwicklung
 
+
+### Changed
+- Versionsverwaltung erweitert: Version, Build, Branch und Status werden getrennt geführt.
+- Versionsinformationen im Footer und im Info-Dialog sichtbar gemacht.
+- Service-Worker-Cache auf Build C02 erhöht.
+
 ### Fixed
 - Naht-Rückmeldung unter die empfohlenen Startwerte verschoben.
 - Referenzwerte für Strom, Spannung und Vorschub ergänzt.

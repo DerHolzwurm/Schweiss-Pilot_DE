@@ -36,3 +36,23 @@
 .reference-grid .tile strong{font-size:1.2rem}
 .feedback-panel{margin-top:0;margin-bottom:16px;background:rgba(255,255,255,.025)}
 .feedback-panel h3{margin-top:0}
+
+/* v1.0.1 Commit 2: Version metadata footer and info dialog */
+.header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.app-footer{padding-top:0;padding-bottom:96px}
+.version-badge{width:100%;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.03);color:var(--muted);padding:12px 14px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;cursor:pointer}
+.version-badge span{white-space:nowrap}
+.version-badge span:first-child{color:var(--text);font-weight:800}
+.version-badge:hover{border-color:var(--accent);color:var(--text)}
+.info-dialog{max-width:520px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:20px;background:var(--panel);color:var(--text);padding:0;box-shadow:0 24px 80px rgba(0,0,0,.55)}
+.info-dialog::backdrop{background:rgba(2,6,23,.72);backdrop-filter:blur(6px)}
+.info-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:16px 18px}
+.info-dialog-header h2{margin:0}
+.info-dialog-content{padding:18px}
+.info-grid{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin:0}
+.info-grid dt{color:var(--muted);font-weight:700}
+.info-grid dd{margin:0;color:var(--text);font-weight:800;word-break:break-word}
+.status-pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:.85rem;font-weight:800}
+.status-pill.development{border-color:var(--warn);color:var(--warn);background:rgba(245,158,11,.08)}
+.status-pill.release{border-color:var(--good);color:var(--good);background:rgba(34,197,94,.08)}
+@media (max-width:720px){.app-header{align-items:stretch}.header-actions{justify-content:flex-start}.header-actions .ghost{flex:1}.info-grid{grid-template-columns:1fr}.info-grid dt{margin-top:6px}}

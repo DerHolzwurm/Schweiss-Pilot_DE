@@ -27,5 +27,8 @@
       "formula": "Streckenenergie = Spannung × Strom / Schweißgeschwindigkeit; aktuell nur als Dokumentationsbasis geführt",
       "source": "Paul Bosch GmbH: Streckenenergie-Formel"
     }
+  ],
+  "notes": [
+    "C07.5: STAHLWERK CTM-250 Puls Pro Handbuchwerte als Hersteller-/Geräteprofil ergänzt; diese Werte haben im Herstellervergleich Vorrang vor generischen Faustformeln."
   ]
 }

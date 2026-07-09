@@ -42,5 +42,6 @@
   "feedback": {
     "title": "Naht-Rückmeldung",
     "text": "Nach einer Probenaht verschieben. Die Startwerte werden direkt angepasst, Referenzwerte bleiben sichtbar."
-  }
+  },
+  "manufacturerReference": "Herstellerwerte aus Gerätehandbüchern sind Richtwerte. Beim CTM-250 Puls Pro sind MIG/MAG-, WIG-, MMA- und CUT-Bereiche hinterlegt; Probenähte und Herstellerhinweise bleiben maßgeblich."
 }

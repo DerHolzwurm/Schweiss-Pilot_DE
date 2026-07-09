@@ -1,4 +1,27 @@
 
+## 1.0.1-C03 - Development
+
+### Added
+- Kehlnaht illustrations for calculator and lexicon.
+- Material form illustrations for calculator and lexicon.
+- Central illustration metadata file.
+
+### Changed
+- Welding direction is now shown as a green arrow.
+- Blue weld seam now ends exactly at the torch and arc position.
+- Lexicon contains separate sections for positions, joint types and material forms.
+
+### Files
+- index.html
+- css/components.css
+- js/ui/visuals.js
+- js/ui/results.js
+- js/core/calculations.js
+- data/illustrations.json
+- version.json
+- sw.js
+
+
 ## v1.0.1 – In Entwicklung
 
 

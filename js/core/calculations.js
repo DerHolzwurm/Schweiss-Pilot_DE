@@ -51,6 +51,10 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     fase,
     positionId: position.id,
     positionLabel: position.label,
+    jointId: joint.id,
+    jointLabel: joint.label,
+    shapeId: shape.id,
+    shapeLabel: shape.label,
     why: `Berechnet aus Verfahren, Materialstärke, Material-, Naht-, Positions- und Formfaktor. Aktive Gesamtkorrektur: ${round(manualTrim + feedbackTrim)} %.`
   };
 }

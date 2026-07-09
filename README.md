@@ -43,3 +43,14 @@ Merge-Reihenfolge:
 ```text
 Entwicklung-V1.0.1 -> develop -> main -> tag v1.0.1
 ```
+
+
+## Entwicklungsstand
+
+Version 1.0.1 · Build C03 · Development
+
+### C03
+- Schweißrichtungs-Pfeile statt grüner Linien
+- Schweißnaht endet am Brenner/Lichtbogen
+- Kehlnaht- und Materialform-Skizzen ergänzt
+- Lexikon um Nahtarten und Materialformen erweitert

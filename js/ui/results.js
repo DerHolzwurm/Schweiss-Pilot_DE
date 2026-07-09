@@ -16,6 +16,14 @@ export function renderResult(result, reference = result) {
   document.getElementById('practice').textContent = show(result.practice);
   document.getElementById('faseAlert').textContent = result.fase.text;
   document.getElementById('faseAlert').className = `notice ${result.fase.level || 'info'}`;
-  renderOutputVisuals({ position: result.positionId, positionLabel: result.positionLabel, fase: result.fase });
+  renderOutputVisuals({
+    position: result.positionId,
+    positionLabel: result.positionLabel,
+    joint: result.jointId,
+    jointLabel: result.jointLabel,
+    shape: result.shapeId,
+    shapeLabel: result.shapeLabel,
+    fase: result.fase
+  });
   document.getElementById('why').textContent = result.why;
 }

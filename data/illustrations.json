@@ -1,0 +1,14 @@
+{
+  "legend": {
+    "metal": "Werkstück",
+    "weld": "bereits geschweißte Naht",
+    "torch": "Brenner",
+    "arc": "Lichtbogen / Schmelzbad",
+    "arrow": "Schweißrichtung"
+  },
+  "rule": "Die blaue Schweißnaht verläuft nur vom Pfeilstart bis zum Brenner und nicht darüber hinaus.",
+  "positions": ["pa", "pc", "pf", "pg", "pe"],
+  "joints": ["stumpf", "kehl", "ueberlapp"],
+  "materials": ["blech", "vierkant", "massiv"],
+  "fase": ["none", "optional", "recommended", "multilayer"]
+}

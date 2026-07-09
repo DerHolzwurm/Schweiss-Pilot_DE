@@ -1,0 +1,9 @@
+{
+  "defaultProcess": "fcaw_s",
+  "defaultMaterial": "stahl",
+  "defaultThickness": 3.0,
+  "defaultWire": 0.9,
+  "defaultJoint": "kehl",
+  "defaultPosition": "pa",
+  "defaultShape": "vierkant"
+}

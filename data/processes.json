@@ -1,0 +1,34 @@
+{
+  "processes": [
+    {"id":"fcaw_s","label":"Fülldraht selbstschützend","type":"wire","polarity":"DCEN / Brenner Minus prüfen","gas":"kein Schutzgas","baseAmpPerMm":35,"baseVolt":16.5,"voltPerMm":1.15,"feedFactor":0.92},
+    {"id":"mag","label":"MAG Stahl","type":"wire","polarity":"DCEP / Brenner Plus","gas":"M21 / C18 Mischgas","baseAmpPerMm":40,"baseVolt":17.2,"voltPerMm":1.25,"feedFactor":1.00},
+    {"id":"mig","label":"MIG Aluminium","type":"wire","polarity":"DCEP / Brenner Plus","gas":"Argon 4.6","baseAmpPerMm":43,"baseVolt":18.0,"voltPerMm":1.30,"feedFactor":1.15},
+    {"id":"wig_dc","label":"WIG DC Stahl/Edelstahl","type":"tig","polarity":"DCEN / Elektrode Minus","gas":"Argon 4.6","baseAmpPerMm":33,"baseVolt":0,"voltPerMm":0,"feedFactor":0},
+    {"id":"wig_ac","label":"WIG AC Aluminium","type":"tig","polarity":"AC","gas":"Argon 4.6","baseAmpPerMm":42,"baseVolt":0,"voltPerMm":0,"feedFactor":0},
+    {"id":"mma","label":"Elektrode / MMA","type":"stick","polarity":"Elektrodentyp beachten","gas":"kein Schutzgas","baseAmpPerMm":32,"baseVolt":0,"voltPerMm":0,"feedFactor":0},
+    {"id":"plasma","label":"Plasmaschneiden","type":"cut","polarity":"Geräteabhängig","gas":"Druckluft / Plasmagas nach Gerät","baseAmpPerMm":7,"baseVolt":0,"voltPerMm":0,"feedFactor":0}
+  ],
+  "materials": [
+    {"id":"stahl","label":"Stahl","factor":1.00},
+    {"id":"edelstahl","label":"Edelstahl","factor":0.92},
+    {"id":"alu","label":"Aluminium","factor":1.18}
+  ],
+  "wires": [0.6,0.8,0.9,1.0,1.2],
+  "joints": [
+    {"id":"stumpf","label":"Stumpfnaht","factor":1.00},
+    {"id":"kehl","label":"Kehlnaht","factor":1.08},
+    {"id":"ueberlapp","label":"Überlappnaht","factor":0.96}
+  ],
+  "positions": [
+    {"id":"pa","label":"PA / PB flach","factor":1.00},
+    {"id":"pc","label":"PC horizontal","factor":0.96},
+    {"id":"pf","label":"PF steigend","factor":0.92},
+    {"id":"pg","label":"PG fallend","factor":0.88},
+    {"id":"pe","label":"PE / PD über Kopf","factor":0.86}
+  ],
+  "shapes": [
+    {"id":"blech","label":"Blech","factor":0.96},
+    {"id":"vierkant","label":"Vierkantrohr / Profil","factor":1.00},
+    {"id":"massiv","label":"Massivmaterial","factor":1.08}
+  ]
+}

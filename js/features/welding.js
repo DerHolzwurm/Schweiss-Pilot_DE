@@ -14,6 +14,11 @@ function fillSelect(id, items, selected) {
   if (selected !== undefined) el.value = selected;
 }
 
+function setHidden(id, hidden) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('hidden', hidden);
+}
+
 function readInput() {
   return {
     process: document.getElementById('process').value,
@@ -38,7 +43,23 @@ function renderCalculation() {
 function updateProcessVisibility() {
   const process = document.getElementById('process').value;
   const processData = state.data.processes.find(item => item.id === process);
-  document.getElementById('wireBox').classList.toggle('hidden', processData.type !== 'wire');
+  const isWire = processData.type === 'wire';
+  const isCut = processData.type === 'cut';
+
+  setHidden('wireBox', !isWire);
+  setHidden('jointBox', isCut);
+  setHidden('positionBox', isCut);
+  setHidden('shapeBox', isCut);
+  setHidden('trimBox', isCut);
+
+  if (isCut) {
+    document.getElementById('joint').value = 'stumpf';
+    document.getElementById('position').value = 'pa';
+    document.getElementById('shape').value = 'blech';
+    document.getElementById('trim').value = 0;
+    state.feedbackTrim = 0;
+  }
+
   if (process === 'mig' || process === 'wig_ac') document.getElementById('material').value = 'alu';
   if ((process === 'mag' || process === 'wig_dc' || process === 'fcaw_s' || process === 'plasma') && document.getElementById('material').value === 'alu') document.getElementById('material').value = 'stahl';
 }
@@ -63,6 +84,9 @@ export function initWelding(data, corrections) {
   });
 
   initFeedbackSlider((value) => {
+    const process = document.getElementById('process').value;
+    const processData = state.data.processes.find(item => item.id === process);
+    if (processData.type === 'cut') return { trim: 0, label: 'Plasma', text: 'Beim Plasmaschneiden wird die Naht-Rückmeldung ausgeblendet.' };
     const item = findFeedback(state.corrections, value);
     state.feedbackTrim = item.trim;
     if (!document.getElementById('resultCard').classList.contains('hidden')) renderCalculation();

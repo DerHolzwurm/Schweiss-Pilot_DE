@@ -30,13 +30,13 @@
         <h2>Rechner</h2>
         <div class="grid two">
           <label>Verfahren<select id="process"></select></label>
-          <label>Material<select id="material"></select></label>
-          <label>Materialstärke mm<input id="thickness" type="number" min="0.4" max="30" step="0.1" value="3.0"></label>
+          <label id="materialBox">Material<select id="material"></select></label>
+          <label id="thicknessBox">Materialstärke mm<input id="thickness" type="number" min="0.4" max="30" step="0.1" value="3.0"></label>
           <label id="wireBox">Drahtdurchmesser<select id="wire"></select></label>
-          <label>Nahtart<select id="joint"></select></label>
-          <label>Position<select id="position"></select></label>
-          <label>Materialform<select id="shape"></select></label>
-          <label>Feinkorrektur %<input id="trim" type="number" min="-25" max="25" step="1" value="0"></label>
+          <label id="jointBox">Nahtart<select id="joint"></select></label>
+          <label id="positionBox">Position<select id="position"></select></label>
+          <label id="shapeBox">Materialform<select id="shape"></select></label>
+          <label id="trimBox">Feinkorrektur %<input id="trim" type="number" min="-25" max="25" step="1" value="0"></label>
         </div>
         <div class="actions">
           <button id="calculateBtn" class="primary" type="button">Berechnen</button>
@@ -50,19 +50,19 @@
         <div class="hero start-hero" aria-label="Empfohlene Startwerte">
           <span class="start-title">Empfohlene Startwerte</span>
           <div class="start-values">
-            <div class="start-value align-left"><span>A</span><strong id="amp">–</strong></div>
-            <div class="start-value align-center"><span>V</span><strong id="volt">–</strong></div>
-            <div class="start-value align-right"><span>Vorschub m/min</span><strong id="feed">–</strong></div>
+            <div class="start-value align-left"><span id="ampLabel">A</span><strong id="amp">–</strong></div>
+            <div class="start-value align-center" id="voltStartBox"><span id="voltLabel">V</span><strong id="volt">–</strong></div>
+            <div class="start-value align-right" id="feedStartBox"><span id="feedLabel">Vorschub m/min</span><strong id="feed">–</strong></div>
           </div>
         </div>
 
         <div class="result-grid reference-grid" aria-label="Referenzwerte ohne Nahtkorrektur">
-          <div class="tile"><span>Referenz Strom</span><strong id="refAmp">–</strong></div>
-          <div class="tile"><span>Referenz Spannung</span><strong id="refVolt">–</strong></div>
-          <div class="tile"><span>Referenz Vorschub</span><strong id="refFeed">–</strong></div>
+          <div class="tile"><span id="refAmpLabel">Referenz Strom</span><strong id="refAmp">–</strong></div>
+          <div class="tile" id="refVoltBox"><span id="refVoltLabel">Referenz Spannung</span><strong id="refVolt">–</strong></div>
+          <div class="tile" id="refFeedBox"><span id="refFeedLabel">Referenz Vorschub</span><strong id="refFeed">–</strong></div>
         </div>
 
-        <section class="feedback-panel" aria-label="Live-Nahtfeedback">
+        <section id="feedbackPanel" class="feedback-panel" aria-label="Live-Nahtfeedback">
           <h3>Naht-Rückmeldung</h3>
           <p>Regler direkt nach der Probenaht verschieben. Die Startwerte werden sofort neu berechnet. Die Referenzwerte bleiben als Optimalwert sichtbar.</p>
           <div class="slider-labels"><span>Naht liegt auf</span><span>Optimal</span><span>Durchbrand</span></div>

@@ -23,7 +23,8 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const totalTrimFactor = 1 + ((manualTrim + feedbackTrim) / 100);
   const factor = material.factor * joint.factor * position.factor * shape.factor * totalTrimFactor;
 
-  const amps = clamp(thickness * process.baseAmpPerMm * factor, 25, 360);
+  const isCut = process.type === 'cut';
+  const amps = clamp(thickness * process.baseAmpPerMm * factor, isCut ? 15 : 25, isCut ? 120 : 360);
   const volt = process.type === 'wire' ? clamp(process.baseVolt + thickness * process.voltPerMm + ((amps - 120) / 100), 14, 32) : null;
   const wire = Number(input.wire || 0.9);
   const wfs = process.type === 'wire' ? clamp((amps / 42) * process.feedFactor * (0.9 / wire), 1.8, 15) : null;
@@ -37,9 +38,10 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
         : { visual: 'multilayer', level: 'danger', text: 'Fase und mehrlagiges Arbeiten einplanen.' };
 
   const heroMain = process.type === 'wire' ? `${round(amps)} A · ${round(volt, 1)} V` : `${round(amps)} A`;
-  const heroSub = process.type === 'wire' ? `${round(wfs, 1)} m/min Drahtvorschub` : process.type === 'tig' ? 'Zusatzwerkstoff von Hand' : 'Elektrode passend zum Material wählen';
+  const heroSub = process.type === 'wire' ? `${round(wfs, 1)} m/min Drahtvorschub` : isCut ? 'Schnittprobe: Strom, Luftdruck und Vorschub prüfen' : process.type === 'tig' ? 'Zusatzwerkstoff von Hand' : 'Elektrode passend zum Material wählen';
 
   return {
+    processType: process.type,
     amps,
     volt,
     wfs,
@@ -55,6 +57,6 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     jointLabel: joint.label,
     shapeId: shape.id,
     shapeLabel: shape.label,
-    why: `Berechnet aus Verfahren, Materialstärke, Material-, Naht-, Positions- und Formfaktor. Aktive Gesamtkorrektur: ${round(manualTrim + feedbackTrim)} %.`
+    why: isCut ? `Plasma-Startwert aus Verfahren, Materialstärke und Materialfaktor. Nicht benötigte Schweißparameter werden für diesen Workflow ausgeblendet.` : `Berechnet aus Verfahren, Materialstärke, Material-, Naht-, Positions- und Formfaktor. Aktive Gesamtkorrektur: ${round(manualTrim + feedbackTrim)} %.`
   };
 }

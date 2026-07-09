@@ -4,6 +4,7 @@ import { initNavigation } from './ui/navigation.js';
 import { initTheme } from './ui/theme.js';
 import { initWelding } from './features/welding.js';
 import { renderLexiconVisuals } from './ui/visuals.js';
+import { initTooltips } from './ui/tooltips.js';
 
 function renderLexicon(items) {
   const basics = items.map(item => `<section class="tile"><strong>${item.term}</strong><p>${item.text}</p></section>`).join('');
@@ -18,6 +19,7 @@ async function init() {
   initTheme();
   initWelding(app.welding, app.corrections);
   renderLexicon(app.lexicon);
+  initTooltips(app.help);
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});

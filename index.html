@@ -29,18 +29,18 @@
       <article class="card">
         <h2>Rechner</h2>
         <div class="grid two">
-          <label>Verfahren<select id="process"></select></label>
-          <label id="materialBox">Material<select id="material"></select></label>
-          <label id="thicknessBox">Materialstärke mm<input id="thickness" type="number" min="0.4" max="30" step="0.1" value="3.0"></label>
-          <label id="wireBox">Drahtdurchmesser<select id="wire"></select></label>
-          <label id="jointBox">Nahtart<select id="joint"></select></label>
-          <label id="positionBox">Position<select id="position"></select></label>
-          <label id="shapeBox">Materialform<select id="shape"></select></label>
-          <label id="trimBox">Feinkorrektur %<input id="trim" type="number" min="-25" max="25" step="1" value="0"></label>
+          <label id="processBox">Verfahren <button class="help-btn" type="button" data-help="process" aria-label="Hilfe zu Verfahren">i</button><select id="process"></select></label>
+          <label id="materialBox">Material <button class="help-btn" type="button" data-help="material" aria-label="Hilfe zu Material">i</button><select id="material"></select></label>
+          <label id="thicknessBox">Materialstärke mm <button class="help-btn" type="button" data-help="thickness" aria-label="Hilfe zu Materialstärke">i</button><input id="thickness" type="number" min="0.4" max="30" step="0.1" value="3.0"></label>
+          <label id="wireBox">Drahtdurchmesser <button class="help-btn" type="button" data-help="wire" aria-label="Hilfe zu Drahtdurchmesser">i</button><select id="wire"></select></label>
+          <label id="jointBox">Nahtart <button class="help-btn" type="button" data-help="joint" aria-label="Hilfe zu Nahtart">i</button><select id="joint"></select></label>
+          <label id="positionBox">Position <button class="help-btn" type="button" data-help="position" aria-label="Hilfe zu Position">i</button><select id="position"></select></label>
+          <label id="shapeBox">Materialform <button class="help-btn" type="button" data-help="shape" aria-label="Hilfe zu Materialform">i</button><select id="shape"></select></label>
+          <label id="trimBox">Feinkorrektur % <button class="help-btn" type="button" data-help="trim" aria-label="Hilfe zu Feinkorrektur">i</button><input id="trim" type="number" min="-25" max="25" step="1" value="0"></label>
         </div>
         <div class="actions">
-          <button id="calculateBtn" class="primary" type="button">Berechnen</button>
-          <button id="resetBtn" class="secondary" type="button">Zurücksetzen</button>
+          <button id="calculateBtn" class="primary" type="button">Berechnen</button><button class="help-btn action-help" type="button" data-help="calculate" aria-label="Hilfe zur Berechnung">i</button>
+          <button id="resetBtn" class="secondary" type="button">Zurücksetzen</button><button class="help-btn action-help" type="button" data-help="reset" aria-label="Hilfe zum Zurücksetzen">i</button>
         </div>
       </article>
 
@@ -63,7 +63,7 @@
         </div>
 
         <section id="feedbackPanel" class="feedback-panel" aria-label="Live-Nahtfeedback">
-          <h3>Naht-Rückmeldung</h3>
+          <h3>Naht-Rückmeldung <button class="help-btn" type="button" data-help="feedback" aria-label="Hilfe zur Naht-Rückmeldung">i</button></h3>
           <p>Regler direkt nach der Probenaht verschieben. Die Startwerte werden sofort neu berechnet. Die Referenzwerte bleiben als Optimalwert sichtbar.</p>
           <div class="slider-labels"><span>Naht liegt auf</span><span>Optimal</span><span>Durchbrand</span></div>
           <input id="feedbackSlider" type="range" min="-10" max="10" step="1" value="0">
@@ -130,6 +130,7 @@
     <button class="tab" data-target="data" type="button">Daten</button>
   </nav>
 
+  <div id="helpTooltip" class="help-tooltip hidden" role="status" aria-live="polite"></div>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

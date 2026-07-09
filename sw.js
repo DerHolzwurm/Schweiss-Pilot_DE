@@ -1,4 +1,4 @@
-const CACHE_NAME = 'schweisspilot-v1.0.1-c04';
+const CACHE_NAME = 'schweisspilot-v1.0.1-c05';
 const ASSETS = [
   './',
   './index.html',
@@ -20,6 +20,7 @@ const ASSETS = [
   './js/ui/visuals.js',
   './js/ui/slider.js',
   './js/ui/dialogs.js',
+  './js/ui/tooltips.js',
   './js/features/welding.js',
   './js/features/feedback.js',
   './data/defaults.json',
@@ -27,6 +28,7 @@ const ASSETS = [
   './data/corrections.json',
   './data/lexicon.json',
   './data/illustrations.json',
+  './data/help.json',
   './assets/icons/icon-192.png',
   './assets/images/positions/pa.svg',
   './assets/images/positions/pc.svg',

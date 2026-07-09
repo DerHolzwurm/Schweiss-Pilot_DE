@@ -1,0 +1,31 @@
+{
+  "build": "C06",
+  "status": "orientation",
+  "warning": "Alle Werte sind konservative Startwerte für Probebleche. Herstellerangaben, WPS, Arbeitsschutz und Aufsicht haben Vorrang.",
+  "formulas": [
+    {
+      "id": "mag-current",
+      "process": "MAG Stahl",
+      "formula": "Strombereich = Materialstärke × 40–50 A/mm; Startwert = 45 A/mm",
+      "source": "Paul Bosch GmbH: WIG/MAG Schweißstrom Faustformel"
+    },
+    {
+      "id": "tig-current",
+      "process": "WIG DC Stahl/Edelstahl",
+      "formula": "Strombereich = Materialstärke × 30–40 A/mm; Startwert = 35 A/mm",
+      "source": "Paul Bosch GmbH: WIG/MAG Schweißstrom Faustformel"
+    },
+    {
+      "id": "mma-current",
+      "process": "Elektrode / MMA",
+      "formula": "Orientierung = Elektroden-/Materialbezug × 35–40 A/mm; Tabellenwerte nach Elektrodendurchmesser priorisieren",
+      "source": "Schweisshelden: Richtwerte E-Hand"
+    },
+    {
+      "id": "heat-input",
+      "process": "Lichtbogenverfahren",
+      "formula": "Streckenenergie = Spannung × Strom / Schweißgeschwindigkeit; aktuell nur als Dokumentationsbasis geführt",
+      "source": "Paul Bosch GmbH: Streckenenergie-Formel"
+    }
+  ]
+}

@@ -1,6 +1,33 @@
 const round = (value, digits = 0) => Number(value).toFixed(digits);
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
+function makeRangeLabel(min, max) {
+  if (min === null || max === null || min === undefined || max === undefined) return null;
+  return `${round(min)}–${round(max)} A`;
+}
+
+function calculateCurrentRange(thickness, process, factor, isCut) {
+  const minPerMm = process.ampMinPerMm || process.baseAmpPerMm * 0.9;
+  const maxPerMm = process.ampMaxPerMm || process.baseAmpPerMm * 1.1;
+  const minLimit = isCut ? 15 : 25;
+  const maxLimit = isCut ? 120 : 360;
+  return {
+    min: clamp(thickness * minPerMm * factor, minLimit, maxLimit),
+    max: clamp(thickness * maxPerMm * factor, minLimit, maxLimit)
+  };
+}
+
+function calculateVoltage(process, thickness, amps) {
+  if (process.type !== 'wire') return null;
+  return clamp(process.baseVolt + thickness * process.voltPerMm + ((amps - 120) / 100), 14, 32);
+}
+
+function calculateWireFeed(process, amps, wire) {
+  if (process.type !== 'wire') return null;
+  const diameterFactor = 0.9 / Number(wire || 0.9);
+  return clamp((amps / 42) * process.feedFactor * diameterFactor, 1.8, 15);
+}
+
 function byId(list, id) {
   return list.find(item => item.id === id);
 }
@@ -24,10 +51,11 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const factor = material.factor * joint.factor * position.factor * shape.factor * totalTrimFactor;
 
   const isCut = process.type === 'cut';
-  const amps = clamp(thickness * process.baseAmpPerMm * factor, isCut ? 15 : 25, isCut ? 120 : 360);
-  const volt = process.type === 'wire' ? clamp(process.baseVolt + thickness * process.voltPerMm + ((amps - 120) / 100), 14, 32) : null;
+  const currentRange = calculateCurrentRange(thickness, process, factor, isCut);
+  const amps = clamp(thickness * process.baseAmpPerMm * factor, currentRange.min, currentRange.max);
+  const volt = calculateVoltage(process, thickness, amps);
   const wire = Number(input.wire || 0.9);
-  const wfs = process.type === 'wire' ? clamp((amps / 42) * process.feedFactor * (0.9 / wire), 1.8, 15) : null;
+  const wfs = calculateWireFeed(process, amps, wire);
 
   const fase = thickness < 4
     ? { visual: 'none', level: 'info', text: 'Keine Fase nötig, Kanten sauber vorbereiten.' }
@@ -45,6 +73,9 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     amps,
     volt,
     wfs,
+    currentRange,
+    currentRangeLabel: makeRangeLabel(currentRange.min, currentRange.max),
+    formulaReference: process.reference || null,
     polarity: process.polarity,
     gas: process.gas,
     heroMain,
@@ -57,6 +88,6 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     jointLabel: joint.label,
     shapeId: shape.id,
     shapeLabel: shape.label,
-    why: isCut ? `Plasma-Startwert aus Verfahren, Materialstärke und Materialfaktor. Nicht benötigte Schweißparameter werden für diesen Workflow ausgeblendet.` : `Berechnet aus Verfahren, Materialstärke, Material-, Naht-, Positions- und Formfaktor. Aktive Gesamtkorrektur: ${round(manualTrim + feedbackTrim)} %.`
+    why: isCut ? `Orientierungswert aus Verfahren, Materialstärke und Materialfaktor. Gerätehandbuch, Probeschnitt und Arbeitsschutz haben Vorrang. Referenzbereich: ${makeRangeLabel(currentRange.min, currentRange.max) || 'geräteabhängig'}.` : `Berechnet aus validierter Faustformel, Materialstärke, Material-, Naht-, Positions- und Formfaktor. Referenzbereich: ${makeRangeLabel(currentRange.min, currentRange.max)}. Aktive Gesamtkorrektur: ${round(manualTrim + feedbackTrim)} %. ${process.reference || ''}`
   };
 }

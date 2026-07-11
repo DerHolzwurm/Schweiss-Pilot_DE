@@ -1,4 +1,4 @@
-const CACHE_NAME = 'schweisspilot-v1.0.1-c13';
+const CACHE_NAME = 'schweisspilot-v1.0.1-c14';
 const ASSETS = [
   './',
   './index.html',

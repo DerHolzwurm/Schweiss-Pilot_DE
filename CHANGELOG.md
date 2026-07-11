@@ -1,3 +1,11 @@
+## Build C14
+
+- Illustrationssystem abschließend vereinheitlicht.
+- Pfeilspitzen werden direkt als grüne SVG-Flächen gezeichnet und sind auch im Lexikon zuverlässig sichtbar.
+- Richtungspfeile liegen oberhalb des Brenners und sind dezenter ausgeführt.
+- Stumpfnaht wird als gefüllter Spalt, Kehlnaht als Viertelkreis dargestellt.
+- Brenner und Lichtbogen wurden in den Nahtarten ergänzt; Fasen zeigen nun gefüllte Querschnitte.
+
 ## Build C13
 
 - Fehlerdiagnose anhand der FAQ des STAHLWERK CTM-250 Puls Pro strukturiert erweitert.

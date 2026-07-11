@@ -6,9 +6,33 @@
     "arc": "Lichtbogen / Schmelzbad",
     "arrow": "Schweißrichtung"
   },
-  "rule": "Die blaue Schweißnaht verläuft nur vom Pfeilstart bis zum Brenner und nicht darüber hinaus.",
-  "positions": ["pa", "pc", "pf", "pg", "pe"],
-  "joints": ["stumpf", "kehl", "ueberlapp"],
-  "materials": ["blech", "vierkant", "massiv"],
-  "fase": ["none", "optional", "recommended", "multilayer"]
+  "rule": "Die blaue Schweißnaht endet am Brenner. Der grüne Richtungspfeil liegt oberhalb des Brenners und verwendet eine dezente, direkt gezeichnete Pfeilspitze.",
+  "positions": [
+    "pa",
+    "pc",
+    "pf",
+    "pg",
+    "pe"
+  ],
+  "joints": [
+    "stumpf",
+    "kehl",
+    "ueberlapp"
+  ],
+  "materials": [
+    "blech",
+    "vierkant",
+    "massiv"
+  ],
+  "fase": [
+    "none",
+    "optional",
+    "recommended",
+    "multilayer"
+  ],
+  "jointRepresentation": {
+    "stumpf": "Spaltfüllung im Querschnitt",
+    "kehl": "Viertelkreis in der Kehle",
+    "ueberlapp": "Naht an der Überlappkante"
+  }
 }

@@ -1,0 +1,55 @@
+{
+  "process": {
+    "title": "Verfahren",
+    "text": "Legt fest, ob geschweißt oder geschnitten wird. Die App blendet abhängig vom Verfahren nur passende Eingaben ein."
+  },
+  "material": {
+    "title": "Material",
+    "text": "Werkstoff des Bauteils. Stahl, Edelstahl und Aluminium benötigen unterschiedliche Startwerte."
+  },
+  "thickness": {
+    "title": "Materialstärke",
+    "text": "Materialstärke des Werkstücks. Bei MMA wird dieses Eingabefeld ausgeblendet, weil die Empfehlung dort aus dem Elektrodendurchmesser abgeleitet wird."
+  },
+  "wire": {
+    "title": "Drahtdurchmesser",
+    "text": "Drahtstärke in Millimetern. Relevant für MIG/MAG und Fülldraht. Größerer Draht benötigt meist mehr Energie."
+  },
+  "joint": {
+    "title": "Nahtart",
+    "text": "Beschreibt die Verbindung: Stumpfnaht, Kehlnaht oder Überlappnaht. Die Nahtart beeinflusst den Energiebedarf."
+  },
+  "position": {
+    "title": "Schweißposition",
+    "text": "Lage der Naht beim Schweißen. Zwangslagen benötigen meist angepasste Startwerte und Führung."
+  },
+  "shape": {
+    "title": "Materialform",
+    "text": "Bauteilform wie Blech, Profil oder Massivmaterial. Sie beeinflusst Wärmeaufnahme und Abkühlverhalten."
+  },
+  "trim": {
+    "title": "Feinkorrektur",
+    "text": "Manuelle Korrektur der Empfehlung in Prozent. Nutze sie für Erfahrung, Gerätetoleranzen und besondere Bauteile."
+  },
+  "calculate": {
+    "title": "Berechnen",
+    "text": "Erzeugt konservative Startwerte. Vor Serienarbeit immer Probenaht oder Probeschnitt durchführen."
+  },
+  "reset": {
+    "title": "Zurücksetzen",
+    "text": "Lädt die App neu und stellt die Grundeingaben wieder her."
+  },
+  "feedback": {
+    "title": "Naht-Rückmeldung",
+    "text": "Nach einer Probenaht verschieben. Die Startwerte werden direkt angepasst, Referenzwerte bleiben sichtbar."
+  },
+  "manufacturerReference": "Herstellerwerte aus Gerätehandbüchern sind Richtwerte. Beim CTM-250 Puls Pro sind MIG/MAG-, WIG-, MMA- und CUT-Bereiche hinterlegt; Probenähte und Herstellerhinweise bleiben maßgeblich.",
+  "electrode": {
+    "title": "Elektrodendurchmesser",
+    "text": "Bei MMA/E-Hand ist der Elektrodendurchmesser die primäre Eingabe. Daraus werden Strombereich und empfohlene Materialstärke abgeleitet. Elektrodenverpackung und Elektrodentyp haben Vorrang."
+  },
+  "manufacturerSelection": {
+    "title": "Herstellervergleich",
+    "text": "In Version 1.0.1 stehen ausschließlich validierte Richtwerte des STAHLWERK CTM-250 Puls Pro zur Verfügung."
+  }
+}

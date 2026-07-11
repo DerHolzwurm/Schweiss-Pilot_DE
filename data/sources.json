@@ -1,0 +1,108 @@
+{
+  "sources": [
+    {
+      "id": "schweisshelden-current-strength",
+      "label": "Schweißhelden: Welche Stromstärke benötige ich beim Schweißen",
+      "type": "web",
+      "url": "https://www.schweisshelden.de/fachwissen/heldenblog/welche-stromstaerke-benoetige-ich-beim-schweissen",
+      "scope": [
+        "general",
+        "current"
+      ],
+      "status": "user-provided"
+    },
+    {
+      "id": "mannisweldingchannel-mma-current",
+      "label": "Mannis Welding Channel: Elektroschweißen Stromstärke",
+      "type": "web",
+      "url": "https://mannisweldingchannel.com/elektroschweissen-stromstaerke/",
+      "scope": [
+        "mma",
+        "current"
+      ],
+      "status": "user-provided"
+    },
+    {
+      "id": "bosch-wig-current",
+      "label": "P. Bosch: Schweißstrom einstellen bei WIG",
+      "type": "web",
+      "url": "https://www.p-bosch.de/schweissstrom-einstellen-bei-wig-und/",
+      "scope": [
+        "wig",
+        "current"
+      ],
+      "status": "user-provided"
+    },
+    {
+      "id": "homberg-mag-parameters",
+      "label": "Homberg: MAG Schweißen Parameter",
+      "type": "web",
+      "url": "https://homberg-gmbh.de/post/auf-dem-weg-zur-perfektion-die-kunst-der-mag-schweissen-parameter",
+      "scope": [
+        "mag",
+        "parameters"
+      ],
+      "status": "user-provided"
+    },
+    {
+      "id": "anleitung-schweissen-parameter",
+      "label": "Anleitung zum Schweißen: Schweißparameter-Rechner",
+      "type": "web",
+      "url": "https://www.anleitung-zum-schweissen.de/das-schweien/schweissparameter-rechner/",
+      "scope": [
+        "general",
+        "calculator"
+      ],
+      "status": "user-provided"
+    },
+    {
+      "id": "airproducts-welder-handbook",
+      "label": "Air Products: Handbuch des Schweißers",
+      "type": "pdf",
+      "url": "https://www.airproducts.expert/de/schweissschutzgase/media/handbuch-des-schweissers.pdf",
+      "scope": [
+        "shielding-gas",
+        "general"
+      ],
+      "status": "user-provided"
+    },
+    {
+      "id": "schweizer-schweissverbindung",
+      "label": "Schweizer FN: Schweißverbindung",
+      "type": "web",
+      "url": "https://www.schweizer-fn.de/maschinenelemente/schweissnaht/schweissverbindung.php",
+      "scope": [
+        "joint",
+        "weld-design"
+      ],
+      "status": "user-provided"
+    },
+    {
+      "id": "stahlwerk-ctm250-manual",
+      "label": "STAHLWERK CTM-250 Puls Pro Bedienungsanleitung, Stand 05/2025",
+      "type": "pdf",
+      "url": "uploaded:51e3f4.pdf",
+      "scope": [
+        "device-profile",
+        "manufacturer-values",
+        "mig-mag",
+        "flux",
+        "wig",
+        "mma",
+        "plasma",
+        "gas",
+        "duty-cycle"
+      ],
+      "status": "user-provided-manual",
+      "pages": [
+        "18",
+        "20",
+        "23",
+        "24",
+        "41",
+        "42-44",
+        "47"
+      ]
+    }
+  ]
+}

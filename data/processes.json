@@ -1,0 +1,237 @@
+{
+  "processes": [
+    {
+      "id": "fcaw_s",
+      "label": "Fülldraht selbstschützend",
+      "type": "wire",
+      "polarity": "DCEN / Brenner Minus prüfen",
+      "gas": "kein Schutzgas",
+      "baseAmpPerMm": 35,
+      "baseVolt": 16.5,
+      "voltPerMm": 1.15,
+      "feedFactor": 0.92,
+      "ampMinPerMm": 30,
+      "ampMaxPerMm": 40,
+      "reference": "Grundstrom 38 A/mm; Spannung U = 22 + I/30."
+    },
+    {
+      "id": "mag",
+      "label": "MAG Stahl",
+      "type": "wire",
+      "polarity": "DCEP / Brenner Plus",
+      "gas": "M21 / C18 Mischgas",
+      "baseAmpPerMm": 45,
+      "baseVolt": 17.2,
+      "voltPerMm": 1.25,
+      "feedFactor": 1.0,
+      "ampMinPerMm": 40,
+      "ampMaxPerMm": 50,
+      "reference": "Grundstrom 40 A/mm; Spannung U = 14 + I/25. Herstellerbereiche kalibrieren das Ergebnis."
+    },
+    {
+      "id": "mig",
+      "label": "MIG Aluminium",
+      "type": "wire",
+      "polarity": "DCEP / Brenner Plus",
+      "gas": "Argon 4.6",
+      "baseAmpPerMm": 43,
+      "baseVolt": 18.0,
+      "voltPerMm": 1.3,
+      "feedFactor": 1.15,
+      "ampMinPerMm": 38,
+      "ampMaxPerMm": 48,
+      "reference": "Grundstrom 40 A/mm; Aluminiumfaktor 1,30; Spannung U = 14 + I/25."
+    },
+    {
+      "id": "wig_dc",
+      "label": "WIG DC Stahl/Edelstahl",
+      "type": "tig",
+      "polarity": "DCEN / Elektrode Minus",
+      "gas": "Argon 4.6",
+      "baseAmpPerMm": 35,
+      "baseVolt": 0,
+      "voltPerMm": 0,
+      "feedFactor": 0,
+      "ampMinPerMm": 30,
+      "ampMaxPerMm": 40,
+      "reference": "Grundstrom 30 A/mm; Lichtbogenspannung U = 10 + I/40."
+    },
+    {
+      "id": "wig_ac",
+      "label": "WIG AC Aluminium",
+      "type": "tig",
+      "polarity": "AC",
+      "gas": "Argon 4.6",
+      "baseAmpPerMm": 42,
+      "baseVolt": 0,
+      "voltPerMm": 0,
+      "feedFactor": 0,
+      "ampMinPerMm": 35,
+      "ampMaxPerMm": 45,
+      "reference": "Grundstrom 30 A/mm; Aluminiumfaktor 1,30; Lichtbogenspannung U = 10 + I/40."
+    },
+    {
+      "id": "mma",
+      "label": "Elektrode / MMA",
+      "type": "stick",
+      "polarity": "Elektrodentyp beachten",
+      "gas": "kein Schutzgas",
+      "baseAmpPerMm": 38,
+      "baseVolt": 0,
+      "voltPerMm": 0,
+      "feedFactor": 0,
+      "ampMinPerMm": 35,
+      "ampMaxPerMm": 40,
+      "reference": "Strombereich primär aus Elektrodendurchmesser; STAHLWERK-Richtwerte 1,6–5,0 mm."
+    },
+    {
+      "id": "plasma",
+      "label": "Plasmaschneiden",
+      "type": "cut",
+      "polarity": "Geräteabhängig",
+      "gas": "Druckluft / Plasmagas nach Gerät",
+      "baseAmpPerMm": 7,
+      "baseVolt": 0,
+      "voltPerMm": 0,
+      "feedFactor": 0,
+      "ampMinPerMm": 5,
+      "ampMaxPerMm": 9,
+      "reference": "Orientierung 7 A/mm; Gerätelimits folgen in C11."
+    }
+  ],
+  "materials": [
+    {
+      "id": "stahl",
+      "label": "Stahl",
+      "factor": 1.0
+    },
+    {
+      "id": "edelstahl",
+      "label": "Edelstahl",
+      "factor": 1.0
+    },
+    {
+      "id": "alu",
+      "label": "Aluminium",
+      "factor": 1.0
+    }
+  ],
+  "wires": [
+    0.6,
+    0.8,
+    0.9,
+    1.0,
+    1.2
+  ],
+  "joints": [
+    {
+      "id": "stumpf",
+      "label": "Stumpfnaht",
+      "factor": 1.0
+    },
+    {
+      "id": "kehl",
+      "label": "Kehlnaht",
+      "factor": 1.08
+    },
+    {
+      "id": "ueberlapp",
+      "label": "Überlappnaht",
+      "factor": 0.96
+    }
+  ],
+  "positions": [
+    {
+      "id": "pa",
+      "label": "PA / PB flach",
+      "factor": 1.0
+    },
+    {
+      "id": "pc",
+      "label": "PC horizontal",
+      "factor": 0.96
+    },
+    {
+      "id": "pf",
+      "label": "PF steigend",
+      "factor": 0.92
+    },
+    {
+      "id": "pg",
+      "label": "PG fallend",
+      "factor": 0.88
+    },
+    {
+      "id": "pe",
+      "label": "PE / PD über Kopf",
+      "factor": 0.86
+    }
+  ],
+  "shapes": [
+    {
+      "id": "blech",
+      "label": "Blech",
+      "factor": 0.96
+    },
+    {
+      "id": "vierkant",
+      "label": "Vierkantrohr / Profil",
+      "factor": 1.0
+    },
+    {
+      "id": "massiv",
+      "label": "Massivmaterial",
+      "factor": 1.08
+    }
+  ],
+  "electrodes": [
+    {
+      "diameterMm": 1.6,
+      "label": "1,6 mm",
+      "materialMinMm": 1.0,
+      "materialMaxMm": 1.5,
+      "currentMinA": 30,
+      "currentMaxA": 50
+    },
+    {
+      "diameterMm": 2.0,
+      "label": "2,0 mm",
+      "materialMinMm": 1.5,
+      "materialMaxMm": 3.0,
+      "currentMinA": 60,
+      "currentMaxA": 80
+    },
+    {
+      "diameterMm": 2.5,
+      "label": "2,5 mm",
+      "materialMinMm": 2.5,
+      "materialMaxMm": 6.0,
+      "currentMinA": 75,
+      "currentMaxA": 110
+    },
+    {
+      "diameterMm": 3.2,
+      "label": "3,2 mm",
+      "materialMinMm": 4.0,
+      "materialMaxMm": 8.0,
+      "currentMinA": 110,
+      "currentMaxA": 150
+    },
+    {
+      "diameterMm": 4.0,
+      "label": "4,0 mm",
+      "materialMinMm": 6.0,
+      "materialMaxMm": 12.0,
+      "currentMinA": 150,
+      "currentMaxA": 190
+    },
+    {
+      "diameterMm": 5.0,
+      "label": "5,0 mm",
+      "materialMinMm": 6.0,
+      "materialMaxMm": 12.0,
+      "currentMinA": 190,
+      "currentMaxA": 250
+    }
+  ]
+}

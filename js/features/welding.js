@@ -33,7 +33,7 @@ function readInput() {
     shape: document.getElementById('shape').value,
     trim: Number(document.getElementById('trim').value || 0),
     manufacturerComparison: document.getElementById('manufacturerCompareToggle')?.checked !== false,
-    manufacturerId: document.getElementById('manufacturerSelect')?.value || 'all'
+    manufacturerId: document.getElementById('manufacturerSelect')?.value || 'stahlwerk'
   };
 }
 
@@ -46,7 +46,7 @@ function updateManufacturerControls() {
   if (select) select.disabled = !enabled;
   controls?.classList.toggle('is-disabled', !enabled);
   storage.set('schweisspilot.manufacturerComparison', enabled);
-  if (select) storage.set('schweisspilot.manufacturerId', select.value || 'all');
+  if (select) storage.set('schweisspilot.manufacturerId', select.value || 'stahlwerk');
 }
 
 function renderCalculation() {
@@ -94,14 +94,9 @@ export function initWelding(data, corrections) {
   fillSelect('position', data.positions, 'pa');
   fillSelect('shape', data.shapes, 'vierkant');
 
-  const manufacturers = [
-    { id: 'all', label: 'Alle verfügbaren Hersteller' },
-    ...listManufacturersWithData(data)
-  ];
-  fillSelect('manufacturerSelect', manufacturers, storage.get('schweisspilot.manufacturerId', 'all'));
-  if (!manufacturers.some(item => String(item.id) === document.getElementById('manufacturerSelect').value)) {
-    document.getElementById('manufacturerSelect').value = 'all';
-  }
+  const manufacturers = listManufacturersWithData(data);
+  fillSelect('manufacturerSelect', manufacturers, 'stahlwerk');
+  document.getElementById('manufacturerSelect').value = 'stahlwerk';
   document.getElementById('manufacturerCompareToggle').checked = storage.get('schweisspilot.manufacturerComparison', true);
   updateManufacturerControls();
   updateProcessVisibility();

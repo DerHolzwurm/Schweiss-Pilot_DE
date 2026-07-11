@@ -50,6 +50,6 @@
   },
   "manufacturerSelection": {
     "title": "Herstellervergleich",
-    "text": "Blendet Hersteller- und Referenzbereiche im Ergebnis ein oder aus. Die Auswahl filtert nur die Vergleichsanzeige; die fachliche Grundberechnung und das aktive Gerätelimit bleiben unverändert."
+    "text": "In Version 1.0.1 stehen ausschließlich validierte Richtwerte des STAHLWERK CTM-250 Puls Pro zur Verfügung."
   }
 }

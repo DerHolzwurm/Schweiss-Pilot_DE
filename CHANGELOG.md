@@ -1,3 +1,21 @@
+# Changelog
+
+## Build C15
+
+### Changed
+- Herstellerdaten für Version 1.0.1 auf STAHLWERK begrenzt.
+- Fremdhersteller-Platzhalter und nicht herstellerbelegte Seed-Datensätze entfernt.
+- CTM-250-Geräteprofil gegen die Bedienungsanleitung validiert.
+- WIG AC aus dem CTM-250-Geräteprofil entfernt, da das Gerät ausschließlich DC WIG unterstützt.
+- Herstellervergleich auf STAHLWERK festgelegt; Ein-/Ausblenden bleibt möglich.
+- README mit Funktionsumfang, Änderungen seit 1.0.0, Quellenbasis und bekannten Grenzen vollständig aktualisiert.
+
+### Validated
+- MIG/MAG-Richtwerte 1–7 mm.
+- MMA-Elektrodenbereiche 1,6–5,0 mm.
+- WIG-DC-Richtwerte für Stahl und Edelstahl.
+- Ausgangsströme, Einschaltdauer und Plasma-Arbeitsdruck des CTM-250 Puls Pro.
+
 ## Build C14
 
 - Illustrationssystem abschließend vereinheitlicht.

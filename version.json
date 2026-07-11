@@ -1,8 +1,8 @@
 {
   "name": "SchweißPilot",
   "version": "1.0.1",
-  "build": "C14",
+  "build": "C15",
   "branch": "Entwicklung-V1.0.1",
-  "status": "Development",
+  "status": "Release Candidate",
   "release": false
 }

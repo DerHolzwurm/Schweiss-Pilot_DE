@@ -157,6 +157,7 @@ export function getActiveDeviceProfile(data) {
 export function getDeviceCurrentLimits(processId, data) {
   const profile = getActiveDeviceProfile(data);
   if (!profile?.outputCurrent) return null;
+  if (Array.isArray(profile.processes) && !profile.processes.includes(processId)) return null;
 
   const key = processId === 'plasma' ? 'cutA'
     : processId === 'mma' ? 'mmaA'

@@ -1,44 +1,8 @@
 {
-  "schemaVersion": 3,
-  "status": "development-manufacturer-selection",
-  "notes": "Hersteller- und Referenzdaten für C12. Vergleichsdaten können im Rechner nach Hersteller gefiltert oder vollständig ausgeblendet werden. Das aktive Geräteprofil für Gerätelimits bleibt davon unabhängig.",
+  "schemaVersion": 4,
+  "status": "validated-stahlwerk-only",
+  "notes": "Für Version 1.0.1 sind ausschließlich veröffentlichte Richtwerte und Gerätedaten aus der Bedienungsanleitung des STAHLWERK CTM-250 Puls Pro als Herstellerdaten freigegeben. Andere Hersteller bleiben bis zur Quellenprüfung unberücksichtigt.",
   "manufacturers": [
-    {
-      "id": "fronius",
-      "name": "Fronius",
-      "country": "AT",
-      "sourceStatus": "prepared"
-    },
-    {
-      "id": "ewm",
-      "name": "EWM",
-      "country": "DE",
-      "sourceStatus": "prepared"
-    },
-    {
-      "id": "kemppi",
-      "name": "Kemppi",
-      "country": "FI",
-      "sourceStatus": "prepared"
-    },
-    {
-      "id": "esab",
-      "name": "ESAB",
-      "country": "SE",
-      "sourceStatus": "prepared"
-    },
-    {
-      "id": "lincoln-electric",
-      "name": "Lincoln Electric",
-      "country": "US",
-      "sourceStatus": "prepared"
-    },
-    {
-      "id": "boehler",
-      "name": "Böhler Welding",
-      "country": "AT",
-      "sourceStatus": "prepared"
-    },
     {
       "id": "stahlwerk",
       "name": "STAHLWERK",
@@ -50,118 +14,6 @@
     }
   ],
   "parameterSets": [
-    {
-      "id": "seed-mag-stahl-08-2mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "MIG/MAG Kombigeräte",
-      "process": "mag",
-      "material": "stahl",
-      "thicknessMinMm": 1.5,
-      "thicknessMaxMm": 2.5,
-      "wireMm": 0.8,
-      "gas": "M21 / C18 Mischgas",
-      "currentMinA": 70,
-      "currentMaxA": 115,
-      "voltageMinV": 17.5,
-      "voltageMaxV": 19.5,
-      "wireFeedMinMMin": 3.0,
-      "wireFeedMaxMMin": 5.5,
-      "sourceIds": [
-        "homberg-mag-parameters",
-        "schweisshelden-current-strength"
-      ],
-      "confidence": "orientation",
-      "comment": "Startdatensatz fuer Datenmodell und Lookup; vor C08 mit Original-Herstellerdaten abgleichen."
-    },
-    {
-      "id": "seed-mag-stahl-09-3mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "MIG/MAG Kombigeräte",
-      "process": "mag",
-      "material": "stahl",
-      "thicknessMinMm": 2.5,
-      "thicknessMaxMm": 3.5,
-      "wireMm": 0.9,
-      "gas": "M21 / C18 Mischgas",
-      "currentMinA": 110,
-      "currentMaxA": 155,
-      "voltageMinV": 18.8,
-      "voltageMaxV": 21.2,
-      "wireFeedMinMMin": 4.5,
-      "wireFeedMaxMMin": 7.0,
-      "sourceIds": [
-        "homberg-mag-parameters",
-        "schweisshelden-current-strength"
-      ],
-      "confidence": "orientation",
-      "comment": "Startdatensatz fuer Datenmodell und Lookup; vor C08 mit Original-Herstellerdaten abgleichen."
-    },
-    {
-      "id": "seed-fcaw-stahl-09-3mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "Fülldraht / Kombigeräte",
-      "process": "fcaw_s",
-      "material": "stahl",
-      "thicknessMinMm": 2.5,
-      "thicknessMaxMm": 3.5,
-      "wireMm": 0.9,
-      "gas": "kein Schutzgas",
-      "currentMinA": 90,
-      "currentMaxA": 135,
-      "voltageMinV": 17.0,
-      "voltageMaxV": 20.5,
-      "wireFeedMinMMin": 3.5,
-      "wireFeedMaxMMin": 6.5,
-      "sourceIds": [
-        "schweisshelden-current-strength"
-      ],
-      "confidence": "orientation",
-      "comment": "Fülldraht-Datensatz als konservativer Startwert; exakte Polung und Kennlinie vom Draht-/Gerätehersteller priorisieren."
-    },
-    {
-      "id": "seed-wig-dc-stahl-3mm",
-      "manufacturerId": "ewm",
-      "deviceFamily": "WIG DC",
-      "process": "wig_dc",
-      "material": "stahl",
-      "thicknessMinMm": 2.5,
-      "thicknessMaxMm": 3.5,
-      "wireMm": null,
-      "gas": "Argon 4.6",
-      "currentMinA": 90,
-      "currentMaxA": 125,
-      "voltageMinV": null,
-      "voltageMaxV": null,
-      "wireFeedMinMMin": null,
-      "wireFeedMaxMMin": null,
-      "sourceIds": [
-        "bosch-wig-current"
-      ],
-      "confidence": "orientation",
-      "comment": "WIG-Startbereich; Zusatzwerkstoff, Nahtvorbereitung und Wärmeführung bleiben praxisrelevant."
-    },
-    {
-      "id": "seed-mma-stahl-32mm-electrode",
-      "manufacturerId": "boehler",
-      "deviceFamily": "Stabelektrode",
-      "process": "mma",
-      "material": "stahl",
-      "thicknessMinMm": 3.0,
-      "thicknessMaxMm": 8.0,
-      "wireMm": 3.2,
-      "gas": "kein Schutzgas",
-      "currentMinA": 90,
-      "currentMaxA": 130,
-      "voltageMinV": null,
-      "voltageMaxV": null,
-      "wireFeedMinMMin": null,
-      "wireFeedMaxMMin": null,
-      "sourceIds": [
-        "mannisweldingchannel-mma-current"
-      ],
-      "confidence": "orientation",
-      "comment": "Elektrodentyp und Verpackungsangabe haben Vorrang."
-    },
     {
       "id": "stahlwerk-ctm250-mag-stahl-1mm",
       "manufacturerId": "stahlwerk",
@@ -588,33 +440,6 @@
       "tungstenColor": "grau / universell"
     },
     {
-      "id": "stahlwerk-ctm250-wig_ac-alu-1mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "CTM-250 Puls Pro",
-      "deviceProfileId": "stahlwerk-ctm-250-puls-pro",
-      "process": "wig_ac",
-      "material": "alu",
-      "thicknessMinMm": 0.5,
-      "thicknessMaxMm": 1.5,
-      "wireMm": null,
-      "gas": "Argon 4.6 / 4.8",
-      "currentMinA": 40,
-      "currentMaxA": 60,
-      "voltageMinV": null,
-      "voltageMaxV": null,
-      "wireFeedMinMMin": null,
-      "wireFeedMaxMMin": null,
-      "sourceIds": [
-        "stahlwerk-ctm250-manual"
-      ],
-      "confidence": "manufacturer-manual-orientation",
-      "comment": "WIG-Richtwert aus STAHLWERK CTM-250 Puls Pro Handbuch.",
-      "tungstenElectrodeMm": "1/1,6",
-      "gasNozzleSize": "4 bis 6",
-      "fillerRodMm": "0,5/1/1,6",
-      "tungstenColor": "grau / universell"
-    },
-    {
       "id": "stahlwerk-ctm250-wig_dc-stahl-2mm",
       "manufacturerId": "stahlwerk",
       "deviceFamily": "CTM-250 Puls Pro",
@@ -654,33 +479,6 @@
       "gas": "Argon 4.6 / 4.8",
       "currentMinA": 40,
       "currentMaxA": 60,
-      "voltageMinV": null,
-      "voltageMaxV": null,
-      "wireFeedMinMMin": null,
-      "wireFeedMaxMMin": null,
-      "sourceIds": [
-        "stahlwerk-ctm250-manual"
-      ],
-      "confidence": "manufacturer-manual-orientation",
-      "comment": "WIG-Richtwert aus STAHLWERK CTM-250 Puls Pro Handbuch.",
-      "tungstenElectrodeMm": "1,6/2,4",
-      "gasNozzleSize": "4 bis 8",
-      "fillerRodMm": "1/1,6",
-      "tungstenColor": "grau / universell"
-    },
-    {
-      "id": "stahlwerk-ctm250-wig_ac-alu-2mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "CTM-250 Puls Pro",
-      "deviceProfileId": "stahlwerk-ctm-250-puls-pro",
-      "process": "wig_ac",
-      "material": "alu",
-      "thicknessMinMm": 1.5,
-      "thicknessMaxMm": 2.5,
-      "wireMm": null,
-      "gas": "Argon 4.6 / 4.8",
-      "currentMinA": 60,
-      "currentMaxA": 80,
       "voltageMinV": null,
       "voltageMaxV": null,
       "wireFeedMinMMin": null,
@@ -750,33 +548,6 @@
       "tungstenColor": "grau / universell"
     },
     {
-      "id": "stahlwerk-ctm250-wig_ac-alu-3mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "CTM-250 Puls Pro",
-      "deviceProfileId": "stahlwerk-ctm-250-puls-pro",
-      "process": "wig_ac",
-      "material": "alu",
-      "thicknessMinMm": 2.5,
-      "thicknessMaxMm": 3.5,
-      "wireMm": null,
-      "gas": "Argon 4.6 / 4.8",
-      "currentMinA": 70,
-      "currentMaxA": 100,
-      "voltageMinV": null,
-      "voltageMaxV": null,
-      "wireFeedMinMMin": null,
-      "wireFeedMaxMMin": null,
-      "sourceIds": [
-        "stahlwerk-ctm250-manual"
-      ],
-      "confidence": "manufacturer-manual-orientation",
-      "comment": "WIG-Richtwert aus STAHLWERK CTM-250 Puls Pro Handbuch.",
-      "tungstenElectrodeMm": "1,6/2,4",
-      "gasNozzleSize": "4 bis 8",
-      "fillerRodMm": "1/1,6",
-      "tungstenColor": "grau / universell"
-    },
-    {
       "id": "stahlwerk-ctm250-wig_dc-stahl-4mm",
       "manufacturerId": "stahlwerk",
       "deviceFamily": "CTM-250 Puls Pro",
@@ -816,33 +587,6 @@
       "gas": "Argon 4.6 / 4.8",
       "currentMinA": 60,
       "currentMaxA": 80,
-      "voltageMinV": null,
-      "voltageMaxV": null,
-      "wireFeedMinMMin": null,
-      "wireFeedMaxMMin": null,
-      "sourceIds": [
-        "stahlwerk-ctm250-manual"
-      ],
-      "confidence": "manufacturer-manual-orientation",
-      "comment": "WIG-Richtwert aus STAHLWERK CTM-250 Puls Pro Handbuch.",
-      "tungstenElectrodeMm": "2,4",
-      "gasNozzleSize": "4 bis 8",
-      "fillerRodMm": "1/1,6",
-      "tungstenColor": "grau / universell"
-    },
-    {
-      "id": "stahlwerk-ctm250-wig_ac-alu-4mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "CTM-250 Puls Pro",
-      "deviceProfileId": "stahlwerk-ctm-250-puls-pro",
-      "process": "wig_ac",
-      "material": "alu",
-      "thicknessMinMm": 3.5,
-      "thicknessMaxMm": 4.5,
-      "wireMm": null,
-      "gas": "Argon 4.6 / 4.8",
-      "currentMinA": 70,
-      "currentMaxA": 100,
       "voltageMinV": null,
       "voltageMaxV": null,
       "wireFeedMinMMin": null,
@@ -912,33 +656,6 @@
       "tungstenColor": "grau / universell"
     },
     {
-      "id": "stahlwerk-ctm250-wig_ac-alu-5mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "CTM-250 Puls Pro",
-      "deviceProfileId": "stahlwerk-ctm-250-puls-pro",
-      "process": "wig_ac",
-      "material": "alu",
-      "thicknessMinMm": 4.5,
-      "thicknessMaxMm": 5.5,
-      "wireMm": null,
-      "gas": "Argon 4.6 / 4.8",
-      "currentMinA": 80,
-      "currentMaxA": 120,
-      "voltageMinV": null,
-      "voltageMaxV": null,
-      "wireFeedMinMMin": null,
-      "wireFeedMaxMMin": null,
-      "sourceIds": [
-        "stahlwerk-ctm250-manual"
-      ],
-      "confidence": "manufacturer-manual-orientation",
-      "comment": "WIG-Richtwert aus STAHLWERK CTM-250 Puls Pro Handbuch.",
-      "tungstenElectrodeMm": "2,4",
-      "gasNozzleSize": "4 bis 8",
-      "fillerRodMm": "1/1,6/2,4",
-      "tungstenColor": "grau / universell"
-    },
-    {
       "id": "stahlwerk-ctm250-wig_dc-stahl-6mm",
       "manufacturerId": "stahlwerk",
       "deviceFamily": "CTM-250 Puls Pro",
@@ -993,33 +710,6 @@
       "tungstenColor": "grau / universell"
     },
     {
-      "id": "stahlwerk-ctm250-wig_ac-alu-6mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "CTM-250 Puls Pro",
-      "deviceProfileId": "stahlwerk-ctm-250-puls-pro",
-      "process": "wig_ac",
-      "material": "alu",
-      "thicknessMinMm": 5.5,
-      "thicknessMaxMm": 6.5,
-      "wireMm": null,
-      "gas": "Argon 4.6 / 4.8",
-      "currentMinA": 80,
-      "currentMaxA": 140,
-      "voltageMinV": null,
-      "voltageMaxV": null,
-      "wireFeedMinMMin": null,
-      "wireFeedMaxMMin": null,
-      "sourceIds": [
-        "stahlwerk-ctm250-manual"
-      ],
-      "confidence": "manufacturer-manual-orientation",
-      "comment": "WIG-Richtwert aus STAHLWERK CTM-250 Puls Pro Handbuch.",
-      "tungstenElectrodeMm": "2,4/3,2",
-      "gasNozzleSize": "4 bis 8",
-      "fillerRodMm": "1/1,6/2,4",
-      "tungstenColor": "grau / universell"
-    },
-    {
       "id": "stahlwerk-ctm250-wig_dc-stahl-8mm",
       "manufacturerId": "stahlwerk",
       "deviceFamily": "CTM-250 Puls Pro",
@@ -1059,33 +749,6 @@
       "gas": "Argon 4.6 / 4.8",
       "currentMinA": 70,
       "currentMaxA": 90,
-      "voltageMinV": null,
-      "voltageMaxV": null,
-      "wireFeedMinMMin": null,
-      "wireFeedMaxMMin": null,
-      "sourceIds": [
-        "stahlwerk-ctm250-manual"
-      ],
-      "confidence": "manufacturer-manual-orientation",
-      "comment": "WIG-Richtwert aus STAHLWERK CTM-250 Puls Pro Handbuch.",
-      "tungstenElectrodeMm": "2,4/3,2",
-      "gasNozzleSize": "4 bis 8",
-      "fillerRodMm": "1/1,6/2,4",
-      "tungstenColor": "grau / universell"
-    },
-    {
-      "id": "stahlwerk-ctm250-wig_ac-alu-8mm",
-      "manufacturerId": "stahlwerk",
-      "deviceFamily": "CTM-250 Puls Pro",
-      "deviceProfileId": "stahlwerk-ctm-250-puls-pro",
-      "process": "wig_ac",
-      "material": "alu",
-      "thicknessMinMm": 7.5,
-      "thicknessMaxMm": 9,
-      "wireMm": null,
-      "gas": "Argon 4.6 / 4.8",
-      "currentMinA": 100,
-      "currentMaxA": 150,
       "voltageMinV": null,
       "voltageMaxV": null,
       "wireFeedMinMMin": null,
@@ -1352,7 +1015,6 @@
         "mig",
         "fcaw_s",
         "wig_dc",
-        "wig_ac",
         "mma",
         "plasma"
       ],
@@ -1405,6 +1067,12 @@
       ],
       "sourceIds": [
         "stahlwerk-ctm250-manual"
+      ],
+      "validationStatus": "validated-against-manual-2025-05",
+      "limitations": [
+        "Kein AC-WIG; Aluminium laut Handbuch über MIG/PMIG-Puls.",
+        "MIG/MAG-Tabelle enthält keine Spannungs- oder Drahtvorschubwerte.",
+        "Plasma-Handbuch nennt 15–45 A und 3,5–4,0 bar, aber keine materialdickenabhängige Stromtabelle."
       ]
     }
   ],

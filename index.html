@@ -34,6 +34,7 @@
           <label id="materialBox">Material <button class="help-btn" type="button" data-help="material" aria-label="Hilfe zu Material">i</button><select id="material"></select></label>
           <label id="thicknessBox">Materialstärke mm <button class="help-btn" type="button" data-help="thickness" aria-label="Hilfe zu Materialstärke">i</button><input id="thickness" type="number" min="0.4" max="30" step="0.1" value="3.0"></label>
           <label id="wireBox">Drahtdurchmesser <button class="help-btn" type="button" data-help="wire" aria-label="Hilfe zu Drahtdurchmesser">i</button><select id="wire"></select></label>
+          <label id="electrodeBox" class="hidden">Elektrodendurchmesser <button class="help-btn" type="button" data-help="electrode" aria-label="Hilfe zu Elektrodendurchmesser">i</button><select id="electrode"></select></label>
           <label id="jointBox">Nahtart <button class="help-btn" type="button" data-help="joint" aria-label="Hilfe zu Nahtart">i</button><select id="joint"></select></label>
           <label id="positionBox">Position <button class="help-btn" type="button" data-help="position" aria-label="Hilfe zu Position">i</button><select id="position"></select></label>
           <label id="shapeBox">Materialform <button class="help-btn" type="button" data-help="shape" aria-label="Hilfe zu Materialform">i</button><select id="shape"></select></label>
@@ -90,6 +91,7 @@
         <div class="result-grid details-grid">
           <div class="tile"><span>Polarität</span><strong id="polarity">–</strong></div>
           <div class="tile"><span>Gas</span><strong id="gas">–</strong></div>
+          <div class="tile hidden" id="electrodeResultBox"><span>Elektrode</span><strong id="electrodeResult">–</strong></div>
           <div class="tile"><span>Praxis-Hinweis</span><strong id="practice">–</strong></div>
           <div class="tile" id="travelSpeedBox"><span>Schweißgeschwindigkeit</span><strong id="travelSpeed">–</strong></div>
           <div class="tile" id="heatInputBox"><span>Wärmeeintrag</span><strong id="heatInput">–</strong></div>
@@ -121,7 +123,7 @@
 
     <section id="screen-data" class="screen">
       <article class="card"><h2>Version</h2><div id="versionDetails">Version wird geladen …</div></article>
-      <article class="card"><h2>Datenstatus</h2><p>Build C08 vergleicht berechnete Startwerte mit hinterlegten Hersteller- und Handbuchwerten. Die Werte sind Orientierung; Herstellerangaben, WPS, Arbeitsschutz und Aufsicht haben Vorrang.</p></article>
+      <article class="card"><h2>Datenstatus</h2><p>Build C10 ergänzt bei MMA den Elektrodendurchmesser und vergleicht berechnete Startwerte mit hinterlegten Hersteller- und Handbuchwerten. Die Werte sind Orientierung; Herstellerangaben, WPS, Arbeitsschutz und Aufsicht haben Vorrang.</p></article>
     </section>
   </main>
 

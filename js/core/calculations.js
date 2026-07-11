@@ -12,7 +12,11 @@ function byId(list, id) {
   return list.find(item => item.id === id);
 }
 
-function getFormulaCurrent(process, material, thickness) {
+function getElectrodeData(data, diameter) {
+  return data?.electrodes?.find(item => Math.abs(Number(item.diameterMm) - Number(diameter)) < 0.05) || null;
+}
+
+function getFormulaCurrent(process, material, thickness, electrodeData = null) {
   const materialId = material?.id;
   switch (process.id) {
     case 'mag':
@@ -26,7 +30,7 @@ function getFormulaCurrent(process, material, thickness) {
     case 'wig_ac':
       return thickness * 30 * (materialId === 'alu' ? 1.30 : 1);
     case 'mma':
-      // C10 ergänzt die Elektrodendicke als primäre Eingangsgröße.
+      if (electrodeData) return (Number(electrodeData.currentMinA) + Number(electrodeData.currentMaxA)) / 2;
       return thickness * 35;
     case 'plasma':
       return thickness * 7;
@@ -123,18 +127,23 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const adjustment = 1 + ((manualTrim + feedbackTrim) / 100);
 
   const isCut = process.type === 'cut';
+  const electrodeData = process.id === 'mma' ? getElectrodeData(data, input.electrode) : null;
+  const formulaCurrent = getFormulaCurrent(process, material, thickness, electrodeData);
   const manufacturerReferences = findManufacturerReferences(input, data);
-  const primaryManufacturerReference = selectPrimaryReference(manufacturerReferences, { amps: getFormulaCurrent(process, material, thickness) });
+  const primaryManufacturerReference = selectPrimaryReference(manufacturerReferences, { amps: formulaCurrent });
 
   const manufacturerSummary = manufacturerReferences.length
     ? `${manufacturerReferences.length} Hersteller-/Referenzdatensatz gefunden: ${[...new Set(manufacturerReferences.map(entry => getManufacturerName(data, entry.manufacturerId)))].join(', ')}`
     : 'Kein passender Herstellerdatensatz im aktuellen Datenstand.';
 
-  const theoreticalCurrent = getFormulaCurrent(process, material, thickness);
+  const theoreticalCurrent = formulaCurrent;
   const geometryFactor = joint.factor * position.factor * shape.factor;
   const uncalibratedCurrent = theoreticalCurrent * geometryFactor;
   const genericRange = getGenericRange(process, uncalibratedCurrent, isCut);
-  const currentRange = getManufacturerRange(primaryManufacturerReference, genericRange);
+  const electrodeRange = electrodeData ? { min: Number(electrodeData.currentMinA), max: Number(electrodeData.currentMaxA) } : null;
+  const currentRange = process.id === 'mma' && electrodeRange
+    ? getManufacturerRange(primaryManufacturerReference, electrodeRange)
+    : getManufacturerRange(primaryManufacturerReference, genericRange);
 
   // Hersteller-Handbuchbereiche bilden bei passendem Datensatz den Kalibrierkorridor.
   const calibratedBaseCurrent = clamp(uncalibratedCurrent, currentRange.min, currentRange.max);
@@ -154,12 +163,23 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
         ? { visual: 'recommended', level: 'warn', text: 'Fase empfohlen; sauberen Wurzelbereich sicherstellen.' }
         : { visual: 'multilayer', level: 'danger', text: 'Fase und mehrlagiges Arbeiten einplanen.' };
 
+  const electrodeCompatible = !electrodeData || (thickness >= Number(electrodeData.materialMinMm) && thickness <= Number(electrodeData.materialMaxMm));
+  const electrodeCompatibilityText = process.id === 'mma' && electrodeData
+    ? (electrodeCompatible
+      ? `Die gewählte ${Number(electrodeData.diameterMm).toFixed(1).replace('.', ',')} mm Elektrode passt zum hinterlegten Materialbereich ${electrodeData.materialMinMm}–${electrodeData.materialMaxMm} mm.`
+      : `Achtung: ${Number(electrodeData.diameterMm).toFixed(1).replace('.', ',')} mm Elektrode ist laut Richtwert für ${electrodeData.materialMinMm}–${electrodeData.materialMaxMm} mm vorgesehen; gewählt sind ${thickness} mm.`)
+    : '';
+
   const calibrationText = primaryManufacturerReference
     ? `Passender Herstellerbereich ${makeRangeLabel(currentRange.min, currentRange.max)} wurde als Kalibrierkorridor verwendet.`
     : `Generischer Rechenbereich ${makeRangeLabel(currentRange.min, currentRange.max)} wurde verwendet.`;
 
   return {
     processType: process.type,
+    processId: process.id,
+    electrodeDiameter: process.id === 'mma' ? Number(input.electrode || 0) : null,
+    electrodeRange: process.id === 'mma' && electrodeData ? `${electrodeData.currentMinA}–${electrodeData.currentMaxA} A` : null,
+    electrodeCompatible,
     amps,
     volt,
     wfs,
@@ -176,7 +196,9 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     gas: process.gas,
     practice: process.type === 'cut'
       ? 'Schnittprobe machen, Luftdruck und Schnittgeschwindigkeit prüfen.'
-      : thickness <= 2
+      : process.id === 'mma'
+        ? `${electrodeCompatibilityText} Elektrodenverpackung und Polarität beachten.`
+        : thickness <= 2
         ? 'Kurze Heftpunkte, Wärmeeintrag niedrig halten.'
         : thickness >= 8
           ? 'Mehrlagig arbeiten und Zwischenlagen reinigen.'
@@ -190,6 +212,6 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     shapeLabel: shape.label,
     why: isCut
       ? `Schneidstrom aus Materialstärke und Verfahrenskennlinie. ${calibrationText} Gerätehandbuch, Probeschnitt und Arbeitsschutz haben Vorrang. ${manufacturerSummary}`
-      : `Eigene Berechnungsengine: verfahrensabhängiger Grundstrom, Geometrie- und Positionskorrektur, anschließend Herstellerkalibrierung. ${calibrationText} Aktive Feinkorrektur: ${round(manualTrim + feedbackTrim)} %. ${heatInput !== null ? `Rechnerischer Wärmeeintrag: ${round(heatInput, 2)} kJ/mm bei ${round(travelSpeed)} mm/min.` : ''} ${manufacturerSummary}`
+      : `Eigene Berechnungsengine: ${process.id === 'mma' ? 'Elektrodendurchmesser als primäre Strombasis' : 'verfahrensabhängiger Grundstrom'}, Geometrie- und Positionskorrektur, anschließend Herstellerkalibrierung. ${electrodeCompatibilityText}  ${calibrationText} Aktive Feinkorrektur: ${round(manualTrim + feedbackTrim)} %. ${heatInput !== null ? `Rechnerischer Wärmeeintrag: ${round(heatInput, 2)} kJ/mm bei ${round(travelSpeed)} mm/min.` : ''} ${manufacturerSummary}`
   };
 }

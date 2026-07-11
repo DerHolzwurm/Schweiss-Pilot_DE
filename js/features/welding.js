@@ -25,6 +25,7 @@ function readInput() {
     material: document.getElementById('material').value,
     thickness: Number(document.getElementById('thickness').value || 0),
     wire: Number(document.getElementById('wire').value || 0.9),
+    electrode: Number(document.getElementById('electrode').value || 2.5),
     joint: document.getElementById('joint').value,
     position: document.getElementById('position').value,
     shape: document.getElementById('shape').value,
@@ -45,8 +46,10 @@ function updateProcessVisibility() {
   const processData = state.data.processes.find(item => item.id === process);
   const isWire = processData.type === 'wire';
   const isCut = processData.type === 'cut';
+  const isMma = process === 'mma';
 
   setHidden('wireBox', !isWire);
+  setHidden('electrodeBox', !isMma);
   setHidden('jointBox', isCut);
   setHidden('positionBox', isCut);
   setHidden('shapeBox', isCut);
@@ -69,6 +72,7 @@ export function initWelding(data, corrections) {
   fillSelect('process', data.processes, 'fcaw_s');
   fillSelect('material', data.materials, 'stahl');
   fillSelect('wire', data.wires, 0.9);
+  fillSelect('electrode', data.electrodes.map(item => ({ id: item.diameterMm, label: item.label })), 2.5);
   fillSelect('joint', data.joints, 'kehl');
   fillSelect('position', data.positions, 'pa');
   fillSelect('shape', data.shapes, 'vierkant');
@@ -76,7 +80,7 @@ export function initWelding(data, corrections) {
 
   document.getElementById('calculateBtn').addEventListener('click', renderCalculation);
   document.getElementById('resetBtn').addEventListener('click', () => window.location.reload());
-  ['process','material','thickness','wire','joint','position','shape','trim'].forEach(id => {
+  ['process','material','thickness','wire','electrode','joint','position','shape','trim'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
       updateProcessVisibility();
       if (!document.getElementById('resultCard').classList.contains('hidden')) renderCalculation();

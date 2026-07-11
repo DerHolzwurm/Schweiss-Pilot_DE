@@ -85,6 +85,8 @@ export function renderResult(result, reference = result) {
   document.getElementById('refFeed').textContent = isCut ? 'geräteabhängig' : reference.wfs === null ? '–' : fmt(reference.wfs, 'm/min', 1);
   document.getElementById('polarity').textContent = show(result.polarity);
   document.getElementById('gas').textContent = show(result.gas);
+  setHidden('electrodeResultBox', result.processId !== 'mma');
+  setText('electrodeResult', result.processId === 'mma' ? `${Number(result.electrodeDiameter).toFixed(1).replace('.', ',')} mm · ${result.electrodeRange || 'Bereich prüfen'}` : '–');
   document.getElementById('practice').textContent = show(result.practice);
   setText('travelSpeed', result.travelSpeed === null || result.travelSpeed === undefined ? '–' : fmt(result.travelSpeed, 'mm/min', 0));
   setText('heatInput', result.heatInput === null || result.heatInput === undefined ? '–' : fmt(result.heatInput, 'kJ/mm', 2));

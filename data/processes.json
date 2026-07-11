@@ -82,7 +82,7 @@
       "feedFactor": 0,
       "ampMinPerMm": 35,
       "ampMaxPerMm": 40,
-      "reference": "Vorläufig 35 A/mm Materialstärke; Elektrodendurchmesser folgt in C10."
+      "reference": "Strombereich primär aus Elektrodendurchmesser; STAHLWERK-Richtwerte 1,6–5,0 mm."
     },
     {
       "id": "plasma",
@@ -182,6 +182,56 @@
       "id": "massiv",
       "label": "Massivmaterial",
       "factor": 1.08
+    }
+  ],
+  "electrodes": [
+    {
+      "diameterMm": 1.6,
+      "label": "1,6 mm",
+      "materialMinMm": 1.0,
+      "materialMaxMm": 1.5,
+      "currentMinA": 30,
+      "currentMaxA": 50
+    },
+    {
+      "diameterMm": 2.0,
+      "label": "2,0 mm",
+      "materialMinMm": 1.5,
+      "materialMaxMm": 3.0,
+      "currentMinA": 60,
+      "currentMaxA": 80
+    },
+    {
+      "diameterMm": 2.5,
+      "label": "2,5 mm",
+      "materialMinMm": 2.5,
+      "materialMaxMm": 6.0,
+      "currentMinA": 75,
+      "currentMaxA": 110
+    },
+    {
+      "diameterMm": 3.2,
+      "label": "3,2 mm",
+      "materialMinMm": 4.0,
+      "materialMaxMm": 8.0,
+      "currentMinA": 110,
+      "currentMaxA": 150
+    },
+    {
+      "diameterMm": 4.0,
+      "label": "4,0 mm",
+      "materialMinMm": 6.0,
+      "materialMaxMm": 12.0,
+      "currentMinA": 150,
+      "currentMaxA": 190
+    },
+    {
+      "diameterMm": 5.0,
+      "label": "5,0 mm",
+      "materialMinMm": 6.0,
+      "materialMaxMm": 12.0,
+      "currentMinA": 190,
+      "currentMaxA": 250
     }
   ]
 }

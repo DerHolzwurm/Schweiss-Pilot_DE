@@ -9,6 +9,11 @@ function wireMatches(inputWire, referenceWire) {
   return Math.abs(Number(inputWire || 0) - Number(referenceWire)) < 0.05;
 }
 
+function electrodeMatches(inputElectrode, referenceElectrode) {
+  if (referenceElectrode === null || referenceElectrode === undefined) return true;
+  return Math.abs(Number(inputElectrode || 0) - Number(referenceElectrode)) < 0.05;
+}
+
 export function findManufacturerReferences(input, data) {
   const db = data?.manufacturerDatabase;
   if (!db?.parameterSets) return [];
@@ -17,7 +22,8 @@ export function findManufacturerReferences(input, data) {
     entry.process === input.process &&
     entry.material === input.material &&
     within(input.thickness, entry.thicknessMinMm, entry.thicknessMaxMm) &&
-    wireMatches(input.wire, entry.wireMm)
+    wireMatches(input.wire, entry.wireMm) &&
+    electrodeMatches(input.electrode, entry.electrodeDiameterMm)
   ));
 }
 

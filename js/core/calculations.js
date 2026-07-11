@@ -1,4 +1,4 @@
-import { buildManufacturerComparison, findManufacturerReferences, getManufacturerName } from './manufacturers.js';
+import { buildManufacturerComparison, findManufacturerReferences, getManufacturerName, selectPrimaryReference } from './manufacturers.js';
 
 const round = (value, digits = 0) => Number(value).toFixed(digits);
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -8,36 +8,107 @@ function makeRangeLabel(min, max) {
   return `${round(min)}–${round(max)} A`;
 }
 
-function calculateCurrentRange(thickness, process, factor, isCut) {
-  const minPerMm = process.ampMinPerMm || process.baseAmpPerMm * 0.9;
-  const maxPerMm = process.ampMaxPerMm || process.baseAmpPerMm * 1.1;
-  const minLimit = isCut ? 15 : 25;
-  const maxLimit = isCut ? 120 : 360;
-  return {
-    min: clamp(thickness * minPerMm * factor, minLimit, maxLimit),
-    max: clamp(thickness * maxPerMm * factor, minLimit, maxLimit)
-  };
-}
-
-function calculateVoltage(process, thickness, amps) {
-  if (process.type !== 'wire') return null;
-  return clamp(process.baseVolt + thickness * process.voltPerMm + ((amps - 120) / 100), 14, 32);
-}
-
-function calculateWireFeed(process, amps, wire) {
-  if (process.type !== 'wire') return null;
-  const diameterFactor = 0.9 / Number(wire || 0.9);
-  return clamp((amps / 42) * process.feedFactor * diameterFactor, 1.8, 15);
-}
-
 function byId(list, id) {
   return list.find(item => item.id === id);
 }
 
+function getFormulaCurrent(process, material, thickness) {
+  const materialId = material?.id;
+  switch (process.id) {
+    case 'mag':
+      return thickness * 40;
+    case 'mig':
+      return thickness * 40 * (materialId === 'alu' ? 1.30 : 1);
+    case 'fcaw_s':
+      return thickness * 38;
+    case 'wig_dc':
+      return thickness * 30;
+    case 'wig_ac':
+      return thickness * 30 * (materialId === 'alu' ? 1.30 : 1);
+    case 'mma':
+      // C10 ergänzt die Elektrodendicke als primäre Eingangsgröße.
+      return thickness * 35;
+    case 'plasma':
+      return thickness * 7;
+    default:
+      return thickness * Number(process.baseAmpPerMm || 35);
+  }
+}
+
+function getGenericRange(process, theoreticalCurrent, isCut) {
+  const spread = process.type === 'wire' ? 0.18 : process.type === 'tig' ? 0.16 : 0.20;
+  const minLimit = isCut ? 15 : 20;
+  const maxLimit = isCut ? 120 : 360;
+  return {
+    min: clamp(theoreticalCurrent * (1 - spread), minLimit, maxLimit),
+    max: clamp(theoreticalCurrent * (1 + spread), minLimit, maxLimit)
+  };
+}
+
+function getManufacturerRange(primary, fallbackRange) {
+  if (!primary || primary.currentMinA === null || primary.currentMinA === undefined ||
+      primary.currentMaxA === null || primary.currentMaxA === undefined) {
+    return fallbackRange;
+  }
+  return {
+    min: Number(primary.currentMinA),
+    max: Number(primary.currentMaxA)
+  };
+}
+
+function calculateArcVoltage(process, amps) {
+  switch (process.id) {
+    case 'mag':
+    case 'mig':
+      return clamp(14 + (amps / 25), 14, 32);
+    case 'fcaw_s':
+      return clamp(22 + (amps / 30), 16, 34);
+    case 'wig_dc':
+    case 'wig_ac':
+      return clamp(10 + (amps / 40), 10, 18);
+    case 'mma':
+      return clamp(20 + (amps / 50), 20, 30);
+    default:
+      return null;
+  }
+}
+
+function calculateWireFeed(process, amps, wire) {
+  if (process.type !== 'wire') return null;
+  const diameter = Number(wire || 0.9);
+  const ampDivisor = diameter <= 0.6 ? 31
+    : diameter <= 0.8 ? 37
+      : diameter <= 0.9 ? 42
+        : diameter <= 1.0 ? 48
+          : 60;
+  const processFactor = process.id === 'mig' ? 1.15 : process.id === 'fcaw_s' ? 0.95 : 1;
+  return clamp((amps / ampDivisor) * processFactor, 1.5, 18);
+}
+
+function calculateTravelSpeed(process, thickness) {
+  switch (process.id) {
+    case 'mag':
+    case 'mig':
+      return clamp(300 - (thickness * 20), 80, 300);
+    case 'wig_dc':
+    case 'wig_ac':
+      return clamp(150 - (thickness * 10), 45, 150);
+    case 'mma':
+      return clamp(200 - (thickness * 15), 55, 200);
+    case 'fcaw_s':
+      return clamp(250 - (thickness * 18), 70, 250);
+    default:
+      return null;
+  }
+}
+
+function calculateHeatInput(volt, amps, travelSpeed) {
+  if (volt === null || travelSpeed === null || travelSpeed <= 0) return null;
+  return (volt * amps * 60) / (1000 * travelSpeed);
+}
+
 export function findFeedback(corrections, sliderValue) {
   const item = corrections.feedback.find(entry => sliderValue >= entry.min && sliderValue <= entry.max) || corrections.feedback[2];
-  // Jeder Slider-Schritt verändert die Energie.
-  // Negativ = Naht liegt auf => mehr Energie; positiv = Durchbrand => weniger Energie.
   return { ...item, trim: -Number(sliderValue) * 2 };
 }
 
@@ -49,19 +120,30 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const shape = byId(data.shapes, input.shape);
   const thickness = clamp(Number(input.thickness || 0), 0.4, 30);
   const manualTrim = Number(input.trim || 0);
-  const totalTrimFactor = 1 + ((manualTrim + feedbackTrim) / 100);
-  const factor = material.factor * joint.factor * position.factor * shape.factor * totalTrimFactor;
+  const adjustment = 1 + ((manualTrim + feedbackTrim) / 100);
 
   const isCut = process.type === 'cut';
   const manufacturerReferences = findManufacturerReferences(input, data);
+  const primaryManufacturerReference = selectPrimaryReference(manufacturerReferences, { amps: getFormulaCurrent(process, material, thickness) });
+
   const manufacturerSummary = manufacturerReferences.length
-    ? `${manufacturerReferences.length} Hersteller-/Referenzdatensatz gefunden: ${manufacturerReferences.map(entry => getManufacturerName(data, entry.manufacturerId)).join(', ')}`
+    ? `${manufacturerReferences.length} Hersteller-/Referenzdatensatz gefunden: ${[...new Set(manufacturerReferences.map(entry => getManufacturerName(data, entry.manufacturerId)))].join(', ')}`
     : 'Kein passender Herstellerdatensatz im aktuellen Datenstand.';
-  const currentRange = calculateCurrentRange(thickness, process, factor, isCut);
-  const amps = clamp(thickness * process.baseAmpPerMm * factor, currentRange.min, currentRange.max);
-  const volt = calculateVoltage(process, thickness, amps);
+
+  const theoreticalCurrent = getFormulaCurrent(process, material, thickness);
+  const geometryFactor = joint.factor * position.factor * shape.factor;
+  const uncalibratedCurrent = theoreticalCurrent * geometryFactor;
+  const genericRange = getGenericRange(process, uncalibratedCurrent, isCut);
+  const currentRange = getManufacturerRange(primaryManufacturerReference, genericRange);
+
+  // Hersteller-Handbuchbereiche bilden bei passendem Datensatz den Kalibrierkorridor.
+  const calibratedBaseCurrent = clamp(uncalibratedCurrent, currentRange.min, currentRange.max);
+  const amps = clamp(calibratedBaseCurrent * adjustment, currentRange.min * 0.85, currentRange.max * 1.15);
+  const volt = calculateArcVoltage(process, amps);
   const wire = Number(input.wire || 0.9);
   const wfs = calculateWireFeed(process, amps, wire);
+  const travelSpeed = calculateTravelSpeed(process, thickness);
+  const heatInput = calculateHeatInput(volt, amps, travelSpeed);
   const manufacturerComparison = buildManufacturerComparison({ amps, volt, wfs, processType: process.type }, manufacturerReferences, data);
 
   const fase = thickness < 4
@@ -72,25 +154,33 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
         ? { visual: 'recommended', level: 'warn', text: 'Fase empfohlen; sauberen Wurzelbereich sicherstellen.' }
         : { visual: 'multilayer', level: 'danger', text: 'Fase und mehrlagiges Arbeiten einplanen.' };
 
-  const heroMain = process.type === 'wire' ? `${round(amps)} A · ${round(volt, 1)} V` : `${round(amps)} A`;
-  const heroSub = process.type === 'wire' ? `${round(wfs, 1)} m/min Drahtvorschub` : isCut ? 'Schnittprobe: Strom, Luftdruck und Vorschub prüfen' : process.type === 'tig' ? 'Zusatzwerkstoff von Hand' : 'Elektrode passend zum Material wählen';
+  const calibrationText = primaryManufacturerReference
+    ? `Passender Herstellerbereich ${makeRangeLabel(currentRange.min, currentRange.max)} wurde als Kalibrierkorridor verwendet.`
+    : `Generischer Rechenbereich ${makeRangeLabel(currentRange.min, currentRange.max)} wurde verwendet.`;
 
   return {
     processType: process.type,
     amps,
     volt,
     wfs,
+    travelSpeed,
+    heatInput,
     currentRange,
     currentRangeLabel: makeRangeLabel(currentRange.min, currentRange.max),
     formulaReference: process.reference || null,
     manufacturerReferences,
+    primaryManufacturerReference,
     manufacturerSummary,
     manufacturerComparison,
     polarity: process.polarity,
     gas: process.gas,
-    heroMain,
-    heroSub,
-    practice: process.type === 'cut' ? 'Schnittprobe machen, Luftdruck und Schnittgeschwindigkeit prüfen.' : thickness <= 2 ? 'Kurze Heftpunkte, Wärmeeintrag niedrig halten.' : thickness >= 8 ? 'Mehrlagig arbeiten und Zwischenlagen reinigen.' : 'Probenaht setzen und Laufgeräusch prüfen.',
+    practice: process.type === 'cut'
+      ? 'Schnittprobe machen, Luftdruck und Schnittgeschwindigkeit prüfen.'
+      : thickness <= 2
+        ? 'Kurze Heftpunkte, Wärmeeintrag niedrig halten.'
+        : thickness >= 8
+          ? 'Mehrlagig arbeiten und Zwischenlagen reinigen.'
+          : 'Probenaht setzen und Laufgeräusch prüfen.',
     fase,
     positionId: position.id,
     positionLabel: position.label,
@@ -98,6 +188,8 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     jointLabel: joint.label,
     shapeId: shape.id,
     shapeLabel: shape.label,
-    why: isCut ? `Orientierungswert aus Verfahren, Materialstärke und Materialfaktor. Gerätehandbuch, Probeschnitt und Arbeitsschutz haben Vorrang. Referenzbereich: ${makeRangeLabel(currentRange.min, currentRange.max) || 'geräteabhängig'}. ${manufacturerSummary}` : `Berechnet aus validierter Faustformel, Materialstärke, Material-, Naht-, Positions- und Formfaktor. Referenzbereich: ${makeRangeLabel(currentRange.min, currentRange.max)}. Aktive Gesamtkorrektur: ${round(manualTrim + feedbackTrim)} %. ${process.reference || ''} ${manufacturerSummary}`
+    why: isCut
+      ? `Schneidstrom aus Materialstärke und Verfahrenskennlinie. ${calibrationText} Gerätehandbuch, Probeschnitt und Arbeitsschutz haben Vorrang. ${manufacturerSummary}`
+      : `Eigene Berechnungsengine: verfahrensabhängiger Grundstrom, Geometrie- und Positionskorrektur, anschließend Herstellerkalibrierung. ${calibrationText} Aktive Feinkorrektur: ${round(manualTrim + feedbackTrim)} %. ${heatInput !== null ? `Rechnerischer Wärmeeintrag: ${round(heatInput, 2)} kJ/mm bei ${round(travelSpeed)} mm/min.` : ''} ${manufacturerSummary}`
   };
 }

@@ -62,7 +62,7 @@ function formatValue(value, unit, digits = 0) {
   return `${Number(value).toFixed(digits)} ${unit}`;
 }
 
-function bestReference(references, result) {
+export function selectPrimaryReference(references, result) {
   if (!references.length) return null;
   return [...references].sort((a, b) => {
     const aMid = rangeMid(a.currentMinA, a.currentMaxA);
@@ -75,7 +75,7 @@ function bestReference(references, result) {
 }
 
 export function buildManufacturerComparison(result, references, data) {
-  const primary = bestReference(references, result);
+  const primary = selectPrimaryReference(references, result);
   if (!primary) {
     return {
       available: false,

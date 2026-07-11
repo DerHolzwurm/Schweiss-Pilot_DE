@@ -86,6 +86,10 @@ export function renderResult(result, reference = result) {
   document.getElementById('polarity').textContent = show(result.polarity);
   document.getElementById('gas').textContent = show(result.gas);
   document.getElementById('practice').textContent = show(result.practice);
+  setText('travelSpeed', result.travelSpeed === null || result.travelSpeed === undefined ? '–' : fmt(result.travelSpeed, 'mm/min', 0));
+  setText('heatInput', result.heatInput === null || result.heatInput === undefined ? '–' : fmt(result.heatInput, 'kJ/mm', 2));
+  setHidden('travelSpeedBox', isCut);
+  setHidden('heatInputBox', isCut);
   document.getElementById('faseAlert').textContent = isCut ? 'Plasmaschnitt: Probeschnitt durchführen, Luftdruck prüfen und Schnittkante beurteilen.' : result.fase.text;
   document.getElementById('faseAlert').className = `notice ${result.fase.level || 'info'}`;
 

@@ -12,7 +12,7 @@
       "feedFactor": 0.92,
       "ampMinPerMm": 30,
       "ampMaxPerMm": 40,
-      "reference": "Fülldraht konservativ aus MAG/MMA-Nähe; Herstellerdaten in C07 priorisieren."
+      "reference": "Grundstrom 38 A/mm; Spannung U = 22 + I/30."
     },
     {
       "id": "mag",
@@ -26,7 +26,7 @@
       "feedFactor": 1.0,
       "ampMinPerMm": 40,
       "ampMaxPerMm": 50,
-      "reference": "MAG Faustformel 40–50 A/mm Materialstärke."
+      "reference": "Grundstrom 40 A/mm; Spannung U = 14 + I/25. Herstellerbereiche kalibrieren das Ergebnis."
     },
     {
       "id": "mig",
@@ -40,7 +40,7 @@
       "feedFactor": 1.15,
       "ampMinPerMm": 38,
       "ampMaxPerMm": 48,
-      "reference": "MIG-Startwert an MAG angelehnt, Aluminium mit Materialfaktor erhöht."
+      "reference": "Grundstrom 40 A/mm; Aluminiumfaktor 1,30; Spannung U = 14 + I/25."
     },
     {
       "id": "wig_dc",
@@ -54,7 +54,7 @@
       "feedFactor": 0,
       "ampMinPerMm": 30,
       "ampMaxPerMm": 40,
-      "reference": "WIG DC Faustformel 30–40 A/mm Materialstärke."
+      "reference": "Grundstrom 30 A/mm; Lichtbogenspannung U = 10 + I/40."
     },
     {
       "id": "wig_ac",
@@ -68,7 +68,7 @@
       "feedFactor": 0,
       "ampMinPerMm": 35,
       "ampMaxPerMm": 45,
-      "reference": "WIG AC Aluminium höherer Startbereich; Materialfaktor aktiv."
+      "reference": "Grundstrom 30 A/mm; Aluminiumfaktor 1,30; Lichtbogenspannung U = 10 + I/40."
     },
     {
       "id": "mma",
@@ -82,7 +82,7 @@
       "feedFactor": 0,
       "ampMinPerMm": 35,
       "ampMaxPerMm": 40,
-      "reference": "E-Hand Faustformel ca. 35–40 A/mm Elektroden-/Materialbezug; Elektrodenhersteller beachten."
+      "reference": "Vorläufig 35 A/mm Materialstärke; Elektrodendurchmesser folgt in C10."
     },
     {
       "id": "plasma",
@@ -96,7 +96,7 @@
       "feedFactor": 0,
       "ampMinPerMm": 5,
       "ampMaxPerMm": 9,
-      "reference": "Plasma bleibt geräteabhängiger Orientierungswert; Probeschnitt und Gerätehandbuch maßgeblich."
+      "reference": "Orientierung 7 A/mm; Gerätelimits folgen in C11."
     }
   ],
   "materials": [
@@ -108,12 +108,12 @@
     {
       "id": "edelstahl",
       "label": "Edelstahl",
-      "factor": 0.92
+      "factor": 1.0
     },
     {
       "id": "alu",
       "label": "Aluminium",
-      "factor": 1.18
+      "factor": 1.0
     }
   ],
   "wires": [

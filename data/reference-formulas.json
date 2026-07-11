@@ -1,34 +1,65 @@
 {
-  "build": "C06",
-  "status": "orientation",
-  "warning": "Alle Werte sind konservative Startwerte für Probebleche. Herstellerangaben, WPS, Arbeitsschutz und Aufsicht haben Vorrang.",
+  "build": "C09",
+  "status": "development-calibrated",
+  "warning": "Startwerte für Probebleche. Herstellerangaben, WPS, Gerätehandbuch und Arbeitsschutz haben Vorrang.",
+  "engine": {
+    "sequence": [
+      "Verfahrensabhängigen Grundstrom aus Materialstärke berechnen",
+      "Materialsonderfall anwenden, insbesondere Aluminium",
+      "Naht-, Positions- und Materialformfaktor anwenden",
+      "Passenden Herstellerbereich als Kalibrierkorridor verwenden",
+      "Feinkorrektur und Naht-Rückmeldung anwenden",
+      "Spannung, Drahtvorschub, Schweißgeschwindigkeit und Wärmeeintrag berechnen",
+      "Ergebnis gegen Herstellerdaten vergleichen"
+    ],
+    "heatInput": "Q [kJ/mm] = (U × I × 60) / (1000 × v [mm/min])"
+  },
   "formulas": [
     {
-      "id": "mag-current",
+      "id": "mag",
       "process": "MAG Stahl",
-      "formula": "Strombereich = Materialstärke × 40–50 A/mm; Startwert = 45 A/mm",
-      "source": "Paul Bosch GmbH: WIG/MAG Schweißstrom Faustformel"
+      "current": "I = Materialstärke × 40",
+      "voltage": "U = 14 + I/25",
+      "travelSpeed": "v = 300 − Materialstärke × 20"
     },
     {
-      "id": "tig-current",
-      "process": "WIG DC Stahl/Edelstahl",
-      "formula": "Strombereich = Materialstärke × 30–40 A/mm; Startwert = 35 A/mm",
-      "source": "Paul Bosch GmbH: WIG/MAG Schweißstrom Faustformel"
+      "id": "mig",
+      "process": "MIG Aluminium",
+      "current": "I = Materialstärke × 40 × 1,30",
+      "voltage": "U = 14 + I/25",
+      "travelSpeed": "v = 300 − Materialstärke × 20"
     },
     {
-      "id": "mma-current",
-      "process": "Elektrode / MMA",
-      "formula": "Orientierung = Elektroden-/Materialbezug × 35–40 A/mm; Tabellenwerte nach Elektrodendurchmesser priorisieren",
-      "source": "Schweisshelden: Richtwerte E-Hand"
+      "id": "tig",
+      "process": "WIG",
+      "current": "I = Materialstärke × 30; Aluminium × 1,30",
+      "voltage": "U = 10 + I/40",
+      "travelSpeed": "v = 150 − Materialstärke × 10"
     },
     {
-      "id": "heat-input",
-      "process": "Lichtbogenverfahren",
-      "formula": "Streckenenergie = Spannung × Strom / Schweißgeschwindigkeit; aktuell nur als Dokumentationsbasis geführt",
-      "source": "Paul Bosch GmbH: Streckenenergie-Formel"
+      "id": "mma",
+      "process": "MMA / E-Hand",
+      "current": "vorläufig I = Materialstärke × 35",
+      "voltage": "U = 20 + I/50",
+      "travelSpeed": "v = 200 − Materialstärke × 15",
+      "note": "Elektrodendurchmesser wird in C10 ergänzt."
+    },
+    {
+      "id": "fcaw",
+      "process": "Fülldraht",
+      "current": "I = Materialstärke × 38",
+      "voltage": "U = 22 + I/30",
+      "travelSpeed": "v = 250 − Materialstärke × 18"
+    },
+    {
+      "id": "plasma",
+      "process": "Plasma",
+      "current": "I = Materialstärke × 7",
+      "note": "Gerätelimit folgt in C11."
     }
   ],
-  "notes": [
-    "C07.5: STAHLWERK CTM-250 Puls Pro Handbuchwerte als Hersteller-/Geräteprofil ergänzt; diese Werte haben im Herstellervergleich Vorrang vor generischen Faustformeln."
+  "sources": [
+    "Whiz.tools Welding Calculator als Vergleichsquelle für Formelstruktur",
+    "STAHLWERK CTM-250 Puls Pro Handbuchwerte als Hersteller-Kalibrierbereiche"
   ]
 }

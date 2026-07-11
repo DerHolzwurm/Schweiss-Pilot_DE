@@ -1,5 +1,88 @@
 # Changelog
 
+## Build C15
+
+### Changed
+- Herstellerdaten für Version 1.0.1 auf STAHLWERK begrenzt.
+- Fremdhersteller-Platzhalter und nicht herstellerbelegte Seed-Datensätze entfernt.
+- CTM-250-Geräteprofil gegen die Bedienungsanleitung validiert.
+- WIG AC aus dem CTM-250-Geräteprofil entfernt, da das Gerät ausschließlich DC WIG unterstützt.
+- Herstellervergleich auf STAHLWERK festgelegt; Ein-/Ausblenden bleibt möglich.
+- README mit Funktionsumfang, Änderungen seit 1.0.0, Quellenbasis und bekannten Grenzen vollständig aktualisiert.
+
+### Validated
+- MIG/MAG-Richtwerte 1–7 mm.
+- MMA-Elektrodenbereiche 1,6–5,0 mm.
+- WIG-DC-Richtwerte für Stahl und Edelstahl.
+- Ausgangsströme, Einschaltdauer und Plasma-Arbeitsdruck des CTM-250 Puls Pro.
+
+## Build C14
+
+- Illustrationssystem abschließend vereinheitlicht.
+- Pfeilspitzen werden direkt als grüne SVG-Flächen gezeichnet und sind auch im Lexikon zuverlässig sichtbar.
+- Richtungspfeile liegen oberhalb des Brenners und sind dezenter ausgeführt.
+- Stumpfnaht wird als gefüllter Spalt, Kehlnaht als Viertelkreis dargestellt.
+- Brenner und Lichtbogen wurden in den Nahtarten ergänzt; Fasen zeigen nun gefüllte Querschnitte.
+
+## Build C13
+
+- Fehlerdiagnose anhand der FAQ des STAHLWERK CTM-250 Puls Pro strukturiert erweitert.
+- Filter nach Verfahren und Volltextsuche ergänzt.
+- Ursachen, sichere Prüfschritte, Priorität und Quellenstellen werden je Fehlerbild angezeigt.
+- Neue Datenquelle `data/troubleshooting.json` und Offline-Cache für die Diagnose ergänzt.
+
+## Build C12
+
+- Herstellervergleich im Rechner optional ein- und ausblendbar.
+- Vergleichsdaten können nach verfügbarem Hersteller gefiltert werden.
+- Auswahl wird lokal gespeichert und beeinflusst weder Grundberechnung noch aktives Gerätelimit.
+- Datenbank-Metadaten und Service-Worker-Cache auf C12 aktualisiert.
+
+## Build C11
+
+- Gerätelimits des STAHLWERK CTM-250 Puls Pro für MIG/MAG, Fülldraht, WIG, MMA und Plasma aktiviert.
+- Stromausgabe wird auf den einstellbaren Gerätebereich begrenzt.
+- Transparenter Warnhinweis zeigt berechneten Bedarf, begrenzte Ausgabe und Gerätebereich.
+
+
+## 1.0.1-C03 - Development
+
+### Added
+- Kehlnaht illustrations for calculator and lexicon.
+- Material form illustrations for calculator and lexicon.
+- Central illustration metadata file.
+
+### Changed
+- Welding direction is now shown as a green arrow.
+- Blue weld seam now ends exactly at the torch and arc position.
+- Lexicon contains separate sections for positions, joint types and material forms.
+
+### Files
+- index.html
+- css/components.css
+- js/ui/visuals.js
+- js/ui/results.js
+- js/core/calculations.js
+- data/illustrations.json
+- version.json
+- sw.js
+
+
+## v1.0.1 – In Entwicklung
+
+
+### Changed
+- Versionsverwaltung erweitert: Version, Build, Branch und Status werden getrennt geführt.
+- Versionsinformationen im Footer und im Info-Dialog sichtbar gemacht.
+- Service-Worker-Cache auf Build C02 erhöht.
+
+### Fixed
+- Naht-Rückmeldung unter die empfohlenen Startwerte verschoben.
+- Referenzwerte für Strom, Spannung und Vorschub ergänzt.
+- Referenzwerte bleiben bei Slider-Anpassungen als Optimalwerte sichtbar.
+
+# Changelog
+
 ## 1.0.0 - 2026-07-09
 
 ### Added

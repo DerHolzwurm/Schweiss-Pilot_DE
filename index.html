@@ -18,7 +18,11 @@
       <h1>SchweißPilot</h1>
       <p class="lead">Schweißparameter-Assistent mit Live-Nahtfeedback.</p>
     </div>
-    <button id="themeToggle" class="ghost" type="button">Dark Mode</button>
+    <div class="header-actions">
+      <button id="appInfoBtn" class="ghost" type="button" aria-haspopup="dialog">Info</button>
+      <button id="helpToggle" class="ghost" type="button" aria-pressed="false">Infos an</button>
+      <button id="themeToggle" class="ghost" type="button">Dark Mode</button>
+    </div>
   </header>
 
   <main class="wrap">
@@ -26,45 +30,103 @@
       <article class="card">
         <h2>Rechner</h2>
         <div class="grid two">
-          <label>Verfahren<select id="process"></select></label>
-          <label>Material<select id="material"></select></label>
-          <label>Materialstärke mm<input id="thickness" type="number" min="0.4" max="30" step="0.1" value="3.0"></label>
-          <label id="wireBox">Drahtdurchmesser<select id="wire"></select></label>
-          <label>Nahtart<select id="joint"></select></label>
-          <label>Position<select id="position"></select></label>
-          <label>Materialform<select id="shape"></select></label>
-          <label>Feinkorrektur %<input id="trim" type="number" min="-25" max="25" step="1" value="0"></label>
+          <label id="processBox">Verfahren <button class="help-btn" type="button" data-help="process" aria-label="Hilfe zu Verfahren">i</button><select id="process"></select></label>
+          <label id="materialBox">Material <button class="help-btn" type="button" data-help="material" aria-label="Hilfe zu Material">i</button><select id="material"></select></label>
+          <label id="thicknessBox">Materialstärke mm <button class="help-btn" type="button" data-help="thickness" aria-label="Hilfe zu Materialstärke">i</button><input id="thickness" type="number" min="0.4" max="30" step="0.1" value="3.0"></label>
+          <label id="wireBox">Drahtdurchmesser <button class="help-btn" type="button" data-help="wire" aria-label="Hilfe zu Drahtdurchmesser">i</button><select id="wire"></select></label>
+          <label id="electrodeBox" class="hidden">Elektrodendurchmesser <button class="help-btn" type="button" data-help="electrode" aria-label="Hilfe zu Elektrodendurchmesser">i</button><select id="electrode"></select></label>
+          <label id="jointBox">Nahtart <button class="help-btn" type="button" data-help="joint" aria-label="Hilfe zu Nahtart">i</button><select id="joint"></select></label>
+          <label id="positionBox">Position <button class="help-btn" type="button" data-help="position" aria-label="Hilfe zu Position">i</button><select id="position"></select></label>
+          <label id="shapeBox">Materialform <button class="help-btn" type="button" data-help="shape" aria-label="Hilfe zu Materialform">i</button><select id="shape"></select></label>
+          <label id="trimBox">Feinkorrektur % <button class="help-btn" type="button" data-help="trim" aria-label="Hilfe zu Feinkorrektur">i</button><input id="trim" type="number" min="-25" max="25" step="1" value="0"></label>
         </div>
+        <section class="manufacturer-controls" aria-label="Herstellervergleich einstellen">
+          <label class="manufacturer-toggle" for="manufacturerCompareToggle">
+            <input id="manufacturerCompareToggle" type="checkbox" checked>
+            <span>
+              <strong>Herstellervergleich anzeigen</strong>
+              <small>STAHLWERK-Richtwerte können unabhängig von der Berechnung ein- oder ausgeblendet werden.</small>
+            </span>
+          </label>
+          <label id="manufacturerSelectBox">Hersteller
+            <button class="help-btn" type="button" data-help="manufacturerSelection" aria-label="Hilfe zur Herstellerauswahl">i</button>
+            <select id="manufacturerSelect">
+              <option value="stahlwerk">STAHLWERK</option>
+            </select>
+          </label>
+        </section>
         <div class="actions">
-          <button id="calculateBtn" class="primary" type="button">Berechnen</button>
-          <button id="resetBtn" class="secondary" type="button">Zurücksetzen</button>
+          <button id="calculateBtn" class="primary" type="button">Berechnen</button><button class="help-btn action-help" type="button" data-help="calculate" aria-label="Hilfe zur Berechnung">i</button>
+          <button id="resetBtn" class="secondary" type="button">Zurücksetzen</button><button class="help-btn action-help" type="button" data-help="reset" aria-label="Hilfe zum Zurücksetzen">i</button>
         </div>
       </article>
 
       <article id="resultCard" class="card hidden">
         <h2>Empfohlene Einstellung</h2>
 
-        <section class="feedback-panel" aria-label="Live-Nahtfeedback">
-          <h3>Naht-Rückmeldung</h3>
-          <p>Regler direkt nach der Probenaht verschieben. Die Werte werden sofort neu berechnet.</p>
+        <div class="hero start-hero" aria-label="Empfohlene Startwerte">
+          <span class="start-title">Empfohlene Startwerte</span>
+          <div class="start-values">
+            <div class="start-value align-left"><span id="ampLabel">A</span><strong id="amp">–</strong></div>
+            <div class="start-value align-center" id="voltStartBox"><span id="voltLabel">V</span><strong id="volt">–</strong></div>
+            <div class="start-value align-right" id="feedStartBox"><span id="feedLabel">Vorschub m/min</span><strong id="feed">–</strong></div>
+          </div>
+        </div>
+
+        <section id="deviceLimitPanel" class="device-limit hidden" aria-live="polite" aria-label="Hinweis zum Gerätelimit">
+          <div class="device-limit-header">
+            <div>
+              <h3 id="deviceLimitTitle">Gerätelimit</h3>
+              <p id="deviceLimitDevice" class="small">–</p>
+            </div>
+            <span id="deviceLimitBadge" class="device-limit-badge">–</span>
+          </div>
+          <div class="device-limit-grid">
+            <div><span>Berechneter Bedarf</span><strong id="deviceLimitRequested">–</strong></div>
+            <div><span>Ausgabe der App</span><strong id="deviceLimitOutput">–</strong></div>
+            <div><span>Gerätebereich</span><strong id="deviceLimitRange">–</strong></div>
+          </div>
+          <p id="deviceLimitText">–</p>
+        </section>
+
+        <div class="result-grid reference-grid" aria-label="Referenzwerte ohne Nahtkorrektur">
+          <div class="tile"><span id="refAmpLabel">Referenz Strom</span><strong id="refAmp">–</strong></div>
+          <div class="tile" id="refVoltBox"><span id="refVoltLabel">Referenz Spannung</span><strong id="refVolt">–</strong></div>
+          <div class="tile" id="refFeedBox"><span id="refFeedLabel">Referenz Vorschub</span><strong id="refFeed">–</strong></div>
+        </div>
+
+        <section id="manufacturerComparePanel" class="manufacturer-compare hidden" aria-label="Herstellervergleich">
+          <div class="compare-header">
+            <div>
+              <h3>Vergleich mit STAHLWERK-Richtwerten</h3>
+              <p id="manufacturerCompareMeta" class="small">–</p>
+            </div>
+            <span id="manufacturerCompareBadge" class="compare-badge">–</span>
+          </div>
+          <div class="compare-grid">
+            <div class="compare-item"><span>Strom</span><strong id="cmpAmpCalculated">–</strong><small id="cmpAmpRange">–</small><em id="cmpAmpStatus">–</em></div>
+            <div class="compare-item" id="cmpVoltItem"><span>Spannung</span><strong id="cmpVoltCalculated">–</strong><small id="cmpVoltRange">–</small><em id="cmpVoltStatus">–</em></div>
+            <div class="compare-item" id="cmpFeedItem"><span>Drahtvorschub</span><strong id="cmpFeedCalculated">–</strong><small id="cmpFeedRange">–</small><em id="cmpFeedStatus">–</em></div>
+          </div>
+          <p id="manufacturerCompareNotes" class="small compare-notes">–</p>
+        </section>
+
+        <section id="feedbackPanel" class="feedback-panel" aria-label="Live-Nahtfeedback">
+          <h3>Naht-Rückmeldung <button class="help-btn" type="button" data-help="feedback" aria-label="Hilfe zur Naht-Rückmeldung">i</button></h3>
+          <p>Regler direkt nach der Probenaht verschieben. Die Startwerte werden sofort neu berechnet. Die Referenzwerte bleiben als Optimalwert sichtbar.</p>
           <div class="slider-labels"><span>Naht liegt auf</span><span>Optimal</span><span>Durchbrand</span></div>
           <input id="feedbackSlider" type="range" min="-10" max="10" step="1" value="0">
           <div class="feedback-readout"><strong id="feedbackValue">0</strong><span id="feedbackMeaning">Optimal – keine Anpassung</span></div>
         </section>
 
-        <div class="hero start-hero" aria-label="Empfohlene Startwerte">
-          <span class="start-title">Empfohlene Startwerte</span>
-          <div class="start-values">
-            <div class="start-value align-left"><span>A</span><strong id="amp">–</strong></div>
-            <div class="start-value align-center"><span>V</span><strong id="volt">–</strong></div>
-            <div class="start-value align-right"><span>Vorschub m/min</span><strong id="feed">–</strong></div>
-          </div>
-        </div>
-
         <div class="result-grid details-grid">
           <div class="tile"><span>Polarität</span><strong id="polarity">–</strong></div>
           <div class="tile"><span>Gas</span><strong id="gas">–</strong></div>
+          <div class="tile hidden" id="electrodeResultBox"><span>Elektrode</span><strong id="electrodeResult">–</strong></div>
+          <div class="tile hidden recommended-material" id="recommendedThicknessBox"><span>Materialstärke (empfohlen)</span><strong id="recommendedThickness">–</strong></div>
           <div class="tile"><span>Praxis-Hinweis</span><strong id="practice">–</strong></div>
+          <div class="tile" id="travelSpeedBox"><span>Schweißgeschwindigkeit</span><strong id="travelSpeed">–</strong></div>
+          <div class="tile" id="heatInputBox"><span>Wärmeeintrag</span><strong id="heatInput">–</strong></div>
         </div>
 
         <div id="outputVisuals" class="visual-grid"></div>
@@ -79,23 +141,52 @@
     </section>
 
     <section id="screen-diagnostics" class="screen">
-      <article class="card">
-        <h2>Fehlerdiagnose</h2>
-        <table>
-          <tr><th>Fehlerbild</th><th>Wahrscheinliche Ursache</th><th>Maßnahme</th></tr>
-          <tr><td>Naht liegt oben auf</td><td>zu wenig Energie, zu schnell, Stickout zu lang</td><td>Slider nach links, langsamer führen, Abstand prüfen</td></tr>
-          <tr><td>Durchbrand</td><td>zu viel Energie, Spalt zu groß, zu langsam</td><td>Slider nach rechts, schneller führen, punktweise arbeiten</td></tr>
-          <tr><td>Viele Spritzer</td><td>Spannung, Polarität, Gas oder Abstand unpassend</td><td>Polarität, Gasfluss und Brennerabstand prüfen</td></tr>
-          <tr><td>Poren</td><td>Rost, Fett, Lack, Wind oder Gasproblem</td><td>Reinigen, Gasfluss prüfen, Windschutz herstellen</td></tr>
-        </table>
+      <article class="card diagnostics-card">
+        <div class="diagnostics-header">
+          <div>
+            <p class="eyebrow">CTM-250 Puls Pro</p>
+            <h2>Fehlerdiagnose</h2>
+            <p class="lead">Fehlerbilder aus der Bedienungsanleitung, strukturiert nach Verfahren.</p>
+          </div>
+          <span id="diagnosticCount" class="diagnostic-count">–</span>
+        </div>
+
+        <div class="diagnostic-controls">
+          <label>Verfahren
+            <select id="diagnosticCategory"></select>
+          </label>
+          <label>Fehler suchen
+            <input id="diagnosticSearch" type="search" placeholder="z. B. porig, Zündung, Draht, Schnitt">
+          </label>
+        </div>
+
+        <div id="diagnosticList" class="diagnostic-list"></div>
+        <div id="diagnosticSource" class="diagnostic-source"></div>
       </article>
     </section>
 
     <section id="screen-data" class="screen">
       <article class="card"><h2>Version</h2><div id="versionDetails">Version wird geladen …</div></article>
-      <article class="card"><h2>Datenstatus</h2><p>Version 1.0.0 nutzt bewusst konservative Startwerte. Herstellerdatenbanken folgen in späteren Versionen.</p></article>
+      <article class="card"><h2>Datenstatus</h2><p>Build C13 ergänzt die Fehlerdiagnose um die strukturierten FAQ- und Troubleshooting-Daten des STAHLWERK CTM-250 Puls Pro. Die Hinweise ersetzen weder die Bedienungsanleitung noch eine fachkundige Prüfung.</p></article>
     </section>
   </main>
+
+  <footer class="app-footer wrap" aria-label="Versionsinformation">
+    <button id="footerVersionBtn" class="version-badge" type="button" aria-haspopup="dialog">
+      <span id="footerAppName">SchweißPilot</span>
+      <span>v<span data-version>–</span></span>
+      <span id="footerBuild">Build –</span>
+      <span id="footerStatus">–</span>
+    </button>
+  </footer>
+
+  <dialog id="appInfoDialog" class="info-dialog" aria-labelledby="appInfoTitle">
+    <div class="info-dialog-header">
+      <h2 id="appInfoTitle">SchweißPilot</h2>
+      <button id="appInfoClose" class="ghost" type="button" aria-label="Info schließen">×</button>
+    </div>
+    <div id="appInfoContent" class="info-dialog-content">Versionsinformationen werden geladen …</div>
+  </dialog>
 
   <nav class="tabs" aria-label="Hauptnavigation">
     <button class="tab active" data-target="calculator" type="button">Rechner</button>
@@ -104,6 +195,7 @@
     <button class="tab" data-target="data" type="button">Daten</button>
   </nav>
 
+  <div id="helpTooltip" class="help-tooltip hidden" role="status" aria-live="polite"></div>
   <script type="module" src="js/main.js"></script>
 </body>
 </html>

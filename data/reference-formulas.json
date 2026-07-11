@@ -1,0 +1,65 @@
+{
+  "build": "C09",
+  "status": "development-calibrated",
+  "warning": "Startwerte für Probebleche. Herstellerangaben, WPS, Gerätehandbuch und Arbeitsschutz haben Vorrang.",
+  "engine": {
+    "sequence": [
+      "Verfahrensabhängigen Grundstrom aus Materialstärke berechnen",
+      "Materialsonderfall anwenden, insbesondere Aluminium",
+      "Naht-, Positions- und Materialformfaktor anwenden",
+      "Passenden Herstellerbereich als Kalibrierkorridor verwenden",
+      "Feinkorrektur und Naht-Rückmeldung anwenden",
+      "Spannung, Drahtvorschub, Schweißgeschwindigkeit und Wärmeeintrag berechnen",
+      "Ergebnis gegen Herstellerdaten vergleichen"
+    ],
+    "heatInput": "Q [kJ/mm] = (U × I × 60) / (1000 × v [mm/min])"
+  },
+  "formulas": [
+    {
+      "id": "mag",
+      "process": "MAG Stahl",
+      "current": "I = Materialstärke × 40",
+      "voltage": "U = 14 + I/25",
+      "travelSpeed": "v = 300 − Materialstärke × 20"
+    },
+    {
+      "id": "mig",
+      "process": "MIG Aluminium",
+      "current": "I = Materialstärke × 40 × 1,30",
+      "voltage": "U = 14 + I/25",
+      "travelSpeed": "v = 300 − Materialstärke × 20"
+    },
+    {
+      "id": "tig",
+      "process": "WIG",
+      "current": "I = Materialstärke × 30; Aluminium × 1,30",
+      "voltage": "U = 10 + I/40",
+      "travelSpeed": "v = 150 − Materialstärke × 10"
+    },
+    {
+      "id": "mma",
+      "process": "MMA / E-Hand",
+      "current": "I = Mittelwert des Strombereichs der gewählten Elektrode",
+      "voltage": "U = 20 + I/50",
+      "travelSpeed": "v = aus dem empfohlenen Materialbereich der Elektrode abgeleiteter Orientierungswert",
+      "note": "Elektrodendurchmesser ist die primäre Eingabe; Materialstärke wird als empfohlener Bereich ausgegeben."
+    },
+    {
+      "id": "fcaw",
+      "process": "Fülldraht",
+      "current": "I = Materialstärke × 38",
+      "voltage": "U = 22 + I/30",
+      "travelSpeed": "v = 250 − Materialstärke × 18"
+    },
+    {
+      "id": "plasma",
+      "process": "Plasma",
+      "current": "I = Materialstärke × 7",
+      "note": "Gerätelimit folgt in C11."
+    }
+  ],
+  "sources": [
+    "Whiz.tools Welding Calculator als Vergleichsquelle für Formelstruktur",
+    "STAHLWERK CTM-250 Puls Pro Handbuchwerte als Hersteller-Kalibrierbereiche"
+  ]
+}

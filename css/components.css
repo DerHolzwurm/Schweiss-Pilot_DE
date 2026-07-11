@@ -30,3 +30,146 @@
 /* v1.0.0 UI-Fix 3: Einheiten klein, Werte groß; Slider wirkt stufenlos */
 .start-value span{font-size:clamp(.72rem,1.8vw,.95rem);font-weight:700;opacity:.82;text-transform:none}
 .start-value strong{font-size:clamp(2.6rem,7vw,5rem);font-weight:900}
+
+/* v1.0.1 Commit 1: Startwerte zuerst, Referenzwerte und danach Naht-Rückmeldung */
+.reference-grid{margin-top:0;margin-bottom:16px}
+.reference-grid .tile strong{font-size:1.2rem}
+.feedback-panel{margin-top:0;margin-bottom:16px;background:rgba(255,255,255,.025)}
+.feedback-panel h3{margin-top:0}
+
+/* v1.0.1 Commit 2: Version metadata footer and info dialog */
+.header-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.app-footer{padding-top:0;padding-bottom:96px}
+.version-badge{width:100%;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.03);color:var(--muted);padding:12px 14px;display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;cursor:pointer}
+.version-badge span{white-space:nowrap}
+.version-badge span:first-child{color:var(--text);font-weight:800}
+.version-badge:hover{border-color:var(--accent);color:var(--text)}
+.info-dialog{max-width:520px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:20px;background:var(--panel);color:var(--text);padding:0;box-shadow:0 24px 80px rgba(0,0,0,.55)}
+.info-dialog::backdrop{background:rgba(2,6,23,.72);backdrop-filter:blur(6px)}
+.info-dialog-header{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:16px 18px}
+.info-dialog-header h2{margin:0}
+.info-dialog-content{padding:18px}
+.info-grid{display:grid;grid-template-columns:auto 1fr;gap:10px 16px;margin:0}
+.info-grid dt{color:var(--muted);font-weight:700}
+.info-grid dd{margin:0;color:var(--text);font-weight:800;word-break:break-word}
+.status-pill{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:.85rem;font-weight:800}
+.status-pill.development{border-color:var(--warn);color:var(--warn);background:rgba(245,158,11,.08)}
+.status-pill.release{border-color:var(--good);color:var(--good);background:rgba(34,197,94,.08)}
+@media (max-width:720px){.app-header{align-items:stretch}.header-actions{justify-content:flex-start}.header-actions .ghost{flex:1}.info-grid{grid-template-columns:1fr}.info-grid dt{margin-top:6px}}
+
+/* v1.0.1 Commit 3: modular weld illustrations */
+.visual-guideline{grid-column:1/-1;border:1px solid var(--line);border-radius:16px;padding:10px 12px;background:rgba(255,255,255,.025)}
+.visual-legend{display:flex;gap:10px;flex-wrap:wrap;margin:0;color:var(--muted)}
+.visual-legend span{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.visual-legend span::before{content:"";width:11px;height:11px;border-radius:999px;display:inline-block;background:var(--line)}
+.legend-metal::before{background:#64748b!important}.legend-weld::before{background:#38bdf8!important}.legend-torch::before{background:#fbbf24!important}.legend-arc::before{background:#f8fafc!important;border:1px solid rgba(148,163,184,.8)}.legend-arrow::before{background:#34d399!important}
+.arc{fill:#f8fafc;stroke:#38bdf8;stroke-width:1.4;filter:drop-shadow(0 0 4px rgba(248,250,252,.55))}
+.metal-line{stroke:#64748b;stroke-width:6;stroke-linejoin:round}
+.arrow{stroke:#34d399;stroke-width:2.8;stroke-linecap:round;fill:none}
+.arrow-head{fill:#34d399;stroke:none}
+.layer-line{stroke:#0ea5e9;stroke-width:2;fill:none;stroke-linecap:round;opacity:.9}
+.torch{stroke:#fbbf24;stroke-width:5.5;stroke-linecap:round;fill:none}
+.weld{stroke:#38bdf8;stroke-width:6;stroke-linecap:round;stroke-linejoin:round;fill:none}
+@media (max-width:720px){.visual-grid{grid-template-columns:1fr}.visual-legend{font-size:.82rem}}
+
+.weld-fill{fill:#38bdf8;stroke:#38bdf8;stroke-width:2;stroke-linejoin:round}
+
+
+/* v1.0.1 Commit 5: contextual help buttons and tooltips */
+.help-btn{display:none;align-items:center;justify-content:center;width:22px;height:22px;margin-left:6px;border:1px solid var(--line);border-radius:999px;background:rgba(56,189,248,.10);color:var(--accent);font-weight:900;font-size:.78rem;line-height:1;cursor:pointer;vertical-align:middle}
+.help-enabled .help-btn{display:inline-flex}
+#helpToggle[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,.14)}
+.help-btn:hover,.help-btn:focus{border-color:var(--accent);background:rgba(56,189,248,.18);outline:none}
+.help-btn[aria-expanded="true"]{border-color:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,.16)}
+.action-help{margin-left:0;align-self:center}
+.help-tooltip{position:absolute;z-index:50;max-width:300px;border:1px solid var(--line);border-radius:14px;background:var(--panel);color:var(--text);padding:12px 14px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.help-tooltip strong{display:block;margin-bottom:5px;color:var(--text)}
+.help-tooltip p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.35}
+.actions{align-items:center;flex-wrap:wrap}
+@media (max-width:720px){.help-tooltip{left:12px!important;right:12px;max-width:none}.action-help{width:28px;height:28px}}
+
+/* v1.0.1 Commit 8: calculated values compared with manufacturer ranges */
+.manufacturer-compare{border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 16px;background:rgba(34,197,94,.055)}
+.compare-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.compare-header h3{margin:0 0 4px}
+.compare-header .small{margin:0;color:var(--muted)}
+.compare-badge{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:.82rem;font-weight:900;color:var(--text);background:rgba(255,255,255,.04);white-space:nowrap}
+.compare-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.compare-item{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.035)}
+.compare-item span{display:block;color:var(--muted);font-size:.86rem;font-weight:700}
+.compare-item strong{display:block;margin-top:5px;font-size:1.4rem;line-height:1.1}
+.compare-item small{display:block;margin-top:4px;color:var(--muted)}
+.compare-item em{display:inline-flex;margin-top:8px;border-radius:999px;padding:4px 8px;font-style:normal;font-size:.78rem;font-weight:900;border:1px solid var(--line)}
+.compare-state.match{color:var(--good);border-color:var(--good);background:rgba(34,197,94,.10)}
+.compare-state.below,.compare-state.above{color:var(--warn);border-color:var(--warn);background:rgba(245,158,11,.10)}
+.compare-state.missing{color:var(--muted);background:rgba(148,163,184,.08)}
+.compare-notes{margin:12px 0 0;color:var(--muted)}
+.compare-missing{background:rgba(148,163,184,.05)}
+@media (max-width:720px){.compare-header{display:block}.compare-badge{margin-top:8px}.compare-grid{grid-template-columns:1fr}}
+
+
+/* v1.0.1 Commit 10.5: MMA electrode-first workflow */
+.recommended-material{border-color:var(--accent);background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(34,197,94,.10));box-shadow:inset 0 0 0 1px rgba(56,189,248,.10)}
+.recommended-material span{color:var(--accent);font-weight:800}
+.recommended-material strong{color:var(--good);font-size:1.35rem}
+
+
+/* v1.0.1 Commit 11: device output limits and warnings */
+.device-limit{border:1px solid var(--warn);border-radius:18px;padding:16px;margin:0 0 16px;background:rgba(245,158,11,.10)}
+.device-limit.danger{border-color:var(--bad);background:rgba(239,68,68,.11)}
+.device-limit-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.device-limit-header h3{margin:0 0 4px}.device-limit-header .small{margin:0;color:var(--muted)}
+.device-limit-badge{display:inline-flex;align-items:center;border:1px solid currentColor;border-radius:999px;padding:6px 10px;color:var(--warn);font-size:.78rem;font-weight:900;white-space:nowrap}
+.device-limit.danger .device-limit-badge{color:var(--bad)}
+.device-limit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.device-limit-grid>div{border:1px solid var(--line);border-radius:14px;padding:11px;background:rgba(255,255,255,.035)}
+.device-limit-grid span{display:block;color:var(--muted);font-size:.82rem;font-weight:700}
+.device-limit-grid strong{display:block;margin-top:4px;font-size:1.25rem}
+.device-limit>p{margin:12px 0 0;line-height:1.45}
+@media (max-width:720px){.device-limit-header{display:block}.device-limit-badge{margin-top:8px}.device-limit-grid{grid-template-columns:1fr}}
+
+/* v1.0.1 C12: optionale Herstellerauswahl und Vergleichsanzeige */
+.manufacturer-controls{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(220px,.85fr);gap:12px;margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.025)}
+.manufacturer-toggle{display:flex;align-items:center;gap:12px;cursor:pointer}
+.manufacturer-toggle input{width:20px;height:20px;accent-color:var(--accent);flex:0 0 auto}
+.manufacturer-toggle span{display:block}
+.manufacturer-toggle strong,.manufacturer-toggle small{display:block}
+.manufacturer-toggle small{margin-top:3px;color:var(--muted);line-height:1.35}
+.manufacturer-controls>label:last-child{margin:0}
+.manufacturer-controls.is-disabled #manufacturerSelectBox{opacity:.55}
+.manufacturer-controls.is-disabled #manufacturerSelect{pointer-events:none}
+@media (max-width:720px){.manufacturer-controls{grid-template-columns:1fr}}
+
+/* v1.0.1 Commit 13: CTM-250 troubleshooting */
+.diagnostics-card{overflow:hidden}
+.diagnostics-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.diagnostics-header h2{margin:0 0 6px}
+.diagnostics-header .lead{margin:0;color:var(--muted)}
+.diagnostic-count{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.04);font-weight:800;white-space:nowrap}
+.diagnostic-controls{display:grid;grid-template-columns:minmax(180px,.7fr) minmax(240px,1.3fr);gap:12px;margin:18px 0}
+.diagnostic-list{display:grid;gap:14px}
+.diagnostic-item{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:16px;background:rgba(255,255,255,.025)}
+.diagnostic-item.warning{border-left-color:var(--warn)}
+.diagnostic-item.danger{border-left-color:var(--bad);background:rgba(239,68,68,.045)}
+.diagnostic-item-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.diagnostic-item-header h3{margin:7px 0 0}
+.diagnostic-tags{display:flex;gap:6px;flex-wrap:wrap}
+.diagnostic-tags span{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--muted);font-size:.75rem;font-weight:800}
+.diagnostic-priority{display:inline-flex;border:1px solid currentColor;border-radius:999px;padding:5px 9px;color:var(--accent);font-size:.75rem;font-weight:900;white-space:nowrap}
+.diagnostic-item.warning .diagnostic-priority{color:var(--warn)}
+.diagnostic-item.danger .diagnostic-priority{color:var(--bad)}
+.diagnostic-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.diagnostic-columns section{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.025)}
+.diagnostic-columns h4{margin:0 0 8px}
+.diagnostic-columns ul,.diagnostic-columns ol{margin:0;padding-left:20px}
+.diagnostic-columns li+li{margin-top:6px}
+.diagnostic-item footer{margin-top:12px;color:var(--muted);font-size:.82rem}
+.diagnostic-source{margin-top:18px;border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--muted);background:rgba(56,189,248,.05)}
+.diagnostic-source strong{color:var(--text)}
+.diagnostic-source span{display:inline-block;margin-top:5px}
+@media (max-width:720px){
+  .diagnostics-header,.diagnostic-item-header{display:block}
+  .diagnostic-count,.diagnostic-priority{margin-top:10px}
+  .diagnostic-controls,.diagnostic-columns{grid-template-columns:1fr}
+}
+

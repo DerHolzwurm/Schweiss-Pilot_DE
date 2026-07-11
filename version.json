@@ -1,7 +1,8 @@
 {
   "name": "SchweißPilot",
-  "version": "1.0.0",
-  "codename": "Foundation",
-  "released": "2026-07-09",
-  "branch": "feature/core-v1.0.0"
+  "version": "1.0.1",
+  "build": "C15",
+  "branch": "Entwicklung-V1.0.1",
+  "status": "Release Candidate",
+  "release": false
 }

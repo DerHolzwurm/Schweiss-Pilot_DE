@@ -39,11 +39,12 @@ function renderDeviceLimit(deviceLimit) {
   setText('deviceLimitText', deviceLimit.action);
 }
 
-function renderManufacturerComparison(comparison, isCut) {
+function renderManufacturerComparison(comparison, isCut, enabled = true) {
   const panel = document.getElementById('manufacturerComparePanel');
   if (!panel) return;
 
-  panel.classList.remove('hidden');
+  panel.classList.toggle('hidden', !enabled);
+  if (!enabled) return;
 
   if (!comparison?.available) {
     panel.classList.add('compare-missing');
@@ -116,7 +117,7 @@ export function renderResult(result, reference = result) {
   document.getElementById('faseAlert').className = `notice ${result.fase.level || 'info'}`;
 
   renderDeviceLimit(result.deviceLimit);
-  renderManufacturerComparison(result.manufacturerComparison, isCut);
+  renderManufacturerComparison(result.manufacturerComparison, isCut, result.manufacturerComparisonEnabled);
 
   if (isCut) {
     document.getElementById('outputVisuals').innerHTML = '<section class="visual-guideline"><strong>Plasma-Workflow aktiv</strong><p>Nahtart, Position, Materialform, Draht und Nahtkorrektur sind ausgeblendet. Relevant bleiben Material, Materialstärke und Schneidstrom.</p></section>';

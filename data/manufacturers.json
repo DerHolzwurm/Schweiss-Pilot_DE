@@ -1,7 +1,7 @@
 {
-  "schemaVersion": 2,
-  "status": "development-manual-seed",
-  "notes": "Herstellerdatenbank fuer C11. Das STAHLWERK CTM-250 Puls Pro ist als aktives Geraeteprofil gesetzt; Ausgangsstromgrenzen werden im Rechner angewendet und bei Ueber- oder Unterschreitung transparent angezeigt.",
+  "schemaVersion": 3,
+  "status": "development-manufacturer-selection",
+  "notes": "Hersteller- und Referenzdaten für C12. Vergleichsdaten können im Rechner nach Hersteller gefiltert oder vollständig ausgeblendet werden. Das aktive Geräteprofil für Gerätelimits bleibt davon unabhängig.",
   "manufacturers": [
     {
       "id": "fronius",

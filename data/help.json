@@ -47,5 +47,9 @@
   "electrode": {
     "title": "Elektrodendurchmesser",
     "text": "Bei MMA/E-Hand ist der Elektrodendurchmesser die primäre Eingabe. Daraus werden Strombereich und empfohlene Materialstärke abgeleitet. Elektrodenverpackung und Elektrodentyp haben Vorrang."
+  },
+  "manufacturerSelection": {
+    "title": "Herstellervergleich",
+    "text": "Blendet Hersteller- und Referenzbereiche im Ergebnis ein oder aus. Die Auswahl filtert nur die Vergleichsanzeige; die fachliche Grundberechnung und das aktive Gerätelimit bleiben unverändert."
   }
 }

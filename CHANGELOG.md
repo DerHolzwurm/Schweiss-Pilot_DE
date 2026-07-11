@@ -1,3 +1,10 @@
+## Build C12
+
+- Herstellervergleich im Rechner optional ein- und ausblendbar.
+- Vergleichsdaten können nach verfügbarem Hersteller gefiltert werden.
+- Auswahl wird lokal gespeichert und beeinflusst weder Grundberechnung noch aktives Gerätelimit.
+- Datenbank-Metadaten und Service-Worker-Cache auf C12 aktualisiert.
+
 ## Build C11
 
 - Gerätelimits des STAHLWERK CTM-250 Puls Pro für MIG/MAG, Fülldraht, WIG, MMA und Plasma aktiviert.

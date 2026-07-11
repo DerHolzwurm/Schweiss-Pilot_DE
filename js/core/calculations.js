@@ -133,12 +133,21 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const isCut = process.type === 'cut';
   const formulaCurrent = getFormulaCurrent(process, material, thickness, electrodeData);
   const manufacturerInput = process.id === 'mma' ? { ...input, thickness } : input;
-  const manufacturerReferences = findManufacturerReferences(manufacturerInput, data);
-  const primaryManufacturerReference = selectPrimaryReference(manufacturerReferences, { amps: formulaCurrent });
+  const allManufacturerReferences = findManufacturerReferences(manufacturerInput, data);
+  const manufacturerComparisonEnabled = input.manufacturerComparison !== false;
+  const selectedManufacturerId = input.manufacturerId || 'all';
+  const manufacturerReferences = manufacturerComparisonEnabled
+    ? findManufacturerReferences(manufacturerInput, data, selectedManufacturerId)
+    : [];
+  const primaryManufacturerReference = selectPrimaryReference(allManufacturerReferences, { amps: formulaCurrent });
 
-  const manufacturerSummary = manufacturerReferences.length
-    ? `${manufacturerReferences.length} Hersteller-/Referenzdatensatz gefunden: ${[...new Set(manufacturerReferences.map(entry => getManufacturerName(data, entry.manufacturerId)))].join(', ')}`
-    : 'Kein passender Herstellerdatensatz im aktuellen Datenstand.';
+  const manufacturerSummary = !manufacturerComparisonEnabled
+    ? 'Herstellervergleich ist ausgeblendet.'
+    : manufacturerReferences.length
+      ? `${manufacturerReferences.length} Vergleichsdatensatz gefunden: ${[...new Set(manufacturerReferences.map(entry => getManufacturerName(data, entry.manufacturerId)))].join(', ')}`
+      : selectedManufacturerId === 'all'
+        ? 'Kein passender Herstellerdatensatz im aktuellen Datenstand.'
+        : `Für den gewählten Hersteller liegt für diese Kombination kein passender Datensatz vor.`;
 
   const theoreticalCurrent = formulaCurrent;
   const geometryFactor = joint.factor * position.factor * shape.factor;
@@ -184,7 +193,9 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const wfs = calculateWireFeed(process, amps, wire);
   const travelSpeed = calculateTravelSpeed(process, thickness);
   const heatInput = calculateHeatInput(volt, amps, travelSpeed);
-  const manufacturerComparison = buildManufacturerComparison({ amps, volt, wfs, processType: process.type }, manufacturerReferences, data);
+  const manufacturerComparison = manufacturerComparisonEnabled
+    ? buildManufacturerComparison({ amps, volt, wfs, processType: process.type }, manufacturerReferences, data)
+    : { available: false, disabled: true, note: 'Herstellervergleich ist deaktiviert.' };
 
   let fase = thickness < 4
     ? { visual: 'none', level: 'info', text: 'Keine Fase nötig, Kanten sauber vorbereiten.' }
@@ -226,6 +237,9 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     currentRangeLabel: makeRangeLabel(currentRange.min, currentRange.max),
     formulaReference: process.reference || null,
     manufacturerReferences,
+    allManufacturerReferences,
+    selectedManufacturerId,
+    manufacturerComparisonEnabled,
     primaryManufacturerReference,
     manufacturerSummary,
     manufacturerComparison,

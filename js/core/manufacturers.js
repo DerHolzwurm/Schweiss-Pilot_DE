@@ -14,17 +14,35 @@ function electrodeMatches(inputElectrode, referenceElectrode) {
   return Math.abs(Number(inputElectrode || 0) - Number(referenceElectrode)) < 0.05;
 }
 
-export function findManufacturerReferences(input, data) {
+export function findManufacturerReferences(input, data, manufacturerId = 'all') {
   const db = data?.manufacturerDatabase;
   if (!db?.parameterSets) return [];
 
   return db.parameterSets.filter(entry => (
+    (manufacturerId === 'all' || !manufacturerId || entry.manufacturerId === manufacturerId) &&
     entry.process === input.process &&
     entry.material === input.material &&
     within(input.thickness, entry.thicknessMinMm, entry.thicknessMaxMm) &&
     wireMatches(input.wire, entry.wireMm) &&
     electrodeMatches(input.electrode, entry.electrodeDiameterMm)
   ));
+}
+
+export function listManufacturersWithData(data) {
+  const db = data?.manufacturerDatabase;
+  if (!db?.parameterSets?.length) return [];
+  const counts = db.parameterSets.reduce((map, entry) => {
+    map.set(entry.manufacturerId, (map.get(entry.manufacturerId) || 0) + 1);
+    return map;
+  }, new Map());
+
+  return (db.manufacturers || [])
+    .filter(item => counts.has(item.id))
+    .map(item => ({
+      id: item.id,
+      label: `${item.name} (${counts.get(item.id)})`
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label, 'de'));
 }
 
 export function getManufacturerName(data, manufacturerId) {

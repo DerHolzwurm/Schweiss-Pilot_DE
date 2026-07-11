@@ -1,6 +1,8 @@
 import { calculateWelding, findFeedback } from '../core/calculations.js';
 import { renderResult } from '../ui/results.js';
 import { initFeedbackSlider } from '../ui/slider.js';
+import { storage } from '../core/storage.js';
+import { listManufacturersWithData } from '../core/manufacturers.js';
 
 let state = { data: null, corrections: null, lastInput: null, feedbackTrim: 0 };
 
@@ -29,8 +31,22 @@ function readInput() {
     joint: document.getElementById('joint').value,
     position: document.getElementById('position').value,
     shape: document.getElementById('shape').value,
-    trim: Number(document.getElementById('trim').value || 0)
+    trim: Number(document.getElementById('trim').value || 0),
+    manufacturerComparison: document.getElementById('manufacturerCompareToggle')?.checked !== false,
+    manufacturerId: document.getElementById('manufacturerSelect')?.value || 'all'
   };
+}
+
+function updateManufacturerControls() {
+  const toggle = document.getElementById('manufacturerCompareToggle');
+  const select = document.getElementById('manufacturerSelect');
+  const controls = toggle?.closest('.manufacturer-controls');
+  const enabled = toggle?.checked !== false;
+
+  if (select) select.disabled = !enabled;
+  controls?.classList.toggle('is-disabled', !enabled);
+  storage.set('schweisspilot.manufacturerComparison', enabled);
+  if (select) storage.set('schweisspilot.manufacturerId', select.value || 'all');
 }
 
 function renderCalculation() {
@@ -77,6 +93,17 @@ export function initWelding(data, corrections) {
   fillSelect('joint', data.joints, 'kehl');
   fillSelect('position', data.positions, 'pa');
   fillSelect('shape', data.shapes, 'vierkant');
+
+  const manufacturers = [
+    { id: 'all', label: 'Alle verfügbaren Hersteller' },
+    ...listManufacturersWithData(data)
+  ];
+  fillSelect('manufacturerSelect', manufacturers, storage.get('schweisspilot.manufacturerId', 'all'));
+  if (!manufacturers.some(item => String(item.id) === document.getElementById('manufacturerSelect').value)) {
+    document.getElementById('manufacturerSelect').value = 'all';
+  }
+  document.getElementById('manufacturerCompareToggle').checked = storage.get('schweisspilot.manufacturerComparison', true);
+  updateManufacturerControls();
   updateProcessVisibility();
 
   document.getElementById('calculateBtn').addEventListener('click', renderCalculation);
@@ -86,6 +113,15 @@ export function initWelding(data, corrections) {
       updateProcessVisibility();
       if (!document.getElementById('resultCard').classList.contains('hidden')) renderCalculation();
     });
+  });
+
+  document.getElementById('manufacturerCompareToggle').addEventListener('change', () => {
+    updateManufacturerControls();
+    if (!document.getElementById('resultCard').classList.contains('hidden')) renderCalculation();
+  });
+  document.getElementById('manufacturerSelect').addEventListener('change', () => {
+    updateManufacturerControls();
+    if (!document.getElementById('resultCard').classList.contains('hidden')) renderCalculation();
   });
 
   initFeedbackSlider((value) => {

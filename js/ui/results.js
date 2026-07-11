@@ -21,6 +21,24 @@ function setCompareItem(prefix, item) {
   if (statusEl) statusEl.className = `compare-state ${item?.state || 'missing'}`;
 }
 
+function renderDeviceLimit(deviceLimit) {
+  const panel = document.getElementById('deviceLimitPanel');
+  if (!panel) return;
+
+  const visible = Boolean(deviceLimit?.limited);
+  panel.classList.toggle('hidden', !visible);
+  if (!visible) return;
+
+  panel.className = `device-limit ${deviceLimit.state === 'above' ? 'danger' : 'warn'}`;
+  setText('deviceLimitTitle', deviceLimit.state === 'above' ? 'Geräteleistung nicht ausreichend' : 'Mindeststrom des Geräts erreicht');
+  setText('deviceLimitDevice', deviceLimit.deviceName || 'Aktives Gerät');
+  setText('deviceLimitBadge', deviceLimit.state === 'above' ? 'ÜBER LIMIT' : 'UNTER LIMIT');
+  setText('deviceLimitRequested', fmt(deviceLimit.requestedA, 'A', 0));
+  setText('deviceLimitOutput', fmt(deviceLimit.outputA, 'A', 0));
+  setText('deviceLimitRange', `${Number(deviceLimit.minA).toFixed(0)}–${Number(deviceLimit.maxA).toFixed(0)} A`);
+  setText('deviceLimitText', deviceLimit.action);
+}
+
 function renderManufacturerComparison(comparison, isCut) {
   const panel = document.getElementById('manufacturerComparePanel');
   if (!panel) return;
@@ -97,6 +115,7 @@ export function renderResult(result, reference = result) {
   document.getElementById('faseAlert').textContent = isCut ? 'Plasmaschnitt: Probeschnitt durchführen, Luftdruck prüfen und Schnittkante beurteilen.' : result.fase.text;
   document.getElementById('faseAlert').className = `notice ${result.fase.level || 'info'}`;
 
+  renderDeviceLimit(result.deviceLimit);
   renderManufacturerComparison(result.manufacturerComparison, isCut);
 
   if (isCut) {

@@ -1,4 +1,4 @@
-import { buildManufacturerComparison, findManufacturerReferences, getManufacturerName, selectPrimaryReference } from './manufacturers.js';
+import { buildManufacturerComparison, findManufacturerReferences, getDeviceCurrentLimits, getManufacturerName, selectPrimaryReference } from './manufacturers.js';
 
 const round = (value, digits = 0) => Number(value).toFixed(digits);
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -151,7 +151,34 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
 
   // Hersteller-Handbuchbereiche bilden bei passendem Datensatz den Kalibrierkorridor.
   const calibratedBaseCurrent = clamp(uncalibratedCurrent, currentRange.min, currentRange.max);
-  const amps = clamp(calibratedBaseCurrent * adjustment, currentRange.min * 0.85, currentRange.max * 1.15);
+  const requestedAmps = clamp(calibratedBaseCurrent * adjustment, currentRange.min * 0.85, currentRange.max * 1.15);
+  const deviceCurrentLimits = getDeviceCurrentLimits(process.id, data);
+  const amps = deviceCurrentLimits
+    ? clamp(requestedAmps, deviceCurrentLimits.minA, deviceCurrentLimits.maxA)
+    : requestedAmps;
+
+  let deviceLimit = null;
+  if (deviceCurrentLimits) {
+    const state = requestedAmps > deviceCurrentLimits.maxA
+      ? 'above'
+      : requestedAmps < deviceCurrentLimits.minA
+        ? 'below'
+        : 'within';
+    const action = state === 'above'
+      ? `Der berechnete Bedarf von ${round(requestedAmps)} A überschreitet die maximale Ausgangsleistung. Die Ausgabe wurde auf ${round(deviceCurrentLimits.maxA)} A begrenzt.`
+      : state === 'below'
+        ? `Der berechnete Bedarf von ${round(requestedAmps)} A liegt unter dem einstellbaren Mindeststrom. Die Ausgabe wurde auf ${round(deviceCurrentLimits.minA)} A angehoben.`
+        : `Der berechnete Strom liegt innerhalb des Gerätebereichs.`;
+    deviceLimit = {
+      ...deviceCurrentLimits,
+      state,
+      requestedA: requestedAmps,
+      outputA: amps,
+      limited: state !== 'within',
+      action
+    };
+  }
+
   const volt = calculateArcVoltage(process, amps);
   const wire = Number(input.wire || 0.9);
   const wfs = calculateWireFeed(process, amps, wire);
@@ -189,6 +216,8 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     electrodeRange: process.id === 'mma' && electrodeData ? `${electrodeData.currentMinA}–${electrodeData.currentMaxA} A` : null,
     recommendedMaterialThickness,
     amps,
+    requestedAmps,
+    deviceLimit,
     volt,
     wfs,
     travelSpeed,
@@ -202,7 +231,9 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     manufacturerComparison,
     polarity: process.polarity,
     gas: process.gas,
-    practice: process.type === 'cut'
+    practice: deviceLimit?.limited
+      ? `${deviceLimit.action} ${process.type === 'cut' ? 'Schnittprobe machen, Luftdruck und Schnittgeschwindigkeit prüfen.' : 'Probenaht durchführen und gegebenenfalls ein leistungsgeeigneteres Gerät verwenden.'}`
+      : process.type === 'cut'
       ? 'Schnittprobe machen, Luftdruck und Schnittgeschwindigkeit prüfen.'
       : process.id === 'mma'
         ? `${electrodeCompatibilityText} Elektrodenverpackung und Polarität beachten.`
@@ -219,7 +250,7 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     shapeId: shape.id,
     shapeLabel: shape.label,
     why: isCut
-      ? `Schneidstrom aus Materialstärke und Verfahrenskennlinie. ${calibrationText} Gerätehandbuch, Probeschnitt und Arbeitsschutz haben Vorrang. ${manufacturerSummary}`
-      : `Eigene Berechnungsengine: ${process.id === 'mma' ? 'Elektrodendurchmesser als primäre Strombasis' : 'verfahrensabhängiger Grundstrom'}, Geometrie- und Positionskorrektur, anschließend Herstellerkalibrierung. ${electrodeCompatibilityText}  ${calibrationText} Aktive Feinkorrektur: ${round(manualTrim + feedbackTrim)} %. ${heatInput !== null ? `Rechnerischer Wärmeeintrag: ${round(heatInput, 2)} kJ/mm bei ${round(travelSpeed)} mm/min.` : ''} ${manufacturerSummary}`
+      ? `Schneidstrom aus Materialstärke und Verfahrenskennlinie. ${deviceLimit?.limited ? deviceLimit.action + ' ' : ''}${calibrationText} Gerätehandbuch, Probeschnitt und Arbeitsschutz haben Vorrang. ${manufacturerSummary}`
+      : `Eigene Berechnungsengine: ${process.id === 'mma' ? 'Elektrodendurchmesser als primäre Strombasis' : 'verfahrensabhängiger Grundstrom'}, Geometrie- und Positionskorrektur, anschließend Herstellerkalibrierung. ${deviceLimit?.limited ? deviceLimit.action + ' ' : ''} ${electrodeCompatibilityText}  ${calibrationText} Aktive Feinkorrektur: ${round(manualTrim + feedbackTrim)} %. ${heatInput !== null ? `Rechnerischer Wärmeeintrag: ${round(heatInput, 2)} kJ/mm bei ${round(travelSpeed)} mm/min.` : ''} ${manufacturerSummary}`
   };
 }

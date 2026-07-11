@@ -110,3 +110,18 @@
 .recommended-material{border-color:var(--accent);background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(34,197,94,.10));box-shadow:inset 0 0 0 1px rgba(56,189,248,.10)}
 .recommended-material span{color:var(--accent);font-weight:800}
 .recommended-material strong{color:var(--good);font-size:1.35rem}
+
+
+/* v1.0.1 Commit 11: device output limits and warnings */
+.device-limit{border:1px solid var(--warn);border-radius:18px;padding:16px;margin:0 0 16px;background:rgba(245,158,11,.10)}
+.device-limit.danger{border-color:var(--bad);background:rgba(239,68,68,.11)}
+.device-limit-header{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.device-limit-header h3{margin:0 0 4px}.device-limit-header .small{margin:0;color:var(--muted)}
+.device-limit-badge{display:inline-flex;align-items:center;border:1px solid currentColor;border-radius:999px;padding:6px 10px;color:var(--warn);font-size:.78rem;font-weight:900;white-space:nowrap}
+.device-limit.danger .device-limit-badge{color:var(--bad)}
+.device-limit-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.device-limit-grid>div{border:1px solid var(--line);border-radius:14px;padding:11px;background:rgba(255,255,255,.035)}
+.device-limit-grid span{display:block;color:var(--muted);font-size:.82rem;font-weight:700}
+.device-limit-grid strong{display:block;margin-top:4px;font-size:1.25rem}
+.device-limit>p{margin:12px 0 0;line-height:1.45}
+@media (max-width:720px){.device-limit-header{display:block}.device-limit-badge{margin-top:8px}.device-limit-grid{grid-template-columns:1fr}}

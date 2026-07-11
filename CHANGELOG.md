@@ -1,3 +1,9 @@
+## Build C11
+
+- Gerätelimits des STAHLWERK CTM-250 Puls Pro für MIG/MAG, Fülldraht, WIG, MMA und Plasma aktiviert.
+- Stromausgabe wird auf den einstellbaren Gerätebereich begrenzt.
+- Transparenter Warnhinweis zeigt berechneten Bedarf, begrenzte Ausgabe und Gerätebereich.
+
 
 ## 1.0.1-C03 - Development
 

@@ -58,6 +58,22 @@
           </div>
         </div>
 
+        <section id="deviceLimitPanel" class="device-limit hidden" aria-live="polite" aria-label="Hinweis zum Gerätelimit">
+          <div class="device-limit-header">
+            <div>
+              <h3 id="deviceLimitTitle">Gerätelimit</h3>
+              <p id="deviceLimitDevice" class="small">–</p>
+            </div>
+            <span id="deviceLimitBadge" class="device-limit-badge">–</span>
+          </div>
+          <div class="device-limit-grid">
+            <div><span>Berechneter Bedarf</span><strong id="deviceLimitRequested">–</strong></div>
+            <div><span>Ausgabe der App</span><strong id="deviceLimitOutput">–</strong></div>
+            <div><span>Gerätebereich</span><strong id="deviceLimitRange">–</strong></div>
+          </div>
+          <p id="deviceLimitText">–</p>
+        </section>
+
         <div class="result-grid reference-grid" aria-label="Referenzwerte ohne Nahtkorrektur">
           <div class="tile"><span id="refAmpLabel">Referenz Strom</span><strong id="refAmp">–</strong></div>
           <div class="tile" id="refVoltBox"><span id="refVoltLabel">Referenz Spannung</span><strong id="refVolt">–</strong></div>

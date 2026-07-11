@@ -128,3 +128,32 @@ export function buildManufacturerComparison(result, references, data) {
     dutyCycle: primary.dutyCycle || null
   };
 }
+
+export function getActiveDeviceProfile(data) {
+  const db = data?.manufacturerDatabase;
+  if (!db?.deviceProfiles?.length) return null;
+  const activeId = db.activeDeviceProfileId;
+  return db.deviceProfiles.find(profile => profile.id === activeId) || db.deviceProfiles[0] || null;
+}
+
+export function getDeviceCurrentLimits(processId, data) {
+  const profile = getActiveDeviceProfile(data);
+  if (!profile?.outputCurrent) return null;
+
+  const key = processId === 'plasma' ? 'cutA'
+    : processId === 'mma' ? 'mmaA'
+      : processId === 'wig_dc' || processId === 'wig_ac' ? 'wigA'
+        : processId === 'mag' || processId === 'mig' || processId === 'fcaw_s' ? 'migA'
+          : null;
+
+  const range = key ? profile.outputCurrent[key] : null;
+  if (!Array.isArray(range) || range.length < 2) return null;
+
+  return {
+    profileId: profile.id,
+    manufacturerId: profile.manufacturerId,
+    deviceName: profile.name,
+    minA: Number(range[0]),
+    maxA: Number(range[1])
+  };
+}

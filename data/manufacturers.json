@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "status": "development-manual-seed",
-  "notes": "Herstellerdatenbank fuer C07.5. STAHLWERK CTM-250 Puls Pro Handbuchwerte wurden als geraetebezogene Richtwerte hinterlegt; sie bleiben Orientierungsdaten und werden in C08 mit berechneten Werten verglichen.",
+  "notes": "Herstellerdatenbank fuer C11. Das STAHLWERK CTM-250 Puls Pro ist als aktives Geraeteprofil gesetzt; Ausgangsstromgrenzen werden im Rechner angewendet und bei Ueber- oder Unterschreitung transparent angezeigt.",
   "manufacturers": [
     {
       "id": "fronius",
@@ -1407,5 +1407,6 @@
         "stahlwerk-ctm250-manual"
       ]
     }
-  ]
+  ],
+  "activeDeviceProfileId": "stahlwerk-ctm-250-puls-pro"
 }

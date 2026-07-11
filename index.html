@@ -141,21 +141,33 @@
     </section>
 
     <section id="screen-diagnostics" class="screen">
-      <article class="card">
-        <h2>Fehlerdiagnose</h2>
-        <table>
-          <tr><th>Fehlerbild</th><th>Wahrscheinliche Ursache</th><th>Maßnahme</th></tr>
-          <tr><td>Naht liegt oben auf</td><td>zu wenig Energie, zu schnell, Stickout zu lang</td><td>Slider nach links, langsamer führen, Abstand prüfen</td></tr>
-          <tr><td>Durchbrand</td><td>zu viel Energie, Spalt zu groß, zu langsam</td><td>Slider nach rechts, schneller führen, punktweise arbeiten</td></tr>
-          <tr><td>Viele Spritzer</td><td>Spannung, Polarität, Gas oder Abstand unpassend</td><td>Polarität, Gasfluss und Brennerabstand prüfen</td></tr>
-          <tr><td>Poren</td><td>Rost, Fett, Lack, Wind oder Gasproblem</td><td>Reinigen, Gasfluss prüfen, Windschutz herstellen</td></tr>
-        </table>
+      <article class="card diagnostics-card">
+        <div class="diagnostics-header">
+          <div>
+            <p class="eyebrow">CTM-250 Puls Pro</p>
+            <h2>Fehlerdiagnose</h2>
+            <p class="lead">Fehlerbilder aus der Bedienungsanleitung, strukturiert nach Verfahren.</p>
+          </div>
+          <span id="diagnosticCount" class="diagnostic-count">–</span>
+        </div>
+
+        <div class="diagnostic-controls">
+          <label>Verfahren
+            <select id="diagnosticCategory"></select>
+          </label>
+          <label>Fehler suchen
+            <input id="diagnosticSearch" type="search" placeholder="z. B. porig, Zündung, Draht, Schnitt">
+          </label>
+        </div>
+
+        <div id="diagnosticList" class="diagnostic-list"></div>
+        <div id="diagnosticSource" class="diagnostic-source"></div>
       </article>
     </section>
 
     <section id="screen-data" class="screen">
       <article class="card"><h2>Version</h2><div id="versionDetails">Version wird geladen …</div></article>
-      <article class="card"><h2>Datenstatus</h2><p>Build C10.5 verwendet bei MMA den Elektrodendurchmesser als alleinige Eingabereferenz und gibt daraus die empfohlene Materialstärke farbig aus. Die Werte sind Orientierung; Herstellerangaben, WPS, Arbeitsschutz und Aufsicht haben Vorrang.</p></article>
+      <article class="card"><h2>Datenstatus</h2><p>Build C13 ergänzt die Fehlerdiagnose um die strukturierten FAQ- und Troubleshooting-Daten des STAHLWERK CTM-250 Puls Pro. Die Hinweise ersetzen weder die Bedienungsanleitung noch eine fachkundige Prüfung.</p></article>
     </section>
   </main>
 

@@ -1,0 +1,282 @@
+{
+  "meta": {
+    "title": "Fehlerdiagnose",
+    "device": "STAHLWERK CTM-250 Puls Pro",
+    "sourceId": "stahlwerk-ctm250-manual-2025",
+    "sourceLabel": "Bedienungsanleitung CTM-250 Puls Pro, FAQ S. 45–47",
+    "note": "Gerät vor Prüf-, Reinigungs- oder Anschlussarbeiten ausschalten und vom Stromnetz trennen. Arbeiten im Geräteinneren gehören in fachkundige Hände."
+  },
+  "categories": [
+    {
+      "id": "all",
+      "label": "Alle Verfahren"
+    },
+    {
+      "id": "general",
+      "label": "Allgemein"
+    },
+    {
+      "id": "mma",
+      "label": "MMA / E-Hand"
+    },
+    {
+      "id": "migmag",
+      "label": "MIG / MAG / FLUX"
+    },
+    {
+      "id": "plasma",
+      "label": "Plasma"
+    }
+  ],
+  "items": [
+    {
+      "id": "general-fuse",
+      "category": "general",
+      "processes": [
+        "mma",
+        "migmag",
+        "plasma"
+      ],
+      "symptom": "Sicherung löst aus",
+      "causes": [
+        "Absicherung oder Charakteristik der Leitung ist ungeeignet.",
+        "Weitere leistungsstarke Verbraucher hängen am selben Stromkreis.",
+        "Geräteeinstellung und Netzbelastung überschreiten die verfügbare Installation."
+      ],
+      "actions": [
+        "Gerät ausschalten und nicht wiederholt einschalten.",
+        "Stromkreis und Absicherung durch eine Elektrofachkraft prüfen lassen.",
+        "Keine weiteren leistungsstarken Verbraucher gleichzeitig am selben Stromkreis betreiben."
+      ],
+      "priority": "danger",
+      "sourcePages": "45–47"
+    },
+    {
+      "id": "mma-ignition",
+      "category": "mma",
+      "processes": [
+        "mma"
+      ],
+      "symptom": "Elektrode zündet schlecht oder klebt fest",
+      "causes": [
+        "Elektrode hat Feuchtigkeit aufgenommen.",
+        "Kabel, Masseverbindung oder Polung sind nicht passend.",
+        "Schweißstrom ist für Elektrodentyp und Durchmesser zu niedrig."
+      ],
+      "actions": [
+        "Trockene, geeignete Elektrode verwenden.",
+        "Masseverbindung, Kabel und die auf der Elektrodenverpackung angegebene Polung prüfen.",
+        "Strom innerhalb des zulässigen Elektrodenbereichs anpassen."
+      ],
+      "priority": "warning",
+      "sourcePages": "45"
+    },
+    {
+      "id": "mma-poor-result",
+      "category": "mma",
+      "processes": [
+        "mma"
+      ],
+      "symptom": "Schweißergebnis bei MMA ist schlecht",
+      "causes": [
+        "Polung passt nicht zur verwendeten Elektrode.",
+        "Elektrodendurchmesser, Strom oder Materialbereich passen nicht zusammen.",
+        "Werkstückoberfläche oder Massekontakt sind unzureichend."
+      ],
+      "actions": [
+        "Herstellerangabe der Elektrode zur Polung beachten.",
+        "Elektrodendurchmesser und Strombereich mit der empfohlenen Materialstärke abgleichen.",
+        "Werkstück und Massekontakt metallisch sauber herstellen."
+      ],
+      "priority": "warning",
+      "sourcePages": "45"
+    },
+    {
+      "id": "mig-wire-stuttering",
+      "category": "migmag",
+      "processes": [
+        "mag",
+        "mig",
+        "fcaw_s"
+      ],
+      "symptom": "Draht kommt stockend aus dem Brenner",
+      "causes": [
+        "Drahtführungsrolle passt nicht zum Drahtdurchmesser oder Drahttyp.",
+        "Anpressdruck ist zu hoch oder zu niedrig.",
+        "Drahtführung, Stromdüse oder Schlauchpaket sind verschmutzt oder verschlissen."
+      ],
+      "actions": [
+        "Passende Drahtführungsrolle und Stromdüse verwenden.",
+        "Anpressdruck schrittweise einstellen, ohne den Draht zu verformen.",
+        "Drahtweg und Verschleißteile bei ausgeschaltetem Gerät prüfen und bei Bedarf ersetzen."
+      ],
+      "priority": "warning",
+      "sourcePages": "45–46"
+    },
+    {
+      "id": "mig-no-gas",
+      "category": "migmag",
+      "processes": [
+        "mag",
+        "mig"
+      ],
+      "symptom": "Beim Betätigen des Brennertasters kommt kein Gas",
+      "causes": [
+        "Falsches Verfahren am Gerät ausgewählt.",
+        "Gasflasche ist leer oder geschlossen.",
+        "Gasweg, Druckminderer oder Anschluss ist unterbrochen."
+      ],
+      "actions": [
+        "MIG/MAG-Verfahren und Gasmodus prüfen.",
+        "Flaschenventil, Füllstand und eingestellten Gasfluss kontrollieren.",
+        "Schläuche und Anschlüsse auf festen Sitz und Beschädigung prüfen."
+      ],
+      "priority": "warning",
+      "sourcePages": "46"
+    },
+    {
+      "id": "mig-no-ignition",
+      "category": "migmag",
+      "processes": [
+        "mag",
+        "mig",
+        "fcaw_s"
+      ],
+      "symptom": "MIG/MAG oder FLUX zündet nicht",
+      "causes": [
+        "Massekontakt oder Anschlussbelegung ist fehlerhaft.",
+        "Polung passt nicht zum Drahttyp.",
+        "Draht erreicht die Stromdüse nicht zuverlässig."
+      ],
+      "actions": [
+        "Masseklemme an blankem, leitfähigem Werkstück befestigen.",
+        "Bei Massivdraht und Fülldraht die jeweils vorgeschriebene Polung prüfen.",
+        "Drahtförderung, Stromdüse und Brenneranschluss kontrollieren."
+      ],
+      "priority": "danger",
+      "sourcePages": "46"
+    },
+    {
+      "id": "mig-porosity",
+      "category": "migmag",
+      "processes": [
+        "mag",
+        "mig",
+        "fcaw_s"
+      ],
+      "symptom": "Naht wird porig",
+      "causes": [
+        "Falsche Polung für den verwendeten Draht.",
+        "Zu wenig, zu viel oder verwirbeltes Schutzgas.",
+        "Werkstück ist verschmutzt oder Zugluft stört die Gasabdeckung."
+      ],
+      "actions": [
+        "Polung entsprechend Drahtdatenblatt prüfen.",
+        "Gasfluss und Dichtheit kontrollieren; Zugluft vermeiden.",
+        "Werkstück von Rost, Fett, Lack und Feuchtigkeit reinigen."
+      ],
+      "priority": "warning",
+      "sourcePages": "46"
+    },
+    {
+      "id": "mig-tip-burnback",
+      "category": "migmag",
+      "processes": [
+        "mag",
+        "mig",
+        "fcaw_s"
+      ],
+      "symptom": "Draht verklebt mit der Stromdüse oder brennt zu schnell ab",
+      "causes": [
+        "Spannung ist im Verhältnis zum Drahtvorschub zu hoch.",
+        "Drahtvorschub ist zu niedrig oder instabil.",
+        "Stromdüse ist verschlissen oder passt nicht zum Draht."
+      ],
+      "actions": [
+        "Spannung beziehungsweise Lichtbogenlängenkorrektur schrittweise reduzieren.",
+        "Drahtvorschub und Förderweg prüfen.",
+        "Passende, unbeschädigte Stromdüse einsetzen."
+      ],
+      "priority": "warning",
+      "sourcePages": "46"
+    },
+    {
+      "id": "flux-wire-09",
+      "category": "migmag",
+      "processes": [
+        "fcaw_s"
+      ],
+      "symptom": "0,9-mm-Fülldraht läuft unruhig",
+      "causes": [
+        "Drahtführungsrolle oder Stromdüse ist nicht passend.",
+        "Anpressdruck ist nicht auf den Draht abgestimmt."
+      ],
+      "actions": [
+        "Für das CTM-250 kann laut Anleitung die 0,8-mm-Führungsrolle mit einer 1,0-mm-Stromdüse verwendet werden.",
+        "Anpressdruck vorsichtig auf gleichmäßigen Drahtlauf einstellen."
+      ],
+      "priority": "info",
+      "sourcePages": "46"
+    },
+    {
+      "id": "plasma-poor-ignition",
+      "category": "plasma",
+      "processes": [
+        "plasma"
+      ],
+      "symptom": "Plasma zündet nicht oder nur schlecht",
+      "causes": [
+        "Düse oder Elektrode sind verschlissen oder sitzen nicht korrekt.",
+        "Druckluft enthält Wasser oder der Wasserabscheider ist nicht richtig montiert.",
+        "Luftdruck oder Massekontakt sind ungeeignet."
+      ],
+      "actions": [
+        "Gerät ausschalten; Düse und Elektrode prüfen und bei Verschleiß ersetzen.",
+        "Kompressor entwässern und Wasserabscheider kontrollieren.",
+        "Arbeitsdruck am CTM-250 auf etwa 3,5–4 bar einstellen und Massekontakt prüfen."
+      ],
+      "priority": "danger",
+      "sourcePages": "47"
+    },
+    {
+      "id": "plasma-stutter",
+      "category": "plasma",
+      "processes": [
+        "plasma"
+      ],
+      "symptom": "Gerät stottert beim Schneiden",
+      "causes": [
+        "Düse oder Elektrode sitzen nicht korrekt.",
+        "Verschleißteile sind beschädigt.",
+        "Druckluftversorgung ist instabil."
+      ],
+      "actions": [
+        "Gerät ausschalten und Sitz der Verschleißteile prüfen.",
+        "Düse und Elektrode bei Bedarf ersetzen.",
+        "Druckluftversorgung, Wasserabscheider und 3,5–4 bar Arbeitsdruck kontrollieren."
+      ],
+      "priority": "warning",
+      "sourcePages": "47"
+    },
+    {
+      "id": "plasma-angled-cut",
+      "category": "plasma",
+      "processes": [
+        "plasma"
+      ],
+      "symptom": "Schnittbild ist schief",
+      "causes": [
+        "Düse oder Elektrode sind verschlissen.",
+        "Brenner wird nicht rechtwinklig zum Werkstück geführt.",
+        "Schnittgeschwindigkeit oder Abstand sind ungeeignet."
+      ],
+      "actions": [
+        "Verschleißteile kontrollieren und bei Bedarf ersetzen.",
+        "Brenner möglichst gerade und mit konstantem Abstand führen.",
+        "Probeschnitt durchführen und Schnittgeschwindigkeit schrittweise anpassen."
+      ],
+      "priority": "warning",
+      "sourcePages": "47"
+    }
+  ]
+}

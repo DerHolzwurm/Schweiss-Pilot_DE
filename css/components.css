@@ -137,3 +137,37 @@
 .manufacturer-controls.is-disabled #manufacturerSelectBox{opacity:.55}
 .manufacturer-controls.is-disabled #manufacturerSelect{pointer-events:none}
 @media (max-width:720px){.manufacturer-controls{grid-template-columns:1fr}}
+
+/* v1.0.1 Commit 13: CTM-250 troubleshooting */
+.diagnostics-card{overflow:hidden}
+.diagnostics-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.diagnostics-header h2{margin:0 0 6px}
+.diagnostics-header .lead{margin:0;color:var(--muted)}
+.diagnostic-count{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.04);font-weight:800;white-space:nowrap}
+.diagnostic-controls{display:grid;grid-template-columns:minmax(180px,.7fr) minmax(240px,1.3fr);gap:12px;margin:18px 0}
+.diagnostic-list{display:grid;gap:14px}
+.diagnostic-item{border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:16px;padding:16px;background:rgba(255,255,255,.025)}
+.diagnostic-item.warning{border-left-color:var(--warn)}
+.diagnostic-item.danger{border-left-color:var(--bad);background:rgba(239,68,68,.045)}
+.diagnostic-item-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}
+.diagnostic-item-header h3{margin:7px 0 0}
+.diagnostic-tags{display:flex;gap:6px;flex-wrap:wrap}
+.diagnostic-tags span{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px 8px;color:var(--muted);font-size:.75rem;font-weight:800}
+.diagnostic-priority{display:inline-flex;border:1px solid currentColor;border-radius:999px;padding:5px 9px;color:var(--accent);font-size:.75rem;font-weight:900;white-space:nowrap}
+.diagnostic-item.warning .diagnostic-priority{color:var(--warn)}
+.diagnostic-item.danger .diagnostic-priority{color:var(--bad)}
+.diagnostic-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.diagnostic-columns section{border:1px solid var(--line);border-radius:14px;padding:12px;background:rgba(255,255,255,.025)}
+.diagnostic-columns h4{margin:0 0 8px}
+.diagnostic-columns ul,.diagnostic-columns ol{margin:0;padding-left:20px}
+.diagnostic-columns li+li{margin-top:6px}
+.diagnostic-item footer{margin-top:12px;color:var(--muted);font-size:.82rem}
+.diagnostic-source{margin-top:18px;border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--muted);background:rgba(56,189,248,.05)}
+.diagnostic-source strong{color:var(--text)}
+.diagnostic-source span{display:inline-block;margin-top:5px}
+@media (max-width:720px){
+  .diagnostics-header,.diagnostic-item-header{display:block}
+  .diagnostic-count,.diagnostic-priority{margin-top:10px}
+  .diagnostic-controls,.diagnostic-columns{grid-template-columns:1fr}
+}
+

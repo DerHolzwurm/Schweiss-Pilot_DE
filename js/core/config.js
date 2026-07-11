@@ -5,5 +5,6 @@ export const paths = {
   lexicon: './data/lexicon.json',
   help: './data/help.json',
   manufacturers: './data/manufacturers.json',
-  sources: './data/sources.json'
+  sources: './data/sources.json',
+  troubleshooting: './data/troubleshooting.json'
 };

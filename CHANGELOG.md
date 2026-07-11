@@ -1,3 +1,10 @@
+## Build C13
+
+- Fehlerdiagnose anhand der FAQ des STAHLWERK CTM-250 Puls Pro strukturiert erweitert.
+- Filter nach Verfahren und Volltextsuche ergänzt.
+- Ursachen, sichere Prüfschritte, Priorität und Quellenstellen werden je Fehlerbild angezeigt.
+- Neue Datenquelle `data/troubleshooting.json` und Offline-Cache für die Diagnose ergänzt.
+
 ## Build C12
 
 - Herstellervergleich im Rechner optional ein- und ausblendbar.

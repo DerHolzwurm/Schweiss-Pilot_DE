@@ -6,6 +6,7 @@ import { initWelding } from './features/welding.js';
 import { renderLexiconVisuals } from './ui/visuals.js';
 import { initTooltips } from './ui/tooltips.js';
 import { initDiagnostics } from './features/diagnostics.js';
+import { initMachineParameters } from './features/machine-parameters.js';
 
 function renderLexicon(items) {
   const basics = items.map(item => `<section class="tile"><strong>${item.term}</strong><p>${item.text}</p></section>`).join('');
@@ -22,6 +23,7 @@ async function init() {
   renderLexicon(app.lexicon);
   initTooltips(app.help);
   initDiagnostics(app.troubleshooting);
+  initMachineParameters(app.machineParameters, app.welding.manufacturerDatabase);
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});

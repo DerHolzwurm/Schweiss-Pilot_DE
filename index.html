@@ -136,6 +136,78 @@
       </article>
     </section>
 
+    <section id="screen-parameters" class="screen">
+      <article class="card parameter-card">
+        <div class="parameter-header">
+          <div>
+            <p class="eyebrow">Gerätebezogene Referenz</p>
+            <h2>Parameter &amp; Anschlüsse</h2>
+            <p class="lead">Anschlussbelegung, Verfahrenshinweise und vorhandene Handbuch-Richtwerte.</p>
+          </div>
+          <span id="parameterSourceStatus" class="parameter-status">Handbuchdaten</span>
+        </div>
+
+        <div class="parameter-controls">
+          <label>Gerät
+            <select id="parameterDevice"></select>
+          </label>
+          <label>Verfahren
+            <select id="parameterProcess"></select>
+          </label>
+        </div>
+
+        <section class="parameter-connection" aria-labelledby="parameterProcessTitle">
+          <div class="parameter-title-row">
+            <div>
+              <p id="parameterManufacturer" class="eyebrow">–</p>
+              <h3 id="parameterProcessTitle">–</h3>
+            </div>
+          </div>
+          <img id="parameterConnectionImage" class="parameter-connection-image" src="" alt="">
+        </section>
+
+        <div class="parameter-grid">
+          <section class="parameter-panel">
+            <h3>Anschlussbelegung</h3>
+            <dl id="parameterConnections" class="parameter-list"></dl>
+          </section>
+          <section class="parameter-panel">
+            <h3>Verfahrensparameter</h3>
+            <dl id="parameterSettings" class="parameter-list"></dl>
+          </section>
+        </div>
+
+        <section class="parameter-panel parameter-steps-panel">
+          <h3>Einrichtungsablauf</h3>
+          <ol id="parameterSteps" class="parameter-steps"></ol>
+        </section>
+
+        <section class="parameter-panel">
+          <div class="parameter-table-header">
+            <div>
+              <h3>Vorhandene Hersteller-Richtwerte</h3>
+              <p class="small">Nur freigegebene Werte aus der bestehenden STAHLWERK-Datenbank; fehlende Angaben bleiben bewusst leer.</p>
+            </div>
+            <span id="parameterRangeCount" class="parameter-count">0 Bereiche</span>
+          </div>
+          <div class="parameter-table-wrap">
+            <table class="parameter-table">
+              <thead><tr><th>Material</th><th>Stärke</th><th>Draht</th><th>Strom</th><th>Gas</th><th>Gasmenge</th></tr></thead>
+              <tbody id="parameterRanges"></tbody>
+            </table>
+          </div>
+          <p id="parameterNoRanges" class="parameter-empty hidden">Für dieses Verfahren sind in der aktuellen Herstellerdatenbank noch keine freigegebenen Tabellenwerte hinterlegt.</p>
+        </section>
+
+        <section class="parameter-warning" aria-label="Wichtiger Anschlusshinweis">
+          <img id="parameterWarningImage" src="" alt="Wichtiger Hinweis aus der Bedienungsanleitung">
+          <p id="parameterWarningText"></p>
+        </section>
+
+        <p id="parameterSource" class="parameter-source"></p>
+      </article>
+    </section>
+
     <section id="screen-lexicon" class="screen">
       <article class="card"><h2>Lexikon</h2><div id="lexiconList"></div></article>
     </section>
@@ -167,7 +239,7 @@
 
     <section id="screen-data" class="screen">
       <article class="card"><h2>Version</h2><div id="versionDetails">Version wird geladen …</div></article>
-      <article class="card"><h2>Datenstatus</h2><p>Build C13 ergänzt die Fehlerdiagnose um die strukturierten FAQ- und Troubleshooting-Daten des STAHLWERK CTM-250 Puls Pro. Die Hinweise ersetzen weder die Bedienungsanleitung noch eine fachkundige Prüfung.</p></article>
+      <article class="card"><h2>Datenstatus</h2><p>Build C01 ergänzt den modularen Gerätebereich „Parameter“ mit Anschlussbildern, Verfahrensauswahl und vorhandenen Hersteller-Richtwerten. Die Hinweise ersetzen weder die Bedienungsanleitung noch eine fachkundige Prüfung. um die strukturierten FAQ- und Troubleshooting-Daten des STAHLWERK CTM-250 Puls Pro. Die Hinweise ersetzen weder die Bedienungsanleitung noch eine fachkundige Prüfung.</p></article>
     </section>
   </main>
 
@@ -190,6 +262,7 @@
 
   <nav class="tabs" aria-label="Hauptnavigation">
     <button class="tab active" data-target="calculator" type="button">Rechner</button>
+    <button class="tab" data-target="parameters" type="button">Parameter</button>
     <button class="tab" data-target="lexicon" type="button">Lexikon</button>
     <button class="tab" data-target="diagnostics" type="button">Fehler</button>
     <button class="tab" data-target="data" type="button">Daten</button>

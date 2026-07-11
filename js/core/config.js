@@ -6,5 +6,6 @@ export const paths = {
   help: './data/help.json',
   manufacturers: './data/manufacturers.json',
   sources: './data/sources.json',
-  troubleshooting: './data/troubleshooting.json'
+  troubleshooting: './data/troubleshooting.json',
+  machineParameters: './data/machine-parameters.json'
 };

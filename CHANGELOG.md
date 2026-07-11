@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.2 – C01
+
+- Neuer Tab „Parameter“ zwischen Rechner und Lexikon.
+- Modulare Geräte- und Verfahrensauswahl für STAHLWERK CTM-250 Puls Pro.
+- Anschlussbilder für CUT, FLUX, MIG/MAG, MMA und WIG integriert.
+- Anschlussbelegung, Verfahrensparameter und Einrichtungsabläufe datengetrieben ergänzt.
+- Vorhandene Hersteller-Richtwerte werden verfahrensbezogen aus der bestehenden Datenbank angezeigt.
+- Sicherheitswarnung aus der Bedienungsanleitung eingebunden.
+
 ## Build C15
 
 ### Changed

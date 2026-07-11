@@ -122,14 +122,18 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const joint = byId(data.joints, input.joint);
   const position = byId(data.positions, input.position);
   const shape = byId(data.shapes, input.shape);
-  const thickness = clamp(Number(input.thickness || 0), 0.4, 30);
+  const selectedThickness = clamp(Number(input.thickness || 0), 0.4, 30);
+  const electrodeData = process.id === 'mma' ? getElectrodeData(data, input.electrode) : null;
+  const thickness = process.id === 'mma' && electrodeData
+    ? (Number(electrodeData.materialMinMm) + Number(electrodeData.materialMaxMm)) / 2
+    : selectedThickness;
   const manualTrim = Number(input.trim || 0);
   const adjustment = 1 + ((manualTrim + feedbackTrim) / 100);
 
   const isCut = process.type === 'cut';
-  const electrodeData = process.id === 'mma' ? getElectrodeData(data, input.electrode) : null;
   const formulaCurrent = getFormulaCurrent(process, material, thickness, electrodeData);
-  const manufacturerReferences = findManufacturerReferences(input, data);
+  const manufacturerInput = process.id === 'mma' ? { ...input, thickness } : input;
+  const manufacturerReferences = findManufacturerReferences(manufacturerInput, data);
   const primaryManufacturerReference = selectPrimaryReference(manufacturerReferences, { amps: formulaCurrent });
 
   const manufacturerSummary = manufacturerReferences.length
@@ -155,7 +159,7 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const heatInput = calculateHeatInput(volt, amps, travelSpeed);
   const manufacturerComparison = buildManufacturerComparison({ amps, volt, wfs, processType: process.type }, manufacturerReferences, data);
 
-  const fase = thickness < 4
+  let fase = thickness < 4
     ? { visual: 'none', level: 'info', text: 'Keine Fase nötig, Kanten sauber vorbereiten.' }
     : thickness < 6
       ? { visual: 'optional', level: 'warn', text: 'Leichte Fase prüfen; besonders bei Stumpfnähten.' }
@@ -163,11 +167,15 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
         ? { visual: 'recommended', level: 'warn', text: 'Fase empfohlen; sauberen Wurzelbereich sicherstellen.' }
         : { visual: 'multilayer', level: 'danger', text: 'Fase und mehrlagiges Arbeiten einplanen.' };
 
-  const electrodeCompatible = !electrodeData || (thickness >= Number(electrodeData.materialMinMm) && thickness <= Number(electrodeData.materialMaxMm));
+  const recommendedMaterialThickness = process.id === 'mma' && electrodeData
+    ? `${Number(electrodeData.materialMinMm).toFixed(1).replace('.', ',')}–${Number(electrodeData.materialMaxMm).toFixed(1).replace('.', ',')} mm`
+    : null;
+
+  if (process.id === 'mma' && electrodeData) {
+    fase = { visual: 'electrode-reference', level: 'info', text: `MMA-Referenz: ${recommendedMaterialThickness} Materialstärke für die gewählte Elektrode. Bauteilvorbereitung und Lagenaufbau separat beurteilen.` };
+  }
   const electrodeCompatibilityText = process.id === 'mma' && electrodeData
-    ? (electrodeCompatible
-      ? `Die gewählte ${Number(electrodeData.diameterMm).toFixed(1).replace('.', ',')} mm Elektrode passt zum hinterlegten Materialbereich ${electrodeData.materialMinMm}–${electrodeData.materialMaxMm} mm.`
-      : `Achtung: ${Number(electrodeData.diameterMm).toFixed(1).replace('.', ',')} mm Elektrode ist laut Richtwert für ${electrodeData.materialMinMm}–${electrodeData.materialMaxMm} mm vorgesehen; gewählt sind ${thickness} mm.`)
+    ? `Für die gewählte ${Number(electrodeData.diameterMm).toFixed(1).replace('.', ',')} mm Elektrode wird eine Materialstärke von ${recommendedMaterialThickness} empfohlen.`
     : '';
 
   const calibrationText = primaryManufacturerReference
@@ -179,7 +187,7 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     processId: process.id,
     electrodeDiameter: process.id === 'mma' ? Number(input.electrode || 0) : null,
     electrodeRange: process.id === 'mma' && electrodeData ? `${electrodeData.currentMinA}–${electrodeData.currentMaxA} A` : null,
-    electrodeCompatible,
+    recommendedMaterialThickness,
     amps,
     volt,
     wfs,

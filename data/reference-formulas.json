@@ -39,10 +39,10 @@
     {
       "id": "mma",
       "process": "MMA / E-Hand",
-      "current": "vorläufig I = Materialstärke × 35",
+      "current": "I = Mittelwert des Strombereichs der gewählten Elektrode",
       "voltage": "U = 20 + I/50",
-      "travelSpeed": "v = 200 − Materialstärke × 15",
-      "note": "Elektrodendurchmesser wird in C10 ergänzt."
+      "travelSpeed": "v = aus dem empfohlenen Materialbereich der Elektrode abgeleiteter Orientierungswert",
+      "note": "Elektrodendurchmesser ist die primäre Eingabe; Materialstärke wird als empfohlener Bereich ausgegeben."
     },
     {
       "id": "fcaw",

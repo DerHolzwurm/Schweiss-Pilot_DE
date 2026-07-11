@@ -50,6 +50,7 @@ function updateProcessVisibility() {
 
   setHidden('wireBox', !isWire);
   setHidden('electrodeBox', !isMma);
+  setHidden('thicknessBox', isMma);
   setHidden('jointBox', isCut);
   setHidden('positionBox', isCut);
   setHidden('shapeBox', isCut);

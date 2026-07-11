@@ -9,7 +9,7 @@
   },
   "thickness": {
     "title": "Materialstärke",
-    "text": "Dicke des Werkstücks in Millimetern. Sie ist der wichtigste Faktor für Strom, Spannung und Vorschub."
+    "text": "Materialstärke des Werkstücks. Bei MMA wird dieses Eingabefeld ausgeblendet, weil die Empfehlung dort aus dem Elektrodendurchmesser abgeleitet wird."
   },
   "wire": {
     "title": "Drahtdurchmesser",
@@ -46,6 +46,6 @@
   "manufacturerReference": "Herstellerwerte aus Gerätehandbüchern sind Richtwerte. Beim CTM-250 Puls Pro sind MIG/MAG-, WIG-, MMA- und CUT-Bereiche hinterlegt; Probenähte und Herstellerhinweise bleiben maßgeblich.",
   "electrode": {
     "title": "Elektrodendurchmesser",
-    "text": "Bei MMA/E-Hand bestimmt der Elektrodendurchmesser den zulässigen Strombereich. Materialstärke und Elektrodenverpackung müssen dazu passen."
+    "text": "Bei MMA/E-Hand ist der Elektrodendurchmesser die primäre Eingabe. Daraus werden Strombereich und empfohlene Materialstärke abgeleitet. Elektrodenverpackung und Elektrodentyp haben Vorrang."
   }
 }

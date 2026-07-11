@@ -87,6 +87,8 @@ export function renderResult(result, reference = result) {
   document.getElementById('gas').textContent = show(result.gas);
   setHidden('electrodeResultBox', result.processId !== 'mma');
   setText('electrodeResult', result.processId === 'mma' ? `${Number(result.electrodeDiameter).toFixed(1).replace('.', ',')} mm · ${result.electrodeRange || 'Bereich prüfen'}` : '–');
+  setHidden('recommendedThicknessBox', result.processId !== 'mma');
+  setText('recommendedThickness', result.processId === 'mma' ? result.recommendedMaterialThickness || 'Bereich prüfen' : '–');
   document.getElementById('practice').textContent = show(result.practice);
   setText('travelSpeed', result.travelSpeed === null || result.travelSpeed === undefined ? '–' : fmt(result.travelSpeed, 'mm/min', 0));
   setText('heatInput', result.heatInput === null || result.heatInput === undefined ? '–' : fmt(result.heatInput, 'kJ/mm', 2));

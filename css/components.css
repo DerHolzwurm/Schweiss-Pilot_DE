@@ -104,3 +104,9 @@
 .compare-notes{margin:12px 0 0;color:var(--muted)}
 .compare-missing{background:rgba(148,163,184,.05)}
 @media (max-width:720px){.compare-header{display:block}.compare-badge{margin-top:8px}.compare-grid{grid-template-columns:1fr}}
+
+
+/* v1.0.1 Commit 10.5: MMA electrode-first workflow */
+.recommended-material{border-color:var(--accent);background:linear-gradient(135deg,rgba(56,189,248,.16),rgba(34,197,94,.10));box-shadow:inset 0 0 0 1px rgba(56,189,248,.10)}
+.recommended-material span{color:var(--accent);font-weight:800}
+.recommended-material strong{color:var(--good);font-size:1.35rem}

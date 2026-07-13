@@ -45,6 +45,78 @@ function rangesFor(manufacturerDatabase, deviceId, processId) {
   ).sort((a, b) => (a.thicknessMinMm || 0) - (b.thicknessMinMm || 0));
 }
 
+function deviceProfileFor(manufacturerDatabase, deviceId) {
+  return (manufacturerDatabase.deviceProfiles || []).find(profile => profile.id === deviceId) || null;
+}
+
+function currentRangeFor(profile, processId) {
+  if (!profile?.outputCurrent) return null;
+  const key = processId === 'plasma' ? 'cutA'
+    : processId === 'mma' ? 'mmaA'
+      : processId === 'wig_dc' ? 'wigA'
+        : ['mag', 'mig', 'fcaw_s'].includes(processId) ? 'migA'
+          : null;
+  const range = key ? profile.outputCurrent[key] : null;
+  return Array.isArray(range) && range.length >= 2 ? range : null;
+}
+
+function inputCurrentFor(profile, processId, type) {
+  const source = type === 'effective' ? profile?.effectiveInputCurrentA : profile?.maxInputCurrentA;
+  if (!source) return null;
+  const key = processId === 'plasma' ? 'cut'
+    : processId === 'mma' ? 'mma'
+      : processId === 'wig_dc' ? 'wig'
+        : ['mag', 'mig', 'fcaw_s'].includes(processId) ? 'mig'
+          : null;
+  return key ? source[key] : null;
+}
+
+function dutyCycleFor(profile, processId) {
+  const values = processId === 'plasma' ? profile?.dutyCycle40C?.cut : profile?.dutyCycle40C?.migMmaWig;
+  return Array.isArray(values) ? values.join(' · ') : null;
+}
+
+function renderDeviceProfile(profile, processId) {
+  const limits = document.getElementById('parameterDeviceLimits');
+  const technical = document.getElementById('parameterTechnicalData');
+  const limitations = document.getElementById('parameterLimitations');
+  const limitationsPanel = document.getElementById('parameterLimitationsPanel');
+  if (!limits || !technical || !limitations || !limitationsPanel) return;
+
+  if (!profile) {
+    renderDefinitionList(limits, [{ label: 'Status', value: 'Kein freigegebenes Geräteprofil vorhanden' }]);
+    renderDefinitionList(technical, [{ label: 'Status', value: 'Keine technischen Gerätedaten vorhanden' }]);
+    limitations.innerHTML = '';
+    limitationsPanel.classList.add('hidden');
+    return;
+  }
+
+  const currentRange = currentRangeFor(profile, processId);
+  const maxInput = inputCurrentFor(profile, processId, 'max');
+  const effectiveInput = inputCurrentFor(profile, processId, 'effective');
+  const limitEntries = [
+    { label: 'Ausgangsstrom', value: currentRange ? formatRange(currentRange[0], currentRange[1], 'A') : '–' },
+    { label: 'Einschaltdauer bei 40 °C', value: dutyCycleFor(profile, processId) || '–' }
+  ];
+  if (processId === 'plasma') {
+    const pressure = profile.plasmaAirPressureBar;
+    limitEntries.push({ label: 'Arbeitsdruck', value: Array.isArray(pressure) ? formatRange(pressure[0], pressure[1], 'bar') : '–' });
+  }
+  renderDefinitionList(limits, limitEntries);
+
+  renderDefinitionList(technical, [
+    { label: 'Gerätekategorie', value: profile.category || '–' },
+    { label: 'Netzversorgung', value: profile.supply || '–' },
+    { label: 'Max. Eingangsstrom', value: maxInput == null ? '–' : `${String(maxInput).replace('.', ',')} A` },
+    { label: 'Effektiver Eingangsstrom', value: effectiveInput == null ? '–' : `${String(effectiveInput).replace('.', ',')} A` },
+    { label: 'Validierungsstatus', value: profile.validationStatus || '–' }
+  ]);
+
+  const items = Array.isArray(profile.limitations) ? profile.limitations : [];
+  limitations.innerHTML = items.map(item => `<li>${escapeHtml(item)}</li>`).join('');
+  limitationsPanel.classList.toggle('hidden', items.length === 0);
+}
+
 function renderDefinitionList(target, entries) {
   target.innerHTML = entries.map(entry => `<div><dt>${escapeHtml(entry.label)}</dt><dd>${escapeHtml(entry.value)}</dd></div>`).join('');
 }
@@ -114,6 +186,7 @@ export function initMachineParameters(database, manufacturerDatabase) {
     renderDefinitionList(document.getElementById('parameterConnections'), process.connection || []);
     renderDefinitionList(document.getElementById('parameterSettings'), process.settings || []);
     document.getElementById('parameterSteps').innerHTML = (process.steps || []).map(step => `<li>${escapeHtml(step)}</li>`).join('');
+    renderDeviceProfile(deviceProfileFor(manufacturerDatabase, device.id), process.id);
     renderRanges(rangesFor(manufacturerDatabase, device.id, process.id));
 
     const warningImage = document.getElementById('parameterWarningImage');

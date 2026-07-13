@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 – C04
+
+- Verfahrensbezogene Ausgangsstrombereiche des aktiven Geräteprofils im Parameter-Tab ergänzt.
+- Einschaltdauer bei 40 °C und Plasma-Arbeitsdruck werden passend zum gewählten Verfahren angezeigt.
+- Netzversorgung sowie maximaler und effektiver Eingangsstrom aus dem zentralen Geräteprofil ergänzt.
+- Validierte Geräteeinschränkungen werden transparent und datengetrieben dargestellt.
+- README, Datenstatus, Versionsstand und Offline-Cache auf C04 aktualisiert.
+
 ## 1.0.2 – C03
 
 - Gewähltes Verfahren kann aus dem Parameter-Tab direkt in den Rechner übernommen werden.

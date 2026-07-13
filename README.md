@@ -1,6 +1,6 @@
 # SchweißPilot
 
-**Version 1.0.2 · Build C12 · Development**
+**Version 1.0.2 · Build C14 · Development**
 
 Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und stellt gerätebezogene Anschluss- und Parameterinformationen bereit.
 
@@ -93,6 +93,14 @@ Validiert wurden:
 | C10 | Präzisere Herstellerzuordnung und transparente Qualität des gewählten Vergleichsdatensatzes |
 | C11 | Erweiterte Anzeige vorhandener technischer STAHLWERK-Referenzdaten im Parameter-Tab |
 | C12 | Erweiterte Fehlerdiagnose mit WIG DC und klarer Trennung zwischen Hersteller-FAQ und allgemeiner Schweißpraxis |
+| C13 | Im hochgeladenen Ausgangsstand nicht enthalten; keine unbestätigte Funktion übernommen |
+| C14 | Zentraler Daten-Registry-Loader mit Format- und Pflichtfeldprüfung für alle App-Datensätze |
+
+## Datenarchitektur
+
+Build C14 lädt sämtliche JSON-Datensätze über eine zentrale Registry. Jeder Datensatz besitzt einen eindeutigen Pfad und – soweit fachlich erforderlich – definierte Pflichtfelder. Ungültiges JSON, fehlende Pflichtfelder oder falsche Grundformate führen zu einer nachvollziehbaren Startfehlermeldung, statt unbemerkt mit unvollständigen Daten weiterzuarbeiten.
+
+Die Berechnungsformeln, Herstellerwerte und Gerätelimits wurden in C14 nicht verändert.
 
 ## Bekannte Grenzen
 

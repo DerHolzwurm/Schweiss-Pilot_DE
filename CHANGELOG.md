@@ -1,3 +1,21 @@
+## 1.0.2-C14 - Development
+
+### Changed
+- Sämtliche App-Datensätze werden über eine zentrale Daten-Registry geladen.
+- Datenpfade und grundlegende Datensatzanforderungen sind einheitlich in `js/core/config.js` definiert.
+- `js/core/app.js` wurde auf die zentrale Registry umgestellt und von wiederholter Lade-Logik bereinigt.
+- Geladene App-Daten werden als unveränderliche Top-Level-Struktur bereitgestellt.
+
+### Added
+- Neues Modul `js/core/data-registry.js`.
+- Eindeutige Fehler für nicht ladbare Dateien, ungültiges JSON, falsche Grundformate und fehlende Pflichtfelder.
+- Offline-Cache für das neue Registry-Modul.
+
+### Notes
+- Der hochgeladene Ausgangsstand identifizierte sich intern als Build C12; eine bestätigte C13-Implementierung war darin nicht enthalten.
+- Keine Berechnungsformeln, Herstellerwerte, Gerätelimits oder sichtbaren Funktionen wurden verändert.
+- README, Versionsdaten und Service-Worker-Cache wurden auf C14 aktualisiert.
+
 
 ## 1.0.2-C12 - Development
 

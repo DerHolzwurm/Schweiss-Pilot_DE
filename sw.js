@@ -1,4 +1,4 @@
-const CACHE_NAME = 'schweisspilot-v1.0.2-c12';
+const CACHE_NAME = 'schweisspilot-v1.0.2-c14';
 const ASSETS = [
   './',
   './index.html',
@@ -10,6 +10,7 @@ const ASSETS = [
   './css/responsive.css',
   './js/main.js',
   './js/core/app.js',
+  './js/core/data-registry.js',
   './js/core/device-manager.js',
   './js/core/calculations.js',
   './js/core/manufacturers.js',

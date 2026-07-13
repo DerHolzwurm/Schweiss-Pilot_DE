@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 – C05
+
+- Quellen- und Validierungsstatus für jeden Hersteller-Richtwert im Parameter-Tab ergänzt.
+- Direkte Handbuchwerte und ausdrücklich gekennzeichnete Ableitungen werden visuell unterschieden.
+- Quellenbezeichnung, relevante Handbuchseiten und Anzahl der Ableitungen werden verfahrensbezogen angezeigt.
+- Bestehende Herstellerwerte bleiben unverändert; es wurden keine neuen Schweißparameter erzeugt.
+- README, Datenstatus, Versionsstand und Offline-Cache auf C05 aktualisiert.
+
 ## 1.0.2 – C04
 
 - Verfahrensbezogene Ausgangsstrombereiche des aktiven Geräteprofils im Parameter-Tab ergänzt.

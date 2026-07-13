@@ -1,6 +1,6 @@
 # SchweißPilot
 
-**Version 1.0.2 · Build C04 · Development**
+**Version 1.0.2 · Build C05 · Development**
 
 Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und stellt gerätebezogene Anschluss- und Parameterinformationen bereit.
 
@@ -80,6 +80,7 @@ Validiert wurden:
 | C02 | Persistente Parameter-Auswahl, Datenstatus-Bereinigung und Dokumentationsabgleich |
 | C03 | Direkte Übernahme des gewählten Verfahrens aus dem Parameter-Tab in den Rechner |
 | C04 | Gerätegrenzen, technische Gerätedaten und validierte Einschränkungen im Parameter-Tab |
+| C05 | Transparente Quellen- und Statuskennzeichnung für Hersteller-Richtwerte |
 
 ## Bekannte Grenzen
 

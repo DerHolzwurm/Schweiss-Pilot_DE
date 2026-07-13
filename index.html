@@ -213,11 +213,17 @@
           </div>
           <div class="parameter-table-wrap">
             <table class="parameter-table">
-              <thead><tr><th>Material</th><th>Stärke</th><th>Draht</th><th>Strom</th><th>Gas</th><th>Gasmenge</th></tr></thead>
+              <thead><tr><th>Material</th><th>Stärke</th><th>Draht</th><th>Strom</th><th>Gas</th><th>Gasmenge</th><th>Datenstatus</th></tr></thead>
               <tbody id="parameterRanges"></tbody>
             </table>
           </div>
           <p id="parameterNoRanges" class="parameter-empty hidden">Für dieses Verfahren sind in der aktuellen Herstellerdatenbank noch keine freigegebenen Tabellenwerte hinterlegt.</p>
+        </section>
+
+        <section class="parameter-panel parameter-provenance-panel">
+          <h3>Quellen- und Datenstatus</h3>
+          <dl id="parameterProvenance" class="parameter-list"></dl>
+          <p class="small parameter-provenance-note">Handbuch-Richtwerte werden unverändert angezeigt. Ableitungen sind ausdrücklich gekennzeichnet und ersetzen keine Herstellerfreigabe.</p>
         </section>
 
         <section class="parameter-warning" aria-label="Wichtiger Anschlusshinweis">
@@ -260,7 +266,7 @@
 
     <section id="screen-data" class="screen">
       <article class="card"><h2>Version</h2><div id="versionDetails">Version wird geladen …</div></article>
-      <article class="card"><h2>Datenstatus</h2><p>Build C04 ergänzt den Gerätebereich „Parameter“ um verfahrensbezogene Gerätegrenzen, elektrische Gerätedaten, Einschaltdauer und validierte Einschränkungen des STAHLWERK CTM-250 Puls Pro. Sämtliche Angaben werden aus dem zentralen Geräteprofil geladen und bleiben vollständig offline verfügbar.</p></article>
+      <article class="card"><h2>Datenstatus</h2><p>Build C05 macht im Parameter-Tab die Herkunft und den Validierungsstatus jedes Hersteller-Richtwerts transparent. Direkte Handbuchwerte und daraus abgeleitete Angaben werden sichtbar unterschieden; Quellenbezeichnung und relevante Handbuchseiten bleiben offline verfügbar.</p></article>
     </section>
   </main>
 

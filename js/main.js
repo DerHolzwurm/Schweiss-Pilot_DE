@@ -23,7 +23,7 @@ async function init() {
   renderLexicon(app.lexicon);
   initTooltips(app.help);
   initDiagnostics(app.troubleshooting);
-  initMachineParameters(app.machineParameters, app.welding.manufacturerDatabase);
+  initMachineParameters(app.machineParameters, app.welding.manufacturerDatabase, app.welding.sourceDatabase);
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./sw.js').catch(() => {});

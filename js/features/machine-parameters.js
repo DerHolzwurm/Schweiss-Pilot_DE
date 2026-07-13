@@ -117,17 +117,49 @@ function renderDeviceProfile(profile, processId) {
   limitationsPanel.classList.toggle('hidden', items.length === 0);
 }
 
+
+function sourceFor(sourceDatabase, sourceId) {
+  return (sourceDatabase?.sources || []).find(source => source.id === sourceId) || null;
+}
+
+function rowDataStatus(row) {
+  const derived = /abgeleitet/i.test(row.comment || '');
+  return {
+    label: derived ? 'Aus Handbuch abgeleitet' : 'Handbuch-Richtwert',
+    className: derived ? 'derived' : 'manual'
+  };
+}
+
+function renderProvenance(rows, sourceDatabase) {
+  const target = document.getElementById('parameterProvenance');
+  if (!target) return;
+  const sourceIds = [...new Set(rows.flatMap(row => row.sourceIds || []))];
+  const sources = sourceIds.map(id => sourceFor(sourceDatabase, id)).filter(Boolean);
+  const sourceLabels = sources.length ? sources.map(source => source.label).join(' · ') : 'Keine Quelle hinterlegt';
+  const pages = [...new Set(sources.flatMap(source => source.pages || []))];
+  const directCount = rows.filter(row => !/abgeleitet/i.test(row.comment || '')).length;
+  const derivedCount = rows.length - directCount;
+  renderDefinitionList(target, [
+    { label: 'Quelle', value: sourceLabels },
+    { label: 'Relevante Seiten', value: pages.length ? pages.join(', ') : '–' },
+    { label: 'Direkte Handbuchwerte', value: String(directCount) },
+    { label: 'Gekennzeichnete Ableitungen', value: String(derivedCount) },
+    { label: 'Datenfreigabe', value: rows.length ? 'Herstellerdatenbank freigegeben' : 'Keine Tabellenwerte vorhanden' }
+  ]);
+}
+
 function renderDefinitionList(target, entries) {
   target.innerHTML = entries.map(entry => `<div><dt>${escapeHtml(entry.label)}</dt><dd>${escapeHtml(entry.value)}</dd></div>`).join('');
 }
 
-function renderRanges(rows) {
+function renderRanges(rows, sourceDatabase) {
   const body = document.getElementById('parameterRanges');
   const empty = document.getElementById('parameterNoRanges');
   const count = document.getElementById('parameterRangeCount');
   count.textContent = `${rows.length} ${rows.length === 1 ? 'Bereich' : 'Bereiche'}`;
   body.innerHTML = rows.map(row => {
     const gasFlow = Array.isArray(row.gasFlowLMin) ? formatRange(row.gasFlowLMin[0], row.gasFlowLMin[1], 'l/min') : '–';
+    const status = rowDataStatus(row);
     return `<tr>
       <td>${escapeHtml(row.material || '–')}</td>
       <td>${escapeHtml(formatRange(row.thicknessMinMm, row.thicknessMaxMm, 'mm'))}</td>
@@ -135,13 +167,15 @@ function renderRanges(rows) {
       <td>${escapeHtml(formatRange(row.currentMinA, row.currentMaxA, 'A'))}</td>
       <td>${escapeHtml(row.gas || '–')}</td>
       <td>${escapeHtml(gasFlow)}</td>
+      <td><span class="parameter-data-status ${escapeHtml(status.className)}" title="${escapeHtml(row.comment || status.label)}">${escapeHtml(status.label)}</span></td>
     </tr>`;
   }).join('');
   body.closest('.parameter-table-wrap').classList.toggle('hidden', rows.length === 0);
   empty.classList.toggle('hidden', rows.length !== 0);
+  renderProvenance(rows, sourceDatabase);
 }
 
-export function initMachineParameters(database, manufacturerDatabase) {
+export function initMachineParameters(database, manufacturerDatabase, sourceDatabase) {
   const deviceSelect = document.getElementById('parameterDevice');
   const processSelect = document.getElementById('parameterProcess');
   const openCalculatorButton = document.getElementById('parameterOpenCalculator');
@@ -187,7 +221,7 @@ export function initMachineParameters(database, manufacturerDatabase) {
     renderDefinitionList(document.getElementById('parameterSettings'), process.settings || []);
     document.getElementById('parameterSteps').innerHTML = (process.steps || []).map(step => `<li>${escapeHtml(step)}</li>`).join('');
     renderDeviceProfile(deviceProfileFor(manufacturerDatabase, device.id), process.id);
-    renderRanges(rangesFor(manufacturerDatabase, device.id, process.id));
+    renderRanges(rangesFor(manufacturerDatabase, device.id, process.id), sourceDatabase);
 
     const warningImage = document.getElementById('parameterWarningImage');
     warningImage.src = device.warningImage;

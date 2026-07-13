@@ -240,3 +240,18 @@
 .plausibility-item.info .plausibility-state{background:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,.12)}
 .plausibility-item strong{display:block}.plausibility-item p{margin:3px 0 0;color:var(--muted);line-height:1.4}
 @media (max-width:720px){.plausibility-header{display:block}.plausibility-badge{margin-top:8px}}
+
+
+/* v1.0.2 C09: transparenter Berechnungsweg */
+.calculation-trace-panel{border:1px solid var(--line);border-radius:18px;padding:0 16px 16px;margin:0 0 16px;background:rgba(255,255,255,.025)}
+.calculation-trace-panel summary{cursor:pointer;padding:16px 0;font-weight:900;list-style-position:inside}
+.calculation-trace-panel>p{margin:0 0 12px;color:var(--muted);line-height:1.45}
+.calculation-trace-list{display:grid;gap:9px}
+.calculation-trace-item{display:grid;grid-template-columns:32px minmax(0,1fr);gap:11px;padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(56,189,248,.035)}
+.calculation-trace-item.warn{border-color:rgba(245,158,11,.45);background:rgba(245,158,11,.06)}
+.calculation-trace-item.pass{border-color:rgba(34,197,94,.35)}
+.calculation-trace-number{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;font-size:.8rem;font-weight:900;background:rgba(56,189,248,.1)}
+.calculation-trace-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.calculation-trace-heading span{font-weight:900;white-space:nowrap}
+.calculation-trace-item p{margin:4px 0 0;color:var(--muted);line-height:1.42}
+@media (max-width:720px){.calculation-trace-panel{padding:0 13px 13px}.calculation-trace-heading{display:block}.calculation-trace-heading span{display:block;margin-top:3px;white-space:normal}}

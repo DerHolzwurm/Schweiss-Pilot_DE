@@ -2,6 +2,7 @@ import { renderOutputVisuals } from './visuals.js';
 const show = value => value ?? '–';
 const fmt = (value, unit, digits = 0) => value === null || value === undefined ? '–' : `${Number(value).toFixed(digits)} ${unit}`;
 const num = (value, digits = 0) => value === null || value === undefined ? '–' : Number(value).toFixed(digits);
+const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
 
 function setText(id, value) {
   const el = document.getElementById(id);
@@ -109,6 +110,29 @@ function renderPlausibility(plausibility) {
     </div>`).join('');
 }
 
+
+function renderCalculationTrace(trace) {
+  const panel = document.getElementById('calculationTracePanel');
+  const list = document.getElementById('calculationTraceList');
+  if (!panel || !list) return;
+
+  const steps = trace?.steps || [];
+  panel.classList.toggle('hidden', !steps.length);
+  if (!steps.length) {
+    list.innerHTML = '';
+    return;
+  }
+
+  list.innerHTML = steps.map((item, index) => `
+    <div class="calculation-trace-item ${escapeHtml(item.state || 'info')}">
+      <span class="calculation-trace-number">${index + 1}</span>
+      <div>
+        <div class="calculation-trace-heading"><strong>${escapeHtml(item.label)}</strong><span>${escapeHtml(item.value)}</span></div>
+        <p>${escapeHtml(item.detail)}</p>
+      </div>
+    </div>`).join('');
+}
+
 export function renderResult(result, reference = result) {
   const isCut = result.processType === 'cut';
   document.getElementById('resultCard').classList.remove('hidden');
@@ -147,6 +171,7 @@ export function renderResult(result, reference = result) {
   renderDeviceLimit(result.deviceLimit);
   renderManufacturerComparison(result.manufacturerComparison, isCut, result.manufacturerComparisonEnabled);
   renderPlausibility(result.plausibility);
+  renderCalculationTrace(result.calculationTrace);
 
   if (isCut) {
     document.getElementById('outputVisuals').innerHTML = '<section class="visual-guideline"><strong>Plasma-Workflow aktiv</strong><p>Nahtart, Position, Materialform, Draht und Nahtkorrektur sind ausgeblendet. Relevant bleiben Material, Materialstärke und Schneidstrom.</p></section>';

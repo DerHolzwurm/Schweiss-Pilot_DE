@@ -1,6 +1,6 @@
 # SchweißPilot
 
-**Version 1.0.2 · Build C08 · Development**
+**Version 1.0.2 · Build C09 · Development**
 
 Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und stellt gerätebezogene Anschluss- und Parameterinformationen bereit.
 
@@ -18,6 +18,7 @@ Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPil
 - Live-Nahtfeedback und Feinkorrektur
 - Gerätelimits mit transparenten Warnhinweisen
 - transparente Berechnungsprüfung für Strom, Spannung, Drahtvorschub, Wärmeeintrag und Datenbasis
+- aufklappbarer Berechnungsweg mit Eingaben, Zwischenwerten, Kalibrierung, Korrekturen und Gerätelimit
 
 ### Parameter
 
@@ -85,6 +86,7 @@ Validiert wurden:
 | C06 | Verfahrensbezogene Prozessreferenzen für Verbrauchsmittel, Gase und dokumentierte Grenzen |
 | C07 | Zentrale modulare Gerätedatenbank und einheitlicher Gerätezugriff |
 | C08 | Transparente strukturelle Prüfung der berechneten Werte und aktiven Grenzen |
+| C09 | Nachvollziehbarer Berechnungsweg mit Zwischenwerten und Rundungstransparenz |
 
 ## Bekannte Grenzen
 

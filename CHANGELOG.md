@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.2 – C09
+
+- Aufklappbaren Berechnungsweg im Ergebnisbereich ergänzt.
+- Eingabegrundlage, Verfahrens-Grundstrom, Geometrie- und Positionsfaktoren sowie Kalibrierkorridor werden schrittweise ausgewiesen.
+- Feinkorrektur, Gerätelimit, Spannung, Drahtvorschub, Schweißgeschwindigkeit und Wärmeeintrag werden mit Zwischenwerten transparent dargestellt.
+- Rundungen betreffen ausschließlich die Anzeige; die vorhandenen Berechnungsformeln und Herstellerwerte bleiben unverändert.
+- Doppelten Titel im Parameter-Tab bereinigt.
+- README, Datenstatus, Versionsstand und Offline-Cache auf Build C09 aktualisiert.
+
 ## 1.0.2 – C08
 
 - Transparente Berechnungsprüfung im Ergebnisbereich ergänzt.

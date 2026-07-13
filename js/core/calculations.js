@@ -39,6 +39,103 @@ function getFormulaCurrent(process, material, thickness, electrodeData = null) {
   }
 }
 
+
+function getCurrentFormulaText(process, material, thickness, electrodeData = null) {
+  const value = round(thickness, 2);
+  switch (process.id) {
+    case 'mag':
+      return `${value} mm × 40 A/mm`;
+    case 'mig':
+      return material?.id === 'alu'
+        ? `${value} mm × 40 A/mm × 1,30 Aluminiumfaktor`
+        : `${value} mm × 40 A/mm`;
+    case 'fcaw_s':
+      return `${value} mm × 38 A/mm`;
+    case 'wig_dc':
+      return `${value} mm × 30 A/mm`;
+    case 'wig_ac':
+      return material?.id === 'alu'
+        ? `${value} mm × 30 A/mm × 1,30 Aluminiumfaktor`
+        : `${value} mm × 30 A/mm`;
+    case 'mma':
+      return electrodeData
+        ? `Mittelwert des Elektrodenbereichs ${round(electrodeData.currentMinA)}–${round(electrodeData.currentMaxA)} A`
+        : `${value} mm × 35 A/mm`;
+    case 'plasma':
+      return `${value} mm × 7 A/mm`;
+    default:
+      return `${value} mm × ${round(process.baseAmpPerMm || 35, 2)} A/mm`;
+  }
+}
+
+function buildCalculationTrace({
+  process, material, joint, position, shape, thickness, electrodeData, formulaCurrent,
+  geometryFactor, uncalibratedCurrent, currentRange, calibratedBaseCurrent, manualTrim,
+  feedbackTrim, adjustment, requestedAmps, deviceLimit, amps, volt, wire, wfs,
+  travelSpeed, heatInput, primaryManufacturerReference
+}) {
+  const steps = [];
+  const add = (id, label, value, detail, state = 'info') => steps.push({ id, label, value, detail, state });
+
+  add(
+    'basis',
+    'Eingabegrundlage',
+    `${process.label} · ${material.label} · ${round(thickness, 2)} mm`,
+    process.id === 'mma' && electrodeData
+      ? `Die Materialreferenz wird aus der gewählten Elektrode ${round(electrodeData.diameterMm, 1)} mm abgeleitet.`
+      : 'Die eingegebene Materialstärke bildet die Ausgangsbasis.'
+  );
+  add(
+    'formula',
+    'Verfahrens-Grundstrom',
+    `${round(formulaCurrent)} A`,
+    getCurrentFormulaText(process, material, thickness, electrodeData)
+  );
+  add(
+    'geometry',
+    'Geometrie und Position',
+    `${round(uncalibratedCurrent)} A`,
+    `${round(formulaCurrent)} A × Nahtfaktor ${round(joint.factor, 2)} × Positionsfaktor ${round(position.factor, 2)} × Formfaktor ${round(shape.factor, 2)} = Faktor ${round(geometryFactor, 3)}.`
+  );
+  add(
+    'calibration',
+    'Kalibrierung',
+    `${round(calibratedBaseCurrent)} A`,
+    `${primaryManufacturerReference ? 'Herstellerbereich' : 'Generischer Rechenbereich'} ${makeRangeLabel(currentRange.min, currentRange.max)}; der unkalibrierte Wert wird auf diesen Korridor begrenzt.`,
+    primaryManufacturerReference ? 'pass' : 'info'
+  );
+  add(
+    'trim',
+    'Feinkorrektur',
+    `${round(requestedAmps)} A`,
+    `${round(calibratedBaseCurrent)} A × ${round(adjustment, 3)} bei manueller Korrektur ${round(manualTrim)} % und Nahtfeedback ${round(feedbackTrim)} %.`
+  );
+  add(
+    'device',
+    'Gerätebegrenzung',
+    `${round(amps)} A`,
+    deviceLimit
+      ? `${deviceLimit.deviceName}: ${round(deviceLimit.minA)}–${round(deviceLimit.maxA)} A. ${deviceLimit.limited ? deviceLimit.action : 'Keine Begrenzung erforderlich.'}`
+      : 'Für dieses Verfahren ist kein aktives Geräteprofil hinterlegt.',
+    deviceLimit?.limited ? 'warn' : 'pass'
+  );
+
+  if (volt !== null) {
+    add('voltage', 'Lichtbogenspannung', `${round(volt, 1)} V`, 'Verfahrensabhängige Spannungskennlinie auf Basis des begrenzten Ausgangsstroms.');
+  }
+  if (wfs !== null) {
+    add('wireFeed', 'Drahtvorschub', `${round(wfs, 1)} m/min`, `Berechnet aus ${round(amps)} A, Drahtdurchmesser ${round(wire, 1)} mm und dem verfahrensabhängigen Vorschubfaktor.`);
+  }
+  if (travelSpeed !== null) {
+    add('travel', 'Schweißgeschwindigkeit', `${round(travelSpeed)} mm/min`, `Verfahrensabhängige Geschwindigkeitskennlinie für ${round(thickness, 2)} mm Materialstärke.`);
+  }
+  if (heatInput !== null) {
+    add('heat', 'Wärmeeintrag', `${round(heatInput, 2)} kJ/mm`, `(${round(volt, 1)} V × ${round(amps)} A × 60) ÷ (1000 × ${round(travelSpeed)} mm/min).`);
+  }
+
+  return { steps };
+}
+
 function getGenericRange(process, theoreticalCurrent, isCut) {
   const spread = process.type === 'wire' ? 0.18 : process.type === 'tig' ? 0.16 : 0.20;
   const minLimit = isCut ? 15 : 20;
@@ -305,6 +402,32 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     deviceLimit,
     primaryManufacturerReference
   });
+  const calculationTrace = buildCalculationTrace({
+    process,
+    material,
+    joint,
+    position,
+    shape,
+    thickness,
+    electrodeData,
+    formulaCurrent,
+    geometryFactor,
+    uncalibratedCurrent,
+    currentRange,
+    calibratedBaseCurrent,
+    manualTrim,
+    feedbackTrim,
+    adjustment,
+    requestedAmps,
+    deviceLimit,
+    amps,
+    volt,
+    wire,
+    wfs,
+    travelSpeed,
+    heatInput,
+    primaryManufacturerReference
+  });
 
   let fase = thickness < 4
     ? { visual: 'none', level: 'info', text: 'Keine Fase nötig, Kanten sauber vorbereiten.' }
@@ -353,6 +476,7 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     manufacturerSummary,
     manufacturerComparison,
     plausibility,
+    calculationTrace,
     polarity: process.polarity,
     gas: process.gas,
     practice: deviceLimit?.limited

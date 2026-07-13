@@ -1,3 +1,13 @@
+## 1.0.2 – C11
+
+### Added
+- Erweiterte technische Detailspalte in den vorhandenen STAHLWERK-Hersteller-Richtwerten.
+- Anzeige bereits hinterlegter Angaben zu Wolframelektrode, Gasdüse, Zusatzstab sowie Elektrodentyp und -durchmesser.
+
+### Changed
+- README, Datenstatus, Versionsstand und Offline-Cache auf Build C11 aktualisiert.
+- Keine Berechnungsformeln oder Herstellerwerte verändert.
+
 ## 1.0.2 – C10
 
 - Herstellerdatensätze werden bei Mehrfachtreffern nach Materialstärke, Stromnähe, Draht- beziehungsweise Elektrodendurchmesser und Datensatzspezifität priorisiert.

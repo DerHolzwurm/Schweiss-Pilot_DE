@@ -160,6 +160,13 @@ function renderRanges(rows, sourceDatabase) {
   count.textContent = `${rows.length} ${rows.length === 1 ? 'Bereich' : 'Bereiche'}`;
   body.innerHTML = rows.map(row => {
     const gasFlow = Array.isArray(row.gasFlowLMin) ? formatRange(row.gasFlowLMin[0], row.gasFlowLMin[1], 'l/min') : '–';
+    const technicalDetails = [
+      row.tungstenElectrodeMm ? `Wolfram ${row.tungstenElectrodeMm} mm` : null,
+      row.gasNozzleSize ? `Gasdüse ${row.gasNozzleSize}` : null,
+      row.fillerRodMm ? `Zusatzstab ${row.fillerRodMm} mm` : null,
+      row.electrodeType ? `Elektrode ${row.electrodeType}` : null,
+      row.electrodeDiameterMm ? `Ø ${row.electrodeDiameterMm} mm` : null
+    ].filter(Boolean).join(' · ') || '–';
     const status = rowDataStatus(row);
     return `<tr>
       <td>${escapeHtml(row.material || '–')}</td>
@@ -168,6 +175,7 @@ function renderRanges(rows, sourceDatabase) {
       <td>${escapeHtml(formatRange(row.currentMinA, row.currentMaxA, 'A'))}</td>
       <td>${escapeHtml(row.gas || '–')}</td>
       <td>${escapeHtml(gasFlow)}</td>
+      <td>${escapeHtml(technicalDetails)}</td>
       <td><span class="parameter-data-status ${escapeHtml(status.className)}" title="${escapeHtml(row.comment || status.label)}">${escapeHtml(status.label)}</span></td>
     </tr>`;
   }).join('');

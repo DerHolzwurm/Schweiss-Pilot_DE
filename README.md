@@ -1,6 +1,6 @@
 # SchweißPilot
 
-**Version 1.0.2 · Build C10 · Development**
+**Version 1.0.2 · Build C11 · Development**
 
 Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und stellt gerätebezogene Anschluss- und Parameterinformationen bereit.
 
@@ -36,7 +36,7 @@ Verfügbar sind gerätebezogene Anschlussbilder und Hinweise für:
 - MMA / Elektrode
 - WIG DC / Stahl und Edelstahl
 
-Die zuletzt gewählte Geräte- und Verfahrenskombination wird lokal gespeichert und beim nächsten App-Start wiederhergestellt. Das ausgewählte Verfahren kann direkt in den Rechner übernommen werden; die vorhandene Rechnerlogik aktualisiert anschließend die verfahrensabhängigen Eingabefelder. Vorhandene Hersteller-Richtwerte werden aus der zentralen Herstellerdatenbank eingebunden; fehlende Werte bleiben bewusst leer. Zusätzlich zeigt der Tab verfahrensbezogene Gerätegrenzen, Einschaltdauer, Netz- und Eingangsstromdaten, Prozessreferenzen sowie die im Geräteprofil dokumentierten Einschränkungen. Geräte- und Verfahrensdaten werden zentral aus `data/devices.json` geladen; neue Geräte können dadurch ohne Umbau der Anzeige-Logik ergänzt werden.
+Die zuletzt gewählte Geräte- und Verfahrenskombination wird lokal gespeichert und beim nächsten App-Start wiederhergestellt. Das ausgewählte Verfahren kann direkt in den Rechner übernommen werden; die vorhandene Rechnerlogik aktualisiert anschließend die verfahrensabhängigen Eingabefelder. Vorhandene Hersteller-Richtwerte werden aus der zentralen Herstellerdatenbank eingebunden; fehlende Werte bleiben bewusst leer. Build C11 zeigt zusätzlich bereits hinterlegte technische Angaben wie Wolframelektrode, Gasdüse, Zusatzstab oder Elektrodentyp direkt in der Richtwerttabelle. Zusätzlich zeigt der Tab verfahrensbezogene Gerätegrenzen, Einschaltdauer, Netz- und Eingangsstromdaten, Prozessreferenzen sowie die im Geräteprofil dokumentierten Einschränkungen. Geräte- und Verfahrensdaten werden zentral aus `data/devices.json` geladen; neue Geräte können dadurch ohne Umbau der Anzeige-Logik ergänzt werden.
 
 ### Hersteller- und Gerätebezug
 
@@ -89,6 +89,7 @@ Validiert wurden:
 | C08 | Transparente strukturelle Prüfung der berechneten Werte und aktiven Grenzen |
 | C09 | Nachvollziehbarer Berechnungsweg mit Zwischenwerten und Rundungstransparenz |
 | C10 | Präzisere Herstellerzuordnung und transparente Qualität des gewählten Vergleichsdatensatzes |
+| C11 | Erweiterte Anzeige vorhandener technischer STAHLWERK-Referenzdaten im Parameter-Tab |
 
 ## Bekannte Grenzen
 

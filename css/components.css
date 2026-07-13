@@ -256,3 +256,18 @@
 .calculation-trace-heading span{font-weight:900;white-space:nowrap}
 .calculation-trace-item p{margin:4px 0 0;color:var(--muted);line-height:1.42}
 @media (max-width:720px){.calculation-trace-panel{padding:0 13px 13px}.calculation-trace-heading{display:block}.calculation-trace-heading span{display:block;margin-top:3px;white-space:normal}}
+
+
+/* v1.0.2 C16: Release-Polishing und Sicherheit */
+.euro-warning{border:2px solid var(--bad);border-radius:16px;padding:14px 16px;margin:0 0 14px;background:rgba(239,68,68,.11)}
+.euro-warning-heading{display:flex;gap:12px;align-items:flex-start}.euro-warning-heading strong{display:block;color:var(--bad);font-size:1.05rem}.euro-warning-heading p{margin:4px 0 0;line-height:1.4}
+.euro-warning-icon{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--bad);color:#fff;font-weight:900;flex:0 0 auto}
+.euro-warning-confirm{display:flex;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;border-radius:12px;background:rgba(239,68,68,.1);font-weight:900;cursor:pointer}.euro-warning-confirm input{width:21px;height:21px;accent-color:var(--bad)}
+.feedback-panel-flat{padding:9px 12px;margin:-6px 0 14px;border-radius:12px;background:rgba(56,189,248,.035)}
+.feedback-flat-head{display:flex;align-items:center;gap:8px}.feedback-flat-head span{margin-left:auto;color:var(--muted);font-size:.84rem}.feedback-panel-flat .slider-labels{font-size:.72rem;margin-top:6px}.feedback-panel-flat #feedbackSlider{margin:5px 0}.feedback-panel-flat .feedback-readout{justify-content:flex-end;align-items:center;font-size:.82rem}.feedback-panel-flat .feedback-readout strong{margin-left:6px}
+.plausibility-actions{display:flex;align-items:center;gap:8px}.plausibility-toggle{padding:7px 10px;border-radius:10px;font-size:.78rem}
+.parameter-header-badges{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}.parameter-source-top{margin:12px 0 0;padding:10px 12px;border-left:3px solid var(--accent);background:rgba(56,189,248,.045);border-radius:9px;color:var(--muted)}
+.help-btn{display:inline-flex;align-items:center;justify-content:center;min-width:24px;width:24px;height:24px;padding:0;border-radius:50%;font-weight:900;line-height:1}
+@media (max-width:720px){.plausibility-actions{align-items:flex-start;flex-direction:column}.parameter-header-badges{justify-content:flex-start}.feedback-flat-head{flex-wrap:wrap}.feedback-flat-head span{width:100%;margin-left:0}.euro-warning-confirm{align-items:flex-start}}
+
+#resultCard.awaiting-euro-confirmation > :not(h2):not(#euroConnectorWarning){display:none!important}

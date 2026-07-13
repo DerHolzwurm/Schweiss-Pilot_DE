@@ -61,3 +61,11 @@
 - [ ] Test auf Desktop und Smartphone abgeschlossen
 - [ ] Erst nach vollständiger Prüfung Merge nach `develop`
 - [ ] Danach Merge nach `main` und Tag `v1.0.2`
+
+## Abschluss C16
+
+- [ ] Sicherheitsbestätigung für WIG DC, WIG AC, MMA und Plasma geprüft.
+- [ ] Berechnungsprüfung ein- und ausgeblendet; gespeicherter Zustand geprüft.
+- [ ] Naht-Rückmeldung auf Smartphone und Desktop geprüft.
+- [ ] Parameterreihenfolge FLUX, MAG, MIG, WIG DC, WIG AC, MMA, Plasma geprüft.
+- [ ] GitHub Pages und Offlinebetrieb mit Cache C16 geprüft.

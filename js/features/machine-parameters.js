@@ -216,7 +216,7 @@ export function initMachineParameters(database, manufacturerDatabase, sourceData
   function populateProcesses() {
     const device = selectedDevice();
     const previous = processSelect.value || (savedSelection.deviceId === device.id ? savedSelection.processId : '');
-    processSelect.innerHTML = device.processes.map(process => `<option value="${escapeHtml(process.id)}">${escapeHtml(process.label)}</option>`).join('');
+    processSelect.innerHTML = orderedProcessOptions(device).map(process => `<option value="${escapeHtml(process.id)}"${process.unavailable ? ' disabled' : ''}>${escapeHtml(process.label)}</option>`).join('');
     if (device.processes.some(process => process.id === previous)) processSelect.value = previous;
     render();
   }

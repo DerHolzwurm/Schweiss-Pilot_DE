@@ -1,3 +1,14 @@
+## 1.0.2-C16 - Release
+
+- Berechnungsprüfung per Button ein- und ausblendbar; Zustand wird lokal gespeichert.
+- Naht-Rückmeldung kompakt direkt unter den empfohlenen Startwerten angeordnet.
+- Roter Sicherheitshinweis mit Pflichtbestätigung „Ich habe den EURO-Zentralstecker entfernt!“ für WIG DC, WIG AC, MMA und Plasma.
+- Verfahren im Parameterbereich auf FLUX, MAG, MIG, WIG DC, WIG AC, MMA und Plasma vereinheitlicht; WIG AC beim CTM-250 als nicht unterstützt gekennzeichnet.
+- Quellenhinweis und Herstelleranzahl im Parameterbereich ergänzt.
+- Info-Schaltflächen visuell vereinheitlicht.
+- Versionsstatus auf Release, Build C16 und Stand 13.07.2026 aktualisiert.
+- README und Offline-Cache aktualisiert.
+
 ## 1.0.2-C15 - Release Candidate
 
 ### Changed

@@ -64,6 +64,20 @@
       <article id="resultCard" class="card hidden">
         <h2>Empfohlene Einstellung</h2>
 
+        <section id="euroConnectorWarning" class="euro-warning hidden" aria-live="assertive" aria-label="Sicherheitshinweis EURO-Zentralanschluss">
+          <div class="euro-warning-heading">
+            <span class="euro-warning-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>EURO-Zentralanschluss entfernen!</strong>
+              <p>Bei diesem Verfahren darf der MIG/MAG-Brenner nicht am EURO-Zentralanschluss angeschlossen bleiben.</p>
+            </div>
+          </div>
+          <label class="euro-warning-confirm" for="euroConnectorConfirmed">
+            <input id="euroConnectorConfirmed" type="checkbox">
+            <span>Ich habe den EURO-Zentralstecker entfernt!</span>
+          </label>
+        </section>
+
         <div class="hero start-hero" aria-label="Empfohlene Startwerte">
           <span class="start-title">Empfohlene Startwerte</span>
           <div class="start-values">
@@ -72,6 +86,17 @@
             <div class="start-value align-right" id="feedStartBox"><span id="feedLabel">Vorschub m/min</span><strong id="feed">–</strong></div>
           </div>
         </div>
+
+        <section id="feedbackPanel" class="feedback-panel feedback-panel-flat" aria-label="Live-Nahtfeedback">
+          <div class="feedback-flat-head">
+            <strong>Naht-Rückmeldung</strong>
+            <button class="help-btn" type="button" data-help="feedback" aria-label="Hilfe zur Naht-Rückmeldung">i</button>
+            <span id="feedbackMeaning">Optimal – keine Anpassung</span>
+          </div>
+          <div class="slider-labels"><span>Naht liegt auf</span><span>Optimal</span><span>Durchbrand</span></div>
+          <input id="feedbackSlider" type="range" min="-10" max="10" step="1" value="0">
+          <div class="feedback-readout"><span>Korrektur</span><strong id="feedbackValue">0</strong></div>
+        </section>
 
         <section id="deviceLimitPanel" class="device-limit hidden" aria-live="polite" aria-label="Hinweis zum Gerätelimit">
           <div class="device-limit-header">
@@ -117,9 +142,14 @@
               <h3>Berechnungsprüfung</h3>
               <p id="plausibilitySummary" class="small">–</p>
             </div>
-            <span id="plausibilityBadge" class="plausibility-badge">–</span>
+            <div class="plausibility-actions">
+              <span id="plausibilityBadge" class="plausibility-badge">–</span>
+              <button id="plausibilityToggle" class="secondary plausibility-toggle" type="button" aria-expanded="false" aria-controls="plausibilityDetails">Details anzeigen</button>
+            </div>
           </div>
-          <div id="plausibilityList" class="plausibility-list"></div>
+          <div id="plausibilityDetails" class="hidden">
+            <div id="plausibilityList" class="plausibility-list"></div>
+          </div>
         </section>
 
         <details id="calculationTracePanel" class="calculation-trace-panel hidden">
@@ -128,13 +158,6 @@
           <div id="calculationTraceList" class="calculation-trace-list"></div>
         </details>
 
-        <section id="feedbackPanel" class="feedback-panel" aria-label="Live-Nahtfeedback">
-          <h3>Naht-Rückmeldung <button class="help-btn" type="button" data-help="feedback" aria-label="Hilfe zur Naht-Rückmeldung">i</button></h3>
-          <p>Regler direkt nach der Probenaht verschieben. Die Startwerte werden sofort neu berechnet. Die Referenzwerte bleiben als Optimalwert sichtbar.</p>
-          <div class="slider-labels"><span>Naht liegt auf</span><span>Optimal</span><span>Durchbrand</span></div>
-          <input id="feedbackSlider" type="range" min="-10" max="10" step="1" value="0">
-          <div class="feedback-readout"><strong id="feedbackValue">0</strong><span id="feedbackMeaning">Optimal – keine Anpassung</span></div>
-        </section>
 
         <div class="result-grid details-grid">
           <div class="tile"><span>Polarität</span><strong id="polarity">–</strong></div>
@@ -161,8 +184,10 @@
             <h2>Parameter &amp; Anschlüsse</h2>
             <p class="lead">Anschlussbelegung, Verfahrenshinweise und vorhandene Handbuch-Richtwerte.</p>
           </div>
-          <span id="parameterSourceStatus" class="parameter-status">Handbuchdaten</span>
+          <div class="parameter-header-badges"><span id="parameterManufacturerCount" class="parameter-status">1 Hersteller verfügbar</span><span id="parameterSourceStatus" class="parameter-status">Handbuchdaten</span></div>
         </div>
+
+        <p class="parameter-source-top"><strong>Quelle:</strong> STAHLWERK CTM-250 Puls Pro · Bedienungsanleitung, Stand 05/2025</p>
 
         <div class="parameter-controls">
           <label>Gerät
@@ -289,7 +314,7 @@
 
     <section id="screen-data" class="screen">
       <article class="card"><h2>Version</h2><div id="versionDetails">Version wird geladen …</div></article>
-      <article class="card"><h2>Datenstatus</h2><p>Build C15 bereitet Version 1.0.2 als Release Candidate vor. Dokumentation, Versionsstatus, Offline-Cache und Release-Prüfliste sind aufeinander abgestimmt; Berechnungsformeln und Herstellerwerte bleiben unverändert.</p></article>
+      <article class="card"><h2>Datenstatus</h2><p>Build C16 schließt Version 1.0.2 als Release ab. Sicherheitsbestätigung, kompakte Naht-Rückmeldung, einblendbare Berechnungsdetails und eine einheitliche Verfahrensreihenfolge sind integriert; Berechnungsformeln und Herstellerwerte bleiben unverändert.</p></article>
     </section>
   </main>
 

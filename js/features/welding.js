@@ -4,7 +4,7 @@ import { initFeedbackSlider } from '../ui/slider.js';
 import { storage } from '../core/storage.js';
 import { listManufacturersWithData } from '../core/manufacturers.js';
 
-let state = { data: null, corrections: null, lastInput: null, feedbackTrim: 0 };
+let state = { data: null, corrections: null, lastInput: null, feedbackTrim: 0, euroConfirmedFor: null };
 
 function fillSelect(id, items, selected) {
   const el = document.getElementById(id);
@@ -49,8 +49,37 @@ function updateManufacturerControls() {
   if (select) storage.set('schweisspilot.manufacturerId', select.value || 'stahlwerk');
 }
 
+function requiresEuroRemoval(processId) {
+  return !['fcaw_s', 'mag', 'mig'].includes(processId);
+}
+
+function updateEuroWarning(processId) {
+  const panel = document.getElementById('euroConnectorWarning');
+  const checkbox = document.getElementById('euroConnectorConfirmed');
+  if (!panel || !checkbox) return true;
+  const required = requiresEuroRemoval(processId);
+  panel.classList.toggle('hidden', !required);
+  if (!required) {
+    checkbox.checked = false;
+    state.euroConfirmedFor = null;
+    return true;
+  }
+  checkbox.checked = state.euroConfirmedFor === processId;
+  return checkbox.checked;
+}
+
 function renderCalculation() {
   const input = readInput();
+  const confirmed = updateEuroWarning(input.process);
+  if (requiresEuroRemoval(input.process) && !confirmed) {
+    const resultCard = document.getElementById('resultCard');
+    resultCard?.classList.remove('hidden');
+    resultCard?.classList.add('awaiting-euro-confirmation');
+    document.getElementById('euroConnectorWarning')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    document.getElementById('euroConnectorConfirmed')?.focus();
+    return;
+  }
+  document.getElementById('resultCard')?.classList.remove('awaiting-euro-confirmation');
   state.lastInput = input;
   const reference = calculateWelding(input, state.data, 0);
   const result = calculateWelding(input, state.data, state.feedbackTrim);
@@ -85,7 +114,7 @@ function updateProcessVisibility() {
 }
 
 export function initWelding(data, corrections) {
-  state = { data, corrections, lastInput: null, feedbackTrim: 0 };
+  state = { data, corrections, lastInput: null, feedbackTrim: 0, euroConfirmedFor: null };
   fillSelect('process', data.processes, 'fcaw_s');
   fillSelect('material', data.materials, 'stahl');
   fillSelect('wire', data.wires, 0.9);
@@ -106,6 +135,10 @@ export function initWelding(data, corrections) {
   ['process','material','thickness','wire','electrode','joint','position','shape','trim'].forEach(id => {
     document.getElementById(id).addEventListener('input', () => {
       updateProcessVisibility();
+      if (id === 'process') {
+        state.euroConfirmedFor = null;
+        updateEuroWarning(document.getElementById('process').value);
+      }
       if (!document.getElementById('resultCard').classList.contains('hidden')) renderCalculation();
     });
   });
@@ -117,6 +150,12 @@ export function initWelding(data, corrections) {
   document.getElementById('manufacturerSelect').addEventListener('change', () => {
     updateManufacturerControls();
     if (!document.getElementById('resultCard').classList.contains('hidden')) renderCalculation();
+  });
+
+  document.getElementById('euroConnectorConfirmed')?.addEventListener('change', event => {
+    const processId = document.getElementById('process').value;
+    state.euroConfirmedFor = event.target.checked ? processId : null;
+    if (event.target.checked) renderCalculation();
   });
 
   initFeedbackSlider((value) => {

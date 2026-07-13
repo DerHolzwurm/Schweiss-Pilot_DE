@@ -1,3 +1,4 @@
+import { storage } from '../core/storage.js';
 import { renderOutputVisuals } from './visuals.js';
 const show = value => value ?? '–';
 const fmt = (value, unit, digits = 0) => value === null || value === undefined ? '–' : `${Number(value).toFixed(digits)} ${unit}`;
@@ -84,7 +85,25 @@ function renderManufacturerComparison(comparison, isCut, enabled = true) {
   setText('manufacturerCompareNotes', extras.join(' | ') || 'Herstellerwert als Orientierungs- und Plausibilitätsvergleich.');
 }
 
+let plausibilityToggleInitialized = false;
+function initPlausibilityToggle() {
+  if (plausibilityToggleInitialized) return;
+  const button = document.getElementById('plausibilityToggle');
+  const details = document.getElementById('plausibilityDetails');
+  if (!button || !details) return;
+  const apply = expanded => {
+    details.classList.toggle('hidden', !expanded);
+    button.setAttribute('aria-expanded', String(expanded));
+    button.textContent = expanded ? 'Details ausblenden' : 'Details anzeigen';
+    storage.set('schweisspilot.plausibilityExpanded', expanded);
+  };
+  apply(storage.get('schweisspilot.plausibilityExpanded', false));
+  button.addEventListener('click', () => apply(button.getAttribute('aria-expanded') !== 'true'));
+  plausibilityToggleInitialized = true;
+}
+
 function renderPlausibility(plausibility) {
+  initPlausibilityToggle();
   const panel = document.getElementById('plausibilityPanel');
   const list = document.getElementById('plausibilityList');
   if (!panel || !list || !plausibility) return;

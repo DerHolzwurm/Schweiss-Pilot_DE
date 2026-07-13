@@ -1,6 +1,6 @@
 # SchweißPilot
 
-**Version 1.0.2 · Build C15 · Release Candidate**
+**Version 1.0.2 · Build C16 · Release**
 
 Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und stellt gerätebezogene Anschluss- und Parameterinformationen bereit.
 
@@ -102,6 +102,10 @@ Validiert wurden:
 Build C14 lädt sämtliche JSON-Datensätze über eine zentrale Registry. Jeder Datensatz besitzt einen eindeutigen Pfad und – soweit fachlich erforderlich – definierte Pflichtfelder. Ungültiges JSON, fehlende Pflichtfelder oder falsche Grundformate führen zu einer nachvollziehbaren Startfehlermeldung, statt unbemerkt mit unvollständigen Daten weiterzuarbeiten.
 
 Die Berechnungsformeln, Herstellerwerte und Gerätelimits wurden in C14 nicht verändert.
+
+## Release C16
+
+Build C16 schließt Version 1.0.2 ab. Die Berechnungsprüfung lässt sich per Button ein- und ausblenden. Die Naht-Rückmeldung steht kompakt direkt unter den empfohlenen Startwerten. Bei WIG DC, WIG AC, MMA und Plasma verlangt die App vor der Ergebnisanzeige die Bestätigung „Ich habe den EURO-Zentralstecker entfernt!“. Im Parameterbereich gilt die Reihenfolge FLUX, MAG, MIG, WIG DC, WIG AC, MMA und Plasma; WIG AC wird beim CTM-250 transparent als nicht unterstützt ausgewiesen. Versions-, Quellen- und Herstellerstatus wurden für den Release vereinheitlicht.
 
 ## Release Candidate C15
 

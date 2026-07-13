@@ -50,7 +50,7 @@ function renderManufacturerComparison(comparison, isCut, enabled = true) {
     panel.classList.add('compare-missing');
     setText('manufacturerCompareMeta', comparison?.note || 'Kein passender Datensatz gefunden.');
     setText('manufacturerCompareBadge', 'Keine Daten');
-    setText('manufacturerCompareNotes', 'C07/C07.5 enthält die Datenbasis. Weitere Herstellerwerte können später ergänzt werden.');
+    setText('manufacturerCompareNotes', 'Im aktuellen Datenstand liegt für diese Kombination kein passender Herstellerwert vor.');
     setCompareItem('cmpAmp', null);
     setCompareItem('cmpVolt', null);
     setCompareItem('cmpFeed', null);
@@ -79,6 +79,34 @@ function renderManufacturerComparison(comparison, isCut, enabled = true) {
   if (comparison.comment) extras.push(comparison.comment);
 
   setText('manufacturerCompareNotes', extras.join(' | ') || 'Herstellerwert als Orientierungs- und Plausibilitätsvergleich.');
+}
+
+function renderPlausibility(plausibility) {
+  const panel = document.getElementById('plausibilityPanel');
+  const list = document.getElementById('plausibilityList');
+  if (!panel || !list || !plausibility) return;
+
+  const stateLabel = plausibility.state === 'fail'
+    ? 'Prüfung fehlgeschlagen'
+    : plausibility.state === 'warn'
+      ? 'Mit Hinweisen'
+      : 'Strukturell plausibel';
+  panel.className = `plausibility-panel ${plausibility.state}`;
+  setText('plausibilityBadge', stateLabel);
+  setText(
+    'plausibilitySummary',
+    plausibility.failed
+      ? `${plausibility.failed} fehlerhafte Prüfstufe${plausibility.failed === 1 ? '' : 'n'} erkannt.`
+      : plausibility.warnings
+        ? `${plausibility.warnings} Hinweis${plausibility.warnings === 1 ? '' : 'e'}; Probenaht und Herstellerangaben bleiben erforderlich.`
+        : 'Alle verfügbaren Rechenschritte liefern verwertbare Werte innerhalb der aktiven Grenzen.'
+  );
+
+  list.innerHTML = plausibility.checks.map(item => `
+    <div class="plausibility-item ${item.state}">
+      <span class="plausibility-state" aria-hidden="true"></span>
+      <div><strong>${item.label}</strong><p>${item.text}</p></div>
+    </div>`).join('');
 }
 
 export function renderResult(result, reference = result) {
@@ -118,6 +146,7 @@ export function renderResult(result, reference = result) {
 
   renderDeviceLimit(result.deviceLimit);
   renderManufacturerComparison(result.manufacturerComparison, isCut, result.manufacturerComparisonEnabled);
+  renderPlausibility(result.plausibility);
 
   if (isCut) {
     document.getElementById('outputVisuals').innerHTML = '<section class="visual-guideline"><strong>Plasma-Workflow aktiv</strong><p>Nahtart, Position, Materialform, Draht und Nahtkorrektur sind ausgeblendet. Relevant bleiben Material, Materialstärke und Schneidstrom.</p></section>';

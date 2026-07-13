@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 – C08
+
+- Transparente Berechnungsprüfung im Ergebnisbereich ergänzt.
+- Stromwert, Kalibrierkorridor, Gerätelimit, Spannung, Drahtvorschub, Schweißgeschwindigkeit und Wärmeeintrag werden auf verwertbare Rechenergebnisse geprüft.
+- Verwendete Herstellerkalibrierung beziehungsweise generische Datenbasis wird ausdrücklich ausgewiesen.
+- Keine Berechnungsformel und kein Herstellerwert wurde verändert.
+- README, Datenstatus, Versionsstand und Offline-Cache auf Build C08 aktualisiert.
+
 ## 1.0.2 – C07
 
 - Geräte- und Verfahrensdaten in die zentrale Datei `data/devices.json` ausgelagert.

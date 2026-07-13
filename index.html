@@ -111,6 +111,17 @@
           <p id="manufacturerCompareNotes" class="small compare-notes">–</p>
         </section>
 
+        <section id="plausibilityPanel" class="plausibility-panel" aria-live="polite" aria-label="Berechnungsprüfung">
+          <div class="plausibility-header">
+            <div>
+              <h3>Berechnungsprüfung</h3>
+              <p id="plausibilitySummary" class="small">–</p>
+            </div>
+            <span id="plausibilityBadge" class="plausibility-badge">–</span>
+          </div>
+          <div id="plausibilityList" class="plausibility-list"></div>
+        </section>
+
         <section id="feedbackPanel" class="feedback-panel" aria-label="Live-Nahtfeedback">
           <h3>Naht-Rückmeldung <button class="help-btn" type="button" data-help="feedback" aria-label="Hilfe zur Naht-Rückmeldung">i</button></h3>
           <p>Regler direkt nach der Probenaht verschieben. Die Startwerte werden sofort neu berechnet. Die Referenzwerte bleiben als Optimalwert sichtbar.</p>
@@ -272,7 +283,7 @@
 
     <section id="screen-data" class="screen">
       <article class="card"><h2>Version</h2><div id="versionDetails">Version wird geladen …</div></article>
-      <article class="card"><h2>Datenstatus</h2><p>Build C07 nutzt eine zentrale, modulare Gerätedatenbank. Geräte, Verfahren, Anschlussdaten und Prozessreferenzen werden datengetrieben geladen und bleiben vollständig offline verfügbar.</p></article>
+      <article class="card"><h2>Datenstatus</h2><p>Build C08 erweitert den Rechner um eine transparente Berechnungsprüfung. Rechenwerte, Kalibrierkorridor, Gerätelimit, Wärmeeintrag und Datenbasis werden nach jeder Berechnung strukturell geprüft.</p></article>
     </section>
   </main>
 

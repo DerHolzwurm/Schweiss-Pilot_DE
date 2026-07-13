@@ -106,6 +106,103 @@ function calculateTravelSpeed(process, thickness) {
   }
 }
 
+
+function buildPlausibilityChecks({ process, amps, requestedAmps, volt, wfs, travelSpeed, heatInput, currentRange, deviceLimit, primaryManufacturerReference }) {
+  const checks = [];
+  const add = (id, label, state, text) => checks.push({ id, label, state, text });
+  const finitePositive = value => Number.isFinite(Number(value)) && Number(value) > 0;
+
+  add(
+    'current',
+    'Stromwert',
+    finitePositive(amps) ? 'pass' : 'fail',
+    finitePositive(amps)
+      ? `${round(amps)} A wurden als endlicher positiver Wert berechnet.`
+      : 'Der Stromwert konnte nicht plausibel berechnet werden.'
+  );
+
+  const insideCalibration = finitePositive(amps) && currentRange
+    ? Number(amps) >= Number(currentRange.min) && Number(amps) <= Number(currentRange.max)
+    : false;
+  add(
+    'calibration',
+    'Kalibrierkorridor',
+    insideCalibration ? 'pass' : deviceLimit?.limited ? 'warn' : 'fail',
+    insideCalibration
+      ? `Ausgabe liegt im verwendeten Korridor ${makeRangeLabel(currentRange.min, currentRange.max)}.`
+      : deviceLimit?.limited
+        ? 'Die Ausgabe wurde durch das aktive Gerätelimit begrenzt.'
+        : 'Die Ausgabe liegt außerhalb des verwendeten Kalibrierkorridors.'
+  );
+
+  if (deviceLimit) {
+    add(
+      'device',
+      'Gerätebereich',
+      deviceLimit.limited ? 'warn' : 'pass',
+      deviceLimit.limited
+        ? deviceLimit.action
+        : `Der angeforderte Wert ${round(requestedAmps)} A liegt im Gerätebereich ${round(deviceLimit.minA)}–${round(deviceLimit.maxA)} A.`
+    );
+  }
+
+  if (process.type !== 'cut') {
+    add(
+      'voltage',
+      'Spannung',
+      finitePositive(volt) ? 'pass' : 'fail',
+      finitePositive(volt)
+        ? `${round(volt, 1)} V wurden verfahrensabhängig berechnet.`
+        : 'Für dieses Verfahren fehlt ein verwertbarer Spannungswert.'
+    );
+    add(
+      'travel',
+      'Schweißgeschwindigkeit',
+      finitePositive(travelSpeed) ? 'pass' : 'fail',
+      finitePositive(travelSpeed)
+        ? `${round(travelSpeed)} mm/min bilden die Berechnungsbasis des Wärmeeintrags.`
+        : 'Die Schweißgeschwindigkeit ist nicht verwertbar.'
+    );
+    add(
+      'heat',
+      'Wärmeeintrag',
+      finitePositive(heatInput) ? 'pass' : 'fail',
+      finitePositive(heatInput)
+        ? `${round(heatInput, 2)} kJ/mm wurden aus Strom, Spannung und Schweißgeschwindigkeit berechnet.`
+        : 'Der Wärmeeintrag konnte nicht vollständig berechnet werden.'
+    );
+  }
+
+  if (process.type === 'wire') {
+    add(
+      'wireFeed',
+      'Drahtvorschub',
+      finitePositive(wfs) ? 'pass' : 'fail',
+      finitePositive(wfs)
+        ? `${round(wfs, 1)} m/min wurden für den gewählten Drahtdurchmesser berechnet.`
+        : 'Der Drahtvorschub konnte nicht verwertbar berechnet werden.'
+    );
+  }
+
+  add(
+    'source',
+    'Datenbasis',
+    primaryManufacturerReference ? 'pass' : 'info',
+    primaryManufacturerReference
+      ? 'Ein passender Herstellerbereich wurde zur Kalibrierung verwendet.'
+      : 'Kein passender Herstellerbereich vorhanden; die eigene Berechnungsengine bleibt maßgeblich.'
+  );
+
+  const failed = checks.filter(item => item.state === 'fail').length;
+  const warnings = checks.filter(item => item.state === 'warn').length;
+  return {
+    state: failed ? 'fail' : warnings ? 'warn' : 'pass',
+    failed,
+    warnings,
+    checks
+  };
+}
+
 function calculateHeatInput(volt, amps, travelSpeed) {
   if (volt === null || travelSpeed === null || travelSpeed <= 0) return null;
   return (volt * amps * 60) / (1000 * travelSpeed);
@@ -196,6 +293,18 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const manufacturerComparison = manufacturerComparisonEnabled
     ? buildManufacturerComparison({ amps, volt, wfs, processType: process.type }, manufacturerReferences, data)
     : { available: false, disabled: true, note: 'Herstellervergleich ist deaktiviert.' };
+  const plausibility = buildPlausibilityChecks({
+    process,
+    amps,
+    requestedAmps,
+    volt,
+    wfs,
+    travelSpeed,
+    heatInput,
+    currentRange,
+    deviceLimit,
+    primaryManufacturerReference
+  });
 
   let fase = thickness < 4
     ? { visual: 'none', level: 'info', text: 'Keine Fase nötig, Kanten sauber vorbereiten.' }
@@ -243,6 +352,7 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
     primaryManufacturerReference,
     manufacturerSummary,
     manufacturerComparison,
+    plausibility,
     polarity: process.polarity,
     gas: process.gas,
     practice: deviceLimit?.limited

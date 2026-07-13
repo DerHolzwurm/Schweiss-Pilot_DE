@@ -222,3 +222,21 @@
 
 .parameter-reference-list { margin-top: .75rem; }
 .parameter-reference-list dd { overflow-wrap: anywhere; }
+
+
+/* v1.0.2 C08: transparente Berechnungsprüfung */
+.plausibility-panel{border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 16px;background:rgba(56,189,248,.045)}
+.plausibility-panel.warn{border-color:rgba(245,158,11,.55);background:rgba(245,158,11,.07)}
+.plausibility-panel.fail{border-color:rgba(239,68,68,.65);background:rgba(239,68,68,.08)}
+.plausibility-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:12px}
+.plausibility-header h3{margin:0 0 4px}.plausibility-header p{margin:0;color:var(--muted)}
+.plausibility-badge{display:inline-flex;align-items:center;border:1px solid currentColor;border-radius:999px;padding:6px 10px;color:var(--good);font-size:.78rem;font-weight:900;white-space:nowrap}
+.plausibility-panel.warn .plausibility-badge{color:var(--warn)}.plausibility-panel.fail .plausibility-badge{color:var(--bad)}
+.plausibility-list{display:grid;gap:8px}
+.plausibility-item{display:grid;grid-template-columns:12px minmax(0,1fr);gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.025)}
+.plausibility-state{width:10px;height:10px;margin-top:5px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px rgba(34,197,94,.12)}
+.plausibility-item.warn .plausibility-state{background:var(--warn);box-shadow:0 0 0 3px rgba(245,158,11,.12)}
+.plausibility-item.fail .plausibility-state{background:var(--bad);box-shadow:0 0 0 3px rgba(239,68,68,.12)}
+.plausibility-item.info .plausibility-state{background:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,.12)}
+.plausibility-item strong{display:block}.plausibility-item p{margin:3px 0 0;color:var(--muted);line-height:1.4}
+@media (max-width:720px){.plausibility-header{display:block}.plausibility-badge{margin-top:8px}}

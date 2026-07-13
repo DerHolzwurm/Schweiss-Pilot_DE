@@ -5,6 +5,26 @@ const SELECTION_KEY = 'schweisspilot.machineParameters.selection';
 
 const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
 
+const PARAMETER_PROCESS_ORDER = ['fcaw_s', 'mag', 'mig', 'wig_dc', 'wig_ac', 'mma', 'plasma'];
+
+function orderedProcessOptions(device) {
+  const processes = Array.isArray(device?.processes) ? [...device.processes] : [];
+  if (!processes.some(process => process.id === 'wig_ac')) {
+    processes.push({
+      id: 'wig_ac',
+      label: 'WIG AC / Aluminium (nicht unterstützt)',
+      unavailable: true
+    });
+  }
+
+  return processes.sort((a, b) => {
+    const aIndex = PARAMETER_PROCESS_ORDER.indexOf(a.id);
+    const bIndex = PARAMETER_PROCESS_ORDER.indexOf(b.id);
+    return (aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex)
+      - (bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex);
+  });
+}
+
 function formatRange(min, max, unit) {
   if (min == null && max == null) return '–';
   if (min === max || max == null) return `${String(min).replace('.', ',')} ${unit}`;

@@ -1,5 +1,6 @@
 ## 1.0.2-C16 - Release
 
+- Startfehler im Parameterbereich behoben: Die Verfahrenssortierung wird nun über eine definierte, validierte Reihenfolge geladen.
 - Berechnungsprüfung per Button ein- und ausblendbar; Zustand wird lokal gespeichert.
 - Naht-Rückmeldung kompakt direkt unter den empfohlenen Startwerten angeordnet.
 - Roter Sicherheitshinweis mit Pflichtbestätigung „Ich habe den EURO-Zentralstecker entfernt!“ für WIG DC, WIG AC, MMA und Plasma.

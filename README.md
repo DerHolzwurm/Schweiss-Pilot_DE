@@ -105,7 +105,7 @@ Die Berechnungsformeln, Herstellerwerte und Gerätelimits wurden in C14 nicht ve
 
 ## Release C16
 
-Build C16 schließt Version 1.0.2 ab. Die Berechnungsprüfung lässt sich per Button ein- und ausblenden. Die Naht-Rückmeldung steht kompakt direkt unter den empfohlenen Startwerten. Bei WIG DC, WIG AC, MMA und Plasma verlangt die App vor der Ergebnisanzeige die Bestätigung „Ich habe den EURO-Zentralstecker entfernt!“. Im Parameterbereich gilt die Reihenfolge FLUX, MAG, MIG, WIG DC, WIG AC, MMA und Plasma; WIG AC wird beim CTM-250 transparent als nicht unterstützt ausgewiesen. Versions-, Quellen- und Herstellerstatus wurden für den Release vereinheitlicht.
+Build C16 schließt Version 1.0.2 ab. Der Parameterbereich verwendet eine definierte Verfahrenssortierung und startet ohne Referenzfehler. Die Berechnungsprüfung lässt sich per Button ein- und ausblenden. Die Naht-Rückmeldung steht kompakt direkt unter den empfohlenen Startwerten. Bei WIG DC, WIG AC, MMA und Plasma verlangt die App vor der Ergebnisanzeige die Bestätigung „Ich habe den EURO-Zentralstecker entfernt!“. Im Parameterbereich gilt die Reihenfolge FLUX, MAG, MIG, WIG DC, WIG AC, MMA und Plasma; WIG AC wird beim CTM-250 transparent als nicht unterstützt ausgewiesen. Versions-, Quellen- und Herstellerstatus wurden für den Release vereinheitlicht.
 
 ## Release Candidate C15
 

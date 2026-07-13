@@ -1,4 +1,4 @@
-const CACHE_NAME = 'schweisspilot-v1.0.1-c15';
+const CACHE_NAME = 'schweisspilot-v1.0.2-c16';
 const ASSETS = [
   './',
   './index.html',
@@ -10,6 +10,8 @@ const ASSETS = [
   './css/responsive.css',
   './js/main.js',
   './js/core/app.js',
+  './js/core/data-registry.js',
+  './js/core/device-manager.js',
   './js/core/calculations.js',
   './js/core/manufacturers.js',
   './js/core/config.js',
@@ -25,6 +27,7 @@ const ASSETS = [
   './js/features/welding.js',
   './js/features/feedback.js',
   './js/features/diagnostics.js',
+  './js/features/machine-parameters.js',
   './data/defaults.json',
   './data/processes.json',
   './data/corrections.json',
@@ -35,6 +38,14 @@ const ASSETS = [
   './data/manufacturers.json',
   './data/sources.json',
   './data/troubleshooting.json',
+  './data/machine-parameters.json',
+  './data/devices.json',
+  './assets/images/parameters/ctm250-cut.png',
+  './assets/images/parameters/ctm250-flux.png',
+  './assets/images/parameters/ctm250-mig-mag.png',
+  './assets/images/parameters/ctm250-mma.png',
+  './assets/images/parameters/ctm250-wig.png',
+  './assets/images/parameters/ctm250-warning.png',
   './assets/icons/icon-192.png',
   './assets/images/positions/pa.svg',
   './assets/images/positions/pc.svg',

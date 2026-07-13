@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 2,
+  "status": "manual-grounded",
+  "deviceDatabase": "./data/devices.json",
+  "activeDeviceId": "stahlwerk-ctm-250-puls-pro",
+  "notes": [
+    "Geräte- und Verfahrensdaten werden zentral aus devices.json geladen.",
+    "Hersteller-Richtwerte bleiben in manufacturers.json."
+  ]
+}

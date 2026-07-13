@@ -1,8 +1,8 @@
 # SchweißPilot
 
-**Version 1.0.1 · Build C15 · Release Candidate**
+**Version 1.0.2 · Build C16 · Release**
 
-Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und gleicht Ergebnisse optional mit validierten Richtwerten des **STAHLWERK CTM-250 Puls Pro** ab.
+Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und stellt gerätebezogene Anschluss- und Parameterinformationen bereit.
 
 ## Funktionen
 
@@ -17,10 +17,30 @@ Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPil
 - Strom, Spannung, Drahtvorschub, Schweißgeschwindigkeit und Wärmeeintrag
 - Live-Nahtfeedback und Feinkorrektur
 - Gerätelimits mit transparenten Warnhinweisen
+- transparente Berechnungsprüfung für Strom, Spannung, Drahtvorschub, Wärmeeintrag und Datenbasis
+- aufklappbarer Berechnungsweg mit Eingaben, Zwischenwerten, Kalibrierung, Korrekturen und Gerätelimit
+- priorisierte Herstellerzuordnung nach Materialstärke, Strombereich, Draht- beziehungsweise Elektrodendurchmesser und Datensatzspezifität
+
+### Parameter
+
+Der Tab **Parameter** enthält derzeit das Geräteprofil:
+
+- STAHLWERK CTM-250 Puls Pro
+
+Verfügbar sind gerätebezogene Anschlussbilder und Hinweise für:
+
+- CUT / Plasmaschneiden
+- FLUX / selbstschützender Fülldraht
+- MAG / Stahl
+- MIG / Aluminium
+- MMA / Elektrode
+- WIG DC / Stahl und Edelstahl
+
+Die zuletzt gewählte Geräte- und Verfahrenskombination wird lokal gespeichert und beim nächsten App-Start wiederhergestellt. Das ausgewählte Verfahren kann direkt in den Rechner übernommen werden; die vorhandene Rechnerlogik aktualisiert anschließend die verfahrensabhängigen Eingabefelder. Vorhandene Hersteller-Richtwerte werden aus der zentralen Herstellerdatenbank eingebunden; fehlende Werte bleiben bewusst leer. Build C11 zeigt zusätzlich bereits hinterlegte technische Angaben wie Wolframelektrode, Gasdüse, Zusatzstab oder Elektrodentyp direkt in der Richtwerttabelle. Zusätzlich zeigt der Tab verfahrensbezogene Gerätegrenzen, Einschaltdauer, Netz- und Eingangsstromdaten, Prozessreferenzen sowie die im Geräteprofil dokumentierten Einschränkungen. Geräte- und Verfahrensdaten werden zentral aus `data/devices.json` geladen; neue Geräte können dadurch ohne Umbau der Anzeige-Logik ergänzt werden.
 
 ### Hersteller- und Gerätebezug
 
-Für Version 1.0.1 sind ausschließlich Herstellerdaten des **STAHLWERK CTM-250 Puls Pro** freigegeben. Die Richtwerte stammen aus der Bedienungsanleitung, Stand 05/2025.
+Für Version 1.0.2 sind ausschließlich Herstellerdaten des **STAHLWERK CTM-250 Puls Pro** freigegeben. Die Richtwerte stammen aus der Bedienungsanleitung, Stand 05/2025.
 
 Validiert wurden:
 
@@ -46,6 +66,8 @@ Validiert wurden:
 - Filter nach Verfahren
 - Ursachen und sichere Prüfschritte
 - CTM-250-FAQ als strukturierte Datenbasis
+- zusätzliche, eindeutig gekennzeichnete Fehlerbilder der allgemeinen Schweißpraxis
+- WIG-DC-Diagnose sowie Hinweise zu Bindefehlern, Einbrandkerben, Spritzern, Verzug und Schlackeneinschlüssen
 
 ### Progressive Web App
 
@@ -55,25 +77,41 @@ Validiert wurden:
 - Dark Mode
 - Service Worker und Manifest
 
-## Änderungen seit Version 1.0.0
+## Entwicklung Version 1.0.2
 
 | Build | Schwerpunkt |
 |---|---|
-| C01 | Referenzwerte, Slider und empfohlene Einstellungen |
-| C02 | Version, Build, Branch und Status |
-| C03 | Nahtarten, Materialformen und Illustrationssystem |
-| C04 | vereinfachter Plasma-Workflow |
-| C05/C05a | Info-Buttons, Tooltips und globaler Hilfeschalter |
-| C06 | erweiterte Berechnungs- und Referenzstruktur |
-| C07/C07.5 | Herstellerdatenbank und CTM-250-Geräteprofil |
-| C08 | Vergleich berechneter Werte mit Herstellerbereichen |
-| C09 | neue modulare Berechnungsengine |
-| C10/C10.5 | MMA-Elektrodendurchmesser und empfohlene Materialstärke |
-| C11 | Gerätelimits und Warnhinweise |
-| C12 | optionaler Herstellervergleich |
-| C13 | CTM-250-Troubleshooting |
-| C14 | finale Überarbeitung der Illustrationen |
-| C15 | Validierung und Begrenzung der Herstellerdaten auf STAHLWERK |
+| C01 | Neuer datengetriebener Parameter-Tab mit Geräte- und Verfahrensauswahl |
+| C02 | Persistente Parameter-Auswahl, Datenstatus-Bereinigung und Dokumentationsabgleich |
+| C03 | Direkte Übernahme des gewählten Verfahrens aus dem Parameter-Tab in den Rechner |
+| C04 | Gerätegrenzen, technische Gerätedaten und validierte Einschränkungen im Parameter-Tab |
+| C05 | Transparente Quellen- und Statuskennzeichnung für Hersteller-Richtwerte |
+| C06 | Verfahrensbezogene Prozessreferenzen für Verbrauchsmittel, Gase und dokumentierte Grenzen |
+| C07 | Zentrale modulare Gerätedatenbank und einheitlicher Gerätezugriff |
+| C08 | Transparente strukturelle Prüfung der berechneten Werte und aktiven Grenzen |
+| C09 | Nachvollziehbarer Berechnungsweg mit Zwischenwerten und Rundungstransparenz |
+| C10 | Präzisere Herstellerzuordnung und transparente Qualität des gewählten Vergleichsdatensatzes |
+| C11 | Erweiterte Anzeige vorhandener technischer STAHLWERK-Referenzdaten im Parameter-Tab |
+| C12 | Erweiterte Fehlerdiagnose mit WIG DC und klarer Trennung zwischen Hersteller-FAQ und allgemeiner Schweißpraxis |
+| C13 | Im hochgeladenen Ausgangsstand nicht enthalten; keine unbestätigte Funktion übernommen |
+| C14 | Zentraler Daten-Registry-Loader mit Format- und Pflichtfeldprüfung für alle App-Datensätze |
+| C15 | Release-Candidate-Vorbereitung mit abgestimmter Dokumentation, Versionsstatus, Offline-Cache und Release-Prüfliste |
+
+## Datenarchitektur
+
+Build C14 lädt sämtliche JSON-Datensätze über eine zentrale Registry. Jeder Datensatz besitzt einen eindeutigen Pfad und – soweit fachlich erforderlich – definierte Pflichtfelder. Ungültiges JSON, fehlende Pflichtfelder oder falsche Grundformate führen zu einer nachvollziehbaren Startfehlermeldung, statt unbemerkt mit unvollständigen Daten weiterzuarbeiten.
+
+Die Berechnungsformeln, Herstellerwerte und Gerätelimits wurden in C14 nicht verändert.
+
+## Release C16
+
+Build C16 schließt Version 1.0.2 ab. Der Parameterbereich verwendet eine definierte Verfahrenssortierung und startet ohne Referenzfehler. Die Berechnungsprüfung lässt sich per Button ein- und ausblenden. Die Naht-Rückmeldung steht kompakt direkt unter den empfohlenen Startwerten. Bei WIG DC, WIG AC, MMA und Plasma verlangt die App vor der Ergebnisanzeige die Bestätigung „Ich habe den EURO-Zentralstecker entfernt!“. Im Parameterbereich gilt die Reihenfolge FLUX, MAG, MIG, WIG DC, WIG AC, MMA und Plasma; WIG AC wird beim CTM-250 transparent als nicht unterstützt ausgewiesen. Versions-, Quellen- und Herstellerstatus wurden für den Release vereinheitlicht.
+
+## Release Candidate C15
+
+Build C15 bündelt den aktuellen Entwicklungsstand für die abschließende Prüfung vor dem Merge. Der Build bleibt auf dem Branch `Entwicklung-V1.0.2` und ist noch kein veröffentlichtes Release. Vor der Freigabe müssen insbesondere Installation, Offlinebetrieb, Navigation, Rechner, Parameterbereich, Lexikon, Fehlerdiagnose und Datenstatus über GitHub Pages geprüft werden.
+
+Die verbindlichen Prüfschritte stehen in `RELEASE_CHECKLIST.md`.
 
 ## Bekannte Grenzen
 
@@ -88,14 +126,23 @@ Validiert wurden:
 Aktueller Branch:
 
 ```text
-Entwicklung-V1.0.1
+Entwicklung-V1.0.2
 ```
 
-Merge-Reihenfolge:
+Vorgesehene Merge-Reihenfolge:
 
 ```text
-Entwicklung-V1.0.1 -> develop -> main -> tag v1.0.1
+Entwicklung-V1.0.2 -> develop -> main -> tag v1.0.2
 ```
+
+## Roadmap Version 1.0.2
+
+- Berechnungsengine anhand der endgültigen Projektformeln validieren
+- Werte gegen das STAHLWERK-Handbuch prüfen
+- Spannungen, Drahtvorschub und Wärmeeintrag plausibilisieren
+- weitere STAHLWERK-Daten integrieren
+- Herstellerdatenbank und Vergleich erweitern
+- zusätzliche Fehlerbilder und Plausibilitätsprüfungen ergänzen
 
 ## Roadmap Version 1.1.0
 

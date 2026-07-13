@@ -1,4 +1,163 @@
+## 1.0.2-C16 - Release
+
+- Startfehler im Parameterbereich behoben: Die Verfahrenssortierung wird nun über eine definierte, validierte Reihenfolge geladen.
+- Berechnungsprüfung per Button ein- und ausblendbar; Zustand wird lokal gespeichert.
+- Naht-Rückmeldung kompakt direkt unter den empfohlenen Startwerten angeordnet.
+- Roter Sicherheitshinweis mit Pflichtbestätigung „Ich habe den EURO-Zentralstecker entfernt!“ für WIG DC, WIG AC, MMA und Plasma.
+- Verfahren im Parameterbereich auf FLUX, MAG, MIG, WIG DC, WIG AC, MMA und Plasma vereinheitlicht; WIG AC beim CTM-250 als nicht unterstützt gekennzeichnet.
+- Quellenhinweis und Herstelleranzahl im Parameterbereich ergänzt.
+- Info-Schaltflächen visuell vereinheitlicht.
+- Versionsstatus auf Release, Build C16 und Stand 13.07.2026 aktualisiert.
+- README und Offline-Cache aktualisiert.
+
+## 1.0.2-C15 - Release Candidate
+
+### Changed
+- Versionsstatus auf Release Candidate und Build C15 aktualisiert.
+- README um den Release-Candidate-Status und die abschließende Prüfphase ergänzt.
+- Datenstatus in der App auf die Release-Vorbereitung abgestimmt.
+- Service-Worker-Cache auf `schweisspilot-v1.0.2-c15` erhöht.
+
+### Added
+- Verbindliche Release-Prüfliste für GitHub Pages, Installation, Offlinebetrieb und alle Hauptmodule ergänzt.
+
+### Unchanged
+- Keine Berechnungsformeln, Herstellerwerte, Gerätelimits oder sichtbaren Kernfunktionen verändert.
+
+### Files
+- README.md
+- CHANGELOG.md
+- RELEASE_CHECKLIST.md
+- index.html
+- version.json
+- sw.js
+
+## 1.0.2-C14 - Development
+
+### Changed
+- Sämtliche App-Datensätze werden über eine zentrale Daten-Registry geladen.
+- Datenpfade und grundlegende Datensatzanforderungen sind einheitlich in `js/core/config.js` definiert.
+- `js/core/app.js` wurde auf die zentrale Registry umgestellt und von wiederholter Lade-Logik bereinigt.
+- Geladene App-Daten werden als unveränderliche Top-Level-Struktur bereitgestellt.
+
+### Added
+- Neues Modul `js/core/data-registry.js`.
+- Eindeutige Fehler für nicht ladbare Dateien, ungültiges JSON, falsche Grundformate und fehlende Pflichtfelder.
+- Offline-Cache für das neue Registry-Modul.
+
+### Notes
+- Der hochgeladene Ausgangsstand identifizierte sich intern als Build C12; eine bestätigte C13-Implementierung war darin nicht enthalten.
+- Keine Berechnungsformeln, Herstellerwerte, Gerätelimits oder sichtbaren Funktionen wurden verändert.
+- README, Versionsdaten und Service-Worker-Cache wurden auf C14 aktualisiert.
+
+
+## 1.0.2-C12 - Development
+
+### Added
+- WIG-DC-Kategorie in der Fehlerdiagnose.
+- Zusätzliche Fehlerbilder zu Bindefehlern, Einbrandkerben, Spritzern, Verzug, Wolframverunreinigung, Gasabdeckung, Schlackeneinschlüssen und Plasmaschnitt-Grat.
+- Eintragsbezogene Quellenkennzeichnung zur klaren Trennung zwischen CTM-250-Handbuch und allgemeiner Schweißpraxis.
+
+### Changed
+- Suchbereich und Einleitung der Fehlerdiagnose erweitert.
+- Datenstatus, README, Version und Service-Worker-Cache auf Build C12 aktualisiert.
+
+### Files
+- README.md
+- CHANGELOG.md
+- index.html
+- version.json
+- sw.js
+- css/components.css
+- data/troubleshooting.json
+- js/features/diagnostics.js
+
+## 1.0.2 – C11
+
+### Added
+- Erweiterte technische Detailspalte in den vorhandenen STAHLWERK-Hersteller-Richtwerten.
+- Anzeige bereits hinterlegter Angaben zu Wolframelektrode, Gasdüse, Zusatzstab sowie Elektrodentyp und -durchmesser.
+
+### Changed
+- README, Datenstatus, Versionsstand und Offline-Cache auf Build C11 aktualisiert.
+- Keine Berechnungsformeln oder Herstellerwerte verändert.
+
+## 1.0.2 – C10
+
+- Herstellerdatensätze werden bei Mehrfachtreffern nach Materialstärke, Stromnähe, Draht- beziehungsweise Elektrodendurchmesser und Datensatzspezifität priorisiert.
+- Die Kalibrierung nutzt für die Referenzauswahl nun den geometrisch korrigierten Strombedarf statt nur den unveränderten Formelgrundstrom.
+- Herstellervergleich zeigt die Qualität der Zuordnung und den zugehörigen Materialbereich transparent an.
+- Bestehende Herstellerwerte, Berechnungsformeln und Gerätegrenzen bleiben unverändert.
+- README, Datenstatus, Versionsstand und Offline-Cache auf Build C10 aktualisiert.
+
 # Changelog
+
+## 1.0.2 – C09
+
+- Aufklappbaren Berechnungsweg im Ergebnisbereich ergänzt.
+- Eingabegrundlage, Verfahrens-Grundstrom, Geometrie- und Positionsfaktoren sowie Kalibrierkorridor werden schrittweise ausgewiesen.
+- Feinkorrektur, Gerätelimit, Spannung, Drahtvorschub, Schweißgeschwindigkeit und Wärmeeintrag werden mit Zwischenwerten transparent dargestellt.
+- Rundungen betreffen ausschließlich die Anzeige; die vorhandenen Berechnungsformeln und Herstellerwerte bleiben unverändert.
+- Doppelten Titel im Parameter-Tab bereinigt.
+- README, Datenstatus, Versionsstand und Offline-Cache auf Build C09 aktualisiert.
+
+## 1.0.2 – C08
+
+- Transparente Berechnungsprüfung im Ergebnisbereich ergänzt.
+- Stromwert, Kalibrierkorridor, Gerätelimit, Spannung, Drahtvorschub, Schweißgeschwindigkeit und Wärmeeintrag werden auf verwertbare Rechenergebnisse geprüft.
+- Verwendete Herstellerkalibrierung beziehungsweise generische Datenbasis wird ausdrücklich ausgewiesen.
+- Keine Berechnungsformel und kein Herstellerwert wurde verändert.
+- README, Datenstatus, Versionsstand und Offline-Cache auf Build C08 aktualisiert.
+
+## 1.0.2 – C07
+
+- Geräte- und Verfahrensdaten in die zentrale Datei `data/devices.json` ausgelagert.
+- Einheitlichen Gerätezugriff über `js/core/device-manager.js` ergänzt.
+- Prozessreferenzen für CUT, FLUX, MAG, MIG Aluminium, MMA und WIG DC integriert.
+- Datenladeweg, Offline-Cache, README und Datenstatus auf Build C07 aktualisiert.
+- Keine vorhandenen Berechnungs- oder Herstellerwerte verändert.
+
+## 1.0.2 – C05
+
+- Quellen- und Validierungsstatus für jeden Hersteller-Richtwert im Parameter-Tab ergänzt.
+- Direkte Handbuchwerte und ausdrücklich gekennzeichnete Ableitungen werden visuell unterschieden.
+- Quellenbezeichnung, relevante Handbuchseiten und Anzahl der Ableitungen werden verfahrensbezogen angezeigt.
+- Bestehende Herstellerwerte bleiben unverändert; es wurden keine neuen Schweißparameter erzeugt.
+- README, Datenstatus, Versionsstand und Offline-Cache auf C05 aktualisiert.
+
+## 1.0.2 – C04
+
+- Verfahrensbezogene Ausgangsstrombereiche des aktiven Geräteprofils im Parameter-Tab ergänzt.
+- Einschaltdauer bei 40 °C und Plasma-Arbeitsdruck werden passend zum gewählten Verfahren angezeigt.
+- Netzversorgung sowie maximaler und effektiver Eingangsstrom aus dem zentralen Geräteprofil ergänzt.
+- Validierte Geräteeinschränkungen werden transparent und datengetrieben dargestellt.
+- README, Datenstatus, Versionsstand und Offline-Cache auf C04 aktualisiert.
+
+## 1.0.2 – C03
+
+- Gewähltes Verfahren kann aus dem Parameter-Tab direkt in den Rechner übernommen werden.
+- Bestehende Rechnerlogik aktualisiert nach der Übergabe automatisch die verfahrensabhängigen Eingabefelder.
+- Material und weitere Nutzereingaben bleiben bei der Übergabe erhalten, sofern die Rechnerlogik keine verfahrensbedingte Korrektur verlangt.
+- Übergabeschaltfläche mit dynamischem Verfahrenstext und sicherer Verfügbarkeitsprüfung ergänzt.
+- Datenstatus, README, Versionsstand und Offline-Cache auf C03 aktualisiert.
+
+## 1.0.2 – C02
+
+- Geräte- und Verfahrensauswahl im Parameter-Tab wird lokal gespeichert.
+- Gültige Auswahl wird beim nächsten App-Start automatisch wiederhergestellt.
+- Lokale Speicherung gegen blockierten oder nicht verfügbaren Browser-Speicher abgesichert.
+- Datenstatus-Text bereinigt und auf Build C02 aktualisiert.
+- README auf Version 1.0.2 und den aktuellen Entwicklungsbranch gebracht.
+- Service-Worker-Cache auf C02 erhöht.
+
+## 1.0.2 – C01
+
+- Neuer Tab „Parameter“ zwischen Rechner und Lexikon.
+- Modulare Geräte- und Verfahrensauswahl für STAHLWERK CTM-250 Puls Pro.
+- Anschlussbilder für CUT, FLUX, MIG/MAG, MMA und WIG integriert.
+- Anschlussbelegung, Verfahrensparameter und Einrichtungsabläufe datengetrieben ergänzt.
+- Vorhandene Hersteller-Richtwerte werden verfahrensbezogen aus der bestehenden Datenbank angezeigt.
+- Sicherheitswarnung aus der Bedienungsanleitung eingebunden.
 
 ## Build C15
 

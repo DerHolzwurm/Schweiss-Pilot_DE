@@ -21,7 +21,7 @@ function itemMatches(item, category, query) {
   return haystack.includes(needle);
 }
 
-function renderItem(item) {
+function renderItem(item, defaultSourceLabel = '') {
   const causes = (item.causes || []).map(value => `<li>${escapeHtml(value)}</li>`).join('');
   const actions = (item.actions || []).map(value => `<li>${escapeHtml(value)}</li>`).join('');
   const processLabels = (item.processes || []).map(process => {
@@ -31,10 +31,15 @@ function renderItem(item) {
       mag: 'MAG',
       mig: 'MIG',
       fcaw_s: 'FLUX',
+      wig: 'WIG DC',
       plasma: 'Plasma'
     };
     return `<span>${escapeHtml(labels[process] || process)}</span>`;
   }).join('');
+
+  const sourceLabel = item.sourceLabel || defaultSourceLabel || 'Quelle nicht angegeben';
+  const sourcePages = item.sourcePages && item.sourcePages !== '–' ? `, Seite ${escapeHtml(item.sourcePages)}` : '';
+  const sourceClass = item.sourceType === 'general-practice' ? ' general-practice' : '';
 
   return `
     <article class="diagnostic-item ${escapeHtml(item.priority || 'info')}">
@@ -55,7 +60,7 @@ function renderItem(item) {
           <ol>${actions}</ol>
         </section>
       </div>
-      <footer>Quelle: CTM-250 Puls Pro, Seite ${escapeHtml(item.sourcePages || '45–47')}</footer>
+      <footer class="diagnostic-item-source${sourceClass}">Quelle: ${escapeHtml(sourceLabel)}${sourcePages}</footer>
     </article>`;
 }
 
@@ -78,7 +83,7 @@ export function initDiagnostics(data) {
   const render = () => {
     const matches = (data.items || []).filter(item => itemMatches(item, category.value, search.value));
     list.innerHTML = matches.length
-      ? matches.map(renderItem).join('')
+      ? matches.map(item => renderItem(item, data.meta?.sourceLabel)).join('')
       : '<div class="notice warn">Keine passende Fehlerbeschreibung gefunden. Suchbegriff ändern oder „Alle Verfahren“ auswählen.</div>';
     if (count) count.textContent = `${matches.length} Eintrag${matches.length === 1 ? '' : 'e'}`;
   };

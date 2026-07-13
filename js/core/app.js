@@ -1,28 +1,23 @@
-import { paths } from './config.js';
+import { datasets } from './config.js';
+import { loadDatasetRegistry, loadJson } from './data-registry.js';
 
-export async function loadJson(path) {
-  const response = await fetch(path, { cache: 'no-store' });
-  if (!response.ok) throw new Error(`Konnte ${path} nicht laden`);
-  return response.json();
-}
+export { loadJson } from './data-registry.js';
 
 export async function loadAppData() {
-  const [version, welding, corrections, lexicon, help, manufacturers, sources, troubleshooting] = await Promise.all([
-    loadJson(paths.version),
-    loadJson(paths.processes),
-    loadJson(paths.corrections),
-    loadJson(paths.lexicon),
-    loadJson(paths.help),
-    loadJson(paths.manufacturers),
-    loadJson(paths.sources),
-    loadJson(paths.troubleshooting)
-  ]);
-  return {
-    version,
-    welding: { ...welding, manufacturerDatabase: manufacturers, sourceDatabase: sources },
-    corrections,
-    lexicon,
-    help,
-    troubleshooting
-  };
+  const data = await loadDatasetRegistry(datasets);
+
+  return Object.freeze({
+    version: data.version,
+    welding: Object.freeze({
+      ...data.processes,
+      manufacturerDatabase: data.manufacturers,
+      sourceDatabase: data.sources
+    }),
+    corrections: data.corrections,
+    lexicon: data.lexicon,
+    help: data.help,
+    troubleshooting: data.troubleshooting,
+    machineParameters: data.machineParameters,
+    devices: data.devices
+  });
 }

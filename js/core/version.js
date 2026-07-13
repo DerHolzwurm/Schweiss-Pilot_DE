@@ -18,6 +18,7 @@ export function renderVersion(version) {
   const branch = textOrFallback(version.branch);
   const status = formatStatus(version);
   const releaseText = version.release === true ? 'ja' : 'nein';
+  const releaseDate = textOrFallback(version.date);
 
   document.querySelectorAll('[data-version]').forEach(el => {
     el.textContent = appVersion;
@@ -41,6 +42,7 @@ export function renderVersion(version) {
         <dt>Branch</dt><dd>${branch}</dd>
         <dt>Status</dt><dd><span class="status-pill ${statusClass(version)}">${status}</span></dd>
         <dt>Release</dt><dd>${releaseText}</dd>
+        <dt>Stand</dt><dd>${releaseDate}</dd>
       </dl>
     `;
   }
@@ -55,6 +57,7 @@ export function renderVersion(version) {
         <dt>Branch</dt><dd>${branch}</dd>
         <dt>Status</dt><dd><span class="status-pill ${statusClass(version)}">${status}</span></dd>
         <dt>Release</dt><dd>${releaseText}</dd>
+        <dt>Stand</dt><dd>${releaseDate}</dd>
       </dl>
     `;
   }

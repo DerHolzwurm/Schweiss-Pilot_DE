@@ -64,6 +64,20 @@
       <article id="resultCard" class="card hidden">
         <h2>Empfohlene Einstellung</h2>
 
+        <section id="euroConnectorWarning" class="euro-warning hidden" aria-live="assertive" aria-label="Sicherheitshinweis EURO-Zentralanschluss">
+          <div class="euro-warning-heading">
+            <span class="euro-warning-icon" aria-hidden="true">!</span>
+            <div>
+              <strong>EURO-Zentralanschluss entfernen!</strong>
+              <p>Bei diesem Verfahren darf der MIG/MAG-Brenner nicht am EURO-Zentralanschluss angeschlossen bleiben.</p>
+            </div>
+          </div>
+          <label class="euro-warning-confirm" for="euroConnectorConfirmed">
+            <input id="euroConnectorConfirmed" type="checkbox">
+            <span>Ich habe den EURO-Zentralstecker entfernt!</span>
+          </label>
+        </section>
+
         <div class="hero start-hero" aria-label="Empfohlene Startwerte">
           <span class="start-title">Empfohlene Startwerte</span>
           <div class="start-values">
@@ -72,6 +86,17 @@
             <div class="start-value align-right" id="feedStartBox"><span id="feedLabel">Vorschub m/min</span><strong id="feed">–</strong></div>
           </div>
         </div>
+
+        <section id="feedbackPanel" class="feedback-panel feedback-panel-flat" aria-label="Live-Nahtfeedback">
+          <div class="feedback-flat-head">
+            <strong>Naht-Rückmeldung</strong>
+            <button class="help-btn" type="button" data-help="feedback" aria-label="Hilfe zur Naht-Rückmeldung">i</button>
+            <span id="feedbackMeaning">Optimal – keine Anpassung</span>
+          </div>
+          <div class="slider-labels"><span>Naht liegt auf</span><span>Optimal</span><span>Durchbrand</span></div>
+          <input id="feedbackSlider" type="range" min="-10" max="10" step="1" value="0">
+          <div class="feedback-readout"><span>Korrektur</span><strong id="feedbackValue">0</strong></div>
+        </section>
 
         <section id="deviceLimitPanel" class="device-limit hidden" aria-live="polite" aria-label="Hinweis zum Gerätelimit">
           <div class="device-limit-header">
@@ -111,13 +136,28 @@
           <p id="manufacturerCompareNotes" class="small compare-notes">–</p>
         </section>
 
-        <section id="feedbackPanel" class="feedback-panel" aria-label="Live-Nahtfeedback">
-          <h3>Naht-Rückmeldung <button class="help-btn" type="button" data-help="feedback" aria-label="Hilfe zur Naht-Rückmeldung">i</button></h3>
-          <p>Regler direkt nach der Probenaht verschieben. Die Startwerte werden sofort neu berechnet. Die Referenzwerte bleiben als Optimalwert sichtbar.</p>
-          <div class="slider-labels"><span>Naht liegt auf</span><span>Optimal</span><span>Durchbrand</span></div>
-          <input id="feedbackSlider" type="range" min="-10" max="10" step="1" value="0">
-          <div class="feedback-readout"><strong id="feedbackValue">0</strong><span id="feedbackMeaning">Optimal – keine Anpassung</span></div>
+        <section id="plausibilityPanel" class="plausibility-panel" aria-live="polite" aria-label="Berechnungsprüfung">
+          <div class="plausibility-header">
+            <div>
+              <h3>Berechnungsprüfung</h3>
+              <p id="plausibilitySummary" class="small">–</p>
+            </div>
+            <div class="plausibility-actions">
+              <span id="plausibilityBadge" class="plausibility-badge">–</span>
+              <button id="plausibilityToggle" class="secondary plausibility-toggle" type="button" aria-expanded="false" aria-controls="plausibilityDetails">Details anzeigen</button>
+            </div>
+          </div>
+          <div id="plausibilityDetails" class="hidden">
+            <div id="plausibilityList" class="plausibility-list"></div>
+          </div>
         </section>
+
+        <details id="calculationTracePanel" class="calculation-trace-panel hidden">
+          <summary>Berechnungsweg anzeigen</summary>
+          <p class="small">Zeigt die verwendete Reihenfolge, Zwischenwerte, Kalibrierung und Begrenzungen. Rundungen betreffen nur die Anzeige.</p>
+          <div id="calculationTraceList" class="calculation-trace-list"></div>
+        </details>
+
 
         <div class="result-grid details-grid">
           <div class="tile"><span>Polarität</span><strong id="polarity">–</strong></div>
@@ -136,6 +176,113 @@
       </article>
     </section>
 
+    <section id="screen-parameters" class="screen">
+      <article class="card parameter-card">
+        <div class="parameter-header">
+          <div>
+            <p class="eyebrow">Gerätebezogene Referenz</p>
+            <h2>Parameter &amp; Anschlüsse</h2>
+            <p class="lead">Anschlussbelegung, Verfahrenshinweise und vorhandene Handbuch-Richtwerte.</p>
+          </div>
+          <div class="parameter-header-badges"><span id="parameterManufacturerCount" class="parameter-status">1 Hersteller verfügbar</span><span id="parameterSourceStatus" class="parameter-status">Handbuchdaten</span></div>
+        </div>
+
+        <p class="parameter-source-top"><strong>Quelle:</strong> STAHLWERK CTM-250 Puls Pro · Bedienungsanleitung, Stand 05/2025</p>
+
+        <div class="parameter-controls">
+          <label>Gerät
+            <select id="parameterDevice"></select>
+          </label>
+          <label>Verfahren
+            <select id="parameterProcess"></select>
+          </label>
+        </div>
+
+        <div class="parameter-actions">
+          <button id="parameterOpenCalculator" class="primary" type="button">Im Rechner öffnen</button>
+          <p id="parameterTransferHint" class="small">Übernimmt das gewählte Verfahren in den Rechner. Material und weitere Eingaben bleiben unverändert.</p>
+        </div>
+
+        <section class="parameter-connection" aria-labelledby="parameterProcessTitle">
+          <div class="parameter-title-row">
+            <div>
+              <p id="parameterManufacturer" class="eyebrow">–</p>
+              <h3 id="parameterProcessTitle" aria-live="polite">–</h3>
+            </div>
+          </div>
+          <img id="parameterConnectionImage" class="parameter-connection-image" src="" alt="">
+        </section>
+
+        <div class="parameter-grid">
+          <section class="parameter-panel">
+            <h3>Anschlussbelegung</h3>
+            <dl id="parameterConnections" class="parameter-list"></dl>
+          </section>
+          <section class="parameter-panel">
+            <h3>Verfahrensparameter</h3>
+            <dl id="parameterSettings" class="parameter-list"></dl>
+          </section>
+        </div>
+
+        <section class="parameter-panel parameter-steps-panel">
+          <h3>Einrichtungsablauf</h3>
+          <ol id="parameterSteps" class="parameter-steps"></ol>
+        </section>
+
+        <div class="parameter-grid parameter-device-grid">
+          <section class="parameter-panel">
+            <h3>Gerätegrenzen</h3>
+            <dl id="parameterDeviceLimits" class="parameter-list"></dl>
+          </section>
+          <section class="parameter-panel">
+            <h3>Technische Gerätedaten</h3>
+            <dl id="parameterTechnicalData" class="parameter-list"></dl>
+          </section>
+        </div>
+
+        <section id="parameterProcessReferencePanel" class="parameter-panel">
+          <h3>Prozessreferenz</h3>
+          <p class="small">Verfahrensbezogene Verbrauchsmittel, Gase und ausdrücklich dokumentierte Grenzen.</p>
+          <dl id="parameterProcessReference" class="parameter-list parameter-reference-list"></dl>
+        </section>
+
+        <section id="parameterLimitationsPanel" class="parameter-panel">
+          <h3>Validierte Einschränkungen</h3>
+          <ul id="parameterLimitations" class="parameter-limitations"></ul>
+        </section>
+
+        <section class="parameter-panel">
+          <div class="parameter-table-header">
+            <div>
+              <h3>Vorhandene Hersteller-Richtwerte</h3>
+              <p class="small">Nur freigegebene Werte aus der bestehenden STAHLWERK-Datenbank; fehlende Angaben bleiben bewusst leer.</p>
+            </div>
+            <span id="parameterRangeCount" class="parameter-count">0 Bereiche</span>
+          </div>
+          <div class="parameter-table-wrap">
+            <table class="parameter-table">
+              <thead><tr><th>Material</th><th>Stärke</th><th>Draht</th><th>Strom</th><th>Gas</th><th>Gasmenge</th><th>Technische Ergänzung</th><th>Datenstatus</th></tr></thead>
+              <tbody id="parameterRanges"></tbody>
+            </table>
+          </div>
+          <p id="parameterNoRanges" class="parameter-empty hidden">Für dieses Verfahren sind in der aktuellen Herstellerdatenbank noch keine freigegebenen Tabellenwerte hinterlegt.</p>
+        </section>
+
+        <section class="parameter-panel parameter-provenance-panel">
+          <h3>Quellen- und Datenstatus</h3>
+          <dl id="parameterProvenance" class="parameter-list"></dl>
+          <p class="small parameter-provenance-note">Handbuch-Richtwerte werden unverändert angezeigt. Ableitungen sind ausdrücklich gekennzeichnet und ersetzen keine Herstellerfreigabe.</p>
+        </section>
+
+        <section class="parameter-warning" aria-label="Wichtiger Anschlusshinweis">
+          <img id="parameterWarningImage" src="" alt="Wichtiger Hinweis aus der Bedienungsanleitung">
+          <p id="parameterWarningText"></p>
+        </section>
+
+        <p id="parameterSource" class="parameter-source"></p>
+      </article>
+    </section>
+
     <section id="screen-lexicon" class="screen">
       <article class="card"><h2>Lexikon</h2><div id="lexiconList"></div></article>
     </section>
@@ -146,7 +293,7 @@
           <div>
             <p class="eyebrow">CTM-250 Puls Pro</p>
             <h2>Fehlerdiagnose</h2>
-            <p class="lead">Fehlerbilder aus der Bedienungsanleitung, strukturiert nach Verfahren.</p>
+            <p class="lead">Gerätebezogene FAQ und ergänzende Fehlerbilder der allgemeinen Schweißpraxis, strukturiert nach Verfahren.</p>
           </div>
           <span id="diagnosticCount" class="diagnostic-count">–</span>
         </div>
@@ -167,7 +314,7 @@
 
     <section id="screen-data" class="screen">
       <article class="card"><h2>Version</h2><div id="versionDetails">Version wird geladen …</div></article>
-      <article class="card"><h2>Datenstatus</h2><p>Build C13 ergänzt die Fehlerdiagnose um die strukturierten FAQ- und Troubleshooting-Daten des STAHLWERK CTM-250 Puls Pro. Die Hinweise ersetzen weder die Bedienungsanleitung noch eine fachkundige Prüfung.</p></article>
+      <article class="card"><h2>Datenstatus</h2><p>Build C16 schließt Version 1.0.2 als Release ab. Sicherheitsbestätigung, kompakte Naht-Rückmeldung, einblendbare Berechnungsdetails und eine einheitliche Verfahrensreihenfolge sind integriert; Berechnungsformeln und Herstellerwerte bleiben unverändert.</p></article>
     </section>
   </main>
 
@@ -190,6 +337,7 @@
 
   <nav class="tabs" aria-label="Hauptnavigation">
     <button class="tab active" data-target="calculator" type="button">Rechner</button>
+    <button class="tab" data-target="parameters" type="button">Parameter</button>
     <button class="tab" data-target="lexicon" type="button">Lexikon</button>
     <button class="tab" data-target="diagnostics" type="button">Fehler</button>
     <button class="tab" data-target="data" type="button">Daten</button>

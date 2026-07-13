@@ -1,7 +1,9 @@
+import { storage } from '../core/storage.js';
 import { renderOutputVisuals } from './visuals.js';
 const show = value => value ?? '–';
 const fmt = (value, unit, digits = 0) => value === null || value === undefined ? '–' : `${Number(value).toFixed(digits)} ${unit}`;
 const num = (value, digits = 0) => value === null || value === undefined ? '–' : Number(value).toFixed(digits);
+const escapeHtml = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[char]));
 
 function setText(id, value) {
   const el = document.getElementById(id);
@@ -50,7 +52,7 @@ function renderManufacturerComparison(comparison, isCut, enabled = true) {
     panel.classList.add('compare-missing');
     setText('manufacturerCompareMeta', comparison?.note || 'Kein passender Datensatz gefunden.');
     setText('manufacturerCompareBadge', 'Keine Daten');
-    setText('manufacturerCompareNotes', 'C07/C07.5 enthält die Datenbasis. Weitere Herstellerwerte können später ergänzt werden.');
+    setText('manufacturerCompareNotes', 'Im aktuellen Datenstand liegt für diese Kombination kein passender Herstellerwert vor.');
     setCompareItem('cmpAmp', null);
     setCompareItem('cmpVolt', null);
     setCompareItem('cmpFeed', null);
@@ -60,7 +62,8 @@ function renderManufacturerComparison(comparison, isCut, enabled = true) {
   }
 
   panel.classList.remove('compare-missing');
-  const meta = `${comparison.manufacturer} · ${comparison.device} · ${comparison.matches} passender Datensatz${comparison.matches === 1 ? '' : 'e'}`;
+  const matchLabel = comparison.matchQuality?.label ? ` · ${comparison.matchQuality.label}` : '';
+  const meta = `${comparison.manufacturer} · ${comparison.device} · ${comparison.matches} passender Datensatz${comparison.matches === 1 ? '' : 'e'}${matchLabel}`;
   setText('manufacturerCompareMeta', meta);
   setText('manufacturerCompareBadge', comparison.amp?.text || 'Vergleich');
   setCompareItem('cmpAmp', comparison.amp);
@@ -71,6 +74,7 @@ function renderManufacturerComparison(comparison, isCut, enabled = true) {
   setHidden('cmpFeedItem', isCut || comparison.feed?.state === 'missing');
 
   const extras = [];
+  if (comparison.referenceThickness && comparison.referenceThickness !== '–') extras.push(`Materialbereich: ${comparison.referenceThickness}`);
   if (comparison.gas) extras.push(`Gas: ${comparison.gas}`);
   if (comparison.gasFlow) extras.push(`Gasdurchfluss: ${comparison.gasFlow}`);
   if (comparison.airPressure) extras.push(`Druckluft: ${comparison.airPressure}`);
@@ -79,6 +83,75 @@ function renderManufacturerComparison(comparison, isCut, enabled = true) {
   if (comparison.comment) extras.push(comparison.comment);
 
   setText('manufacturerCompareNotes', extras.join(' | ') || 'Herstellerwert als Orientierungs- und Plausibilitätsvergleich.');
+}
+
+let plausibilityToggleInitialized = false;
+function initPlausibilityToggle() {
+  if (plausibilityToggleInitialized) return;
+  const button = document.getElementById('plausibilityToggle');
+  const details = document.getElementById('plausibilityDetails');
+  if (!button || !details) return;
+  const apply = expanded => {
+    details.classList.toggle('hidden', !expanded);
+    button.setAttribute('aria-expanded', String(expanded));
+    button.textContent = expanded ? 'Details ausblenden' : 'Details anzeigen';
+    storage.set('schweisspilot.plausibilityExpanded', expanded);
+  };
+  apply(storage.get('schweisspilot.plausibilityExpanded', false));
+  button.addEventListener('click', () => apply(button.getAttribute('aria-expanded') !== 'true'));
+  plausibilityToggleInitialized = true;
+}
+
+function renderPlausibility(plausibility) {
+  initPlausibilityToggle();
+  const panel = document.getElementById('plausibilityPanel');
+  const list = document.getElementById('plausibilityList');
+  if (!panel || !list || !plausibility) return;
+
+  const stateLabel = plausibility.state === 'fail'
+    ? 'Prüfung fehlgeschlagen'
+    : plausibility.state === 'warn'
+      ? 'Mit Hinweisen'
+      : 'Strukturell plausibel';
+  panel.className = `plausibility-panel ${plausibility.state}`;
+  setText('plausibilityBadge', stateLabel);
+  setText(
+    'plausibilitySummary',
+    plausibility.failed
+      ? `${plausibility.failed} fehlerhafte Prüfstufe${plausibility.failed === 1 ? '' : 'n'} erkannt.`
+      : plausibility.warnings
+        ? `${plausibility.warnings} Hinweis${plausibility.warnings === 1 ? '' : 'e'}; Probenaht und Herstellerangaben bleiben erforderlich.`
+        : 'Alle verfügbaren Rechenschritte liefern verwertbare Werte innerhalb der aktiven Grenzen.'
+  );
+
+  list.innerHTML = plausibility.checks.map(item => `
+    <div class="plausibility-item ${item.state}">
+      <span class="plausibility-state" aria-hidden="true"></span>
+      <div><strong>${item.label}</strong><p>${item.text}</p></div>
+    </div>`).join('');
+}
+
+
+function renderCalculationTrace(trace) {
+  const panel = document.getElementById('calculationTracePanel');
+  const list = document.getElementById('calculationTraceList');
+  if (!panel || !list) return;
+
+  const steps = trace?.steps || [];
+  panel.classList.toggle('hidden', !steps.length);
+  if (!steps.length) {
+    list.innerHTML = '';
+    return;
+  }
+
+  list.innerHTML = steps.map((item, index) => `
+    <div class="calculation-trace-item ${escapeHtml(item.state || 'info')}">
+      <span class="calculation-trace-number">${index + 1}</span>
+      <div>
+        <div class="calculation-trace-heading"><strong>${escapeHtml(item.label)}</strong><span>${escapeHtml(item.value)}</span></div>
+        <p>${escapeHtml(item.detail)}</p>
+      </div>
+    </div>`).join('');
 }
 
 export function renderResult(result, reference = result) {
@@ -118,6 +191,8 @@ export function renderResult(result, reference = result) {
 
   renderDeviceLimit(result.deviceLimit);
   renderManufacturerComparison(result.manufacturerComparison, isCut, result.manufacturerComparisonEnabled);
+  renderPlausibility(result.plausibility);
+  renderCalculationTrace(result.calculationTrace);
 
   if (isCut) {
     document.getElementById('outputVisuals').innerHTML = '<section class="visual-guideline"><strong>Plasma-Workflow aktiv</strong><p>Nahtart, Position, Materialform, Draht und Nahtkorrektur sind ausgeblendet. Relevant bleiben Material, Materialstärke und Schneidstrom.</p></section>';

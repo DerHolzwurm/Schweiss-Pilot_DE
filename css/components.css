@@ -164,6 +164,7 @@
 .diagnostic-columns ul,.diagnostic-columns ol{margin:0;padding-left:20px}
 .diagnostic-columns li+li{margin-top:6px}
 .diagnostic-item footer{margin-top:12px;color:var(--muted);font-size:.82rem}
+.diagnostic-item-source.general-practice{border-top:1px solid var(--line);padding-top:10px}
 .diagnostic-source{margin-top:18px;border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--muted);background:rgba(56,189,248,.05)}
 .diagnostic-source strong{color:var(--text)}
 .diagnostic-source span{display:inline-block;margin-top:5px}
@@ -173,3 +174,100 @@
   .diagnostic-controls,.diagnostic-columns{grid-template-columns:1fr}
 }
 
+
+
+/* v1.0.2 C01: modularer Geräte- und Parameterbereich */
+.parameter-card{overflow:hidden}
+.parameter-header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.parameter-header h2{margin:0 0 6px}.parameter-header .lead{margin:0;color:var(--muted)}
+.parameter-status,.parameter-count{display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(56,189,248,.08);font-size:.8rem;font-weight:900;white-space:nowrap}
+.parameter-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+.parameter-connection{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(255,255,255,.025)}
+.parameter-title-row{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.parameter-title-row h3{margin:2px 0 0;font-size:1.35rem}
+.parameter-connection-image{display:block;width:100%;max-height:390px;object-fit:contain;border-radius:12px;background:#fff}
+.parameter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:14px}
+.parameter-panel{border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px;background:rgba(255,255,255,.025)}
+.parameter-panel h3{margin:0 0 12px}
+.parameter-list{display:grid;gap:8px;margin:0}
+.parameter-list>div{display:grid;grid-template-columns:minmax(140px,.7fr) minmax(0,1.3fr);gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.parameter-list>div:last-child{border-bottom:0}.parameter-list dt{color:var(--muted);font-weight:800}.parameter-list dd{margin:0;font-weight:700}
+.parameter-steps{margin:0;padding-left:22px}.parameter-steps li+li{margin-top:8px}
+.parameter-table-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.parameter-table-header h3{margin-bottom:4px}.parameter-table-header p{margin:0;color:var(--muted)}
+.parameter-table-wrap{margin-top:12px;overflow:auto;border:1px solid var(--line);border-radius:12px}
+.parameter-table{width:100%;border-collapse:collapse;min-width:760px}.parameter-table th,.parameter-table td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}.parameter-table th{background:rgba(56,189,248,.08);font-size:.82rem}.parameter-table tbody tr:last-child td{border-bottom:0}
+.parameter-empty{margin:12px 0 0;color:var(--muted)}
+.parameter-warning{margin-top:14px;border:1px solid var(--warn);border-radius:16px;padding:14px;background:rgba(245,158,11,.09)}
+.parameter-warning img{display:block;width:100%;max-height:250px;object-fit:contain;background:#fff;border-radius:10px}.parameter-warning p{margin:10px 0 0;line-height:1.45}
+.parameter-source{margin:14px 0 0;color:var(--muted);font-size:.86rem;line-height:1.45}
+@media (max-width:720px){.parameter-header,.parameter-table-header{display:block}.parameter-status,.parameter-count{margin-top:10px}.parameter-controls,.parameter-grid{grid-template-columns:1fr}.parameter-list>div{grid-template-columns:1fr;gap:3px}.parameter-connection,.parameter-panel{padding:13px}.parameter-warning img{max-height:none}}
+
+
+/* v1.0.2 C03: Übergabe vom Parameterbereich an den Rechner */
+.parameter-actions{display:flex;align-items:center;gap:14px;margin:-2px 0 18px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(56,189,248,.045)}
+.parameter-actions p{margin:0;color:var(--muted);line-height:1.4}
+.parameter-actions button{flex:0 0 auto}
+.parameter-actions button:disabled{opacity:.5;cursor:not-allowed}
+@media (max-width:720px){.parameter-actions{align-items:stretch;flex-direction:column}.parameter-actions button{width:100%}}
+
+.parameter-device-grid{margin-top:0}
+.parameter-device-grid .parameter-panel{height:100%}
+.parameter-limitations{margin:0;padding-left:20px}
+.parameter-limitations li+li{margin-top:8px}
+.parameter-limitations li{line-height:1.45}
+
+.parameter-table{min-width:920px}
+.parameter-data-status{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:999px;padding:4px 8px;font-size:.74rem;font-weight:900;white-space:nowrap;background:rgba(56,189,248,.08)}
+.parameter-data-status.derived{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.45)}
+.parameter-provenance-note{margin:12px 0 0;color:var(--muted);line-height:1.45}
+
+.parameter-reference-list { margin-top: .75rem; }
+.parameter-reference-list dd { overflow-wrap: anywhere; }
+
+
+/* v1.0.2 C08: transparente Berechnungsprüfung */
+.plausibility-panel{border:1px solid var(--line);border-radius:18px;padding:16px;margin:0 0 16px;background:rgba(56,189,248,.045)}
+.plausibility-panel.warn{border-color:rgba(245,158,11,.55);background:rgba(245,158,11,.07)}
+.plausibility-panel.fail{border-color:rgba(239,68,68,.65);background:rgba(239,68,68,.08)}
+.plausibility-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:12px}
+.plausibility-header h3{margin:0 0 4px}.plausibility-header p{margin:0;color:var(--muted)}
+.plausibility-badge{display:inline-flex;align-items:center;border:1px solid currentColor;border-radius:999px;padding:6px 10px;color:var(--good);font-size:.78rem;font-weight:900;white-space:nowrap}
+.plausibility-panel.warn .plausibility-badge{color:var(--warn)}.plausibility-panel.fail .plausibility-badge{color:var(--bad)}
+.plausibility-list{display:grid;gap:8px}
+.plausibility-item{display:grid;grid-template-columns:12px minmax(0,1fr);gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.025)}
+.plausibility-state{width:10px;height:10px;margin-top:5px;border-radius:50%;background:var(--good);box-shadow:0 0 0 3px rgba(34,197,94,.12)}
+.plausibility-item.warn .plausibility-state{background:var(--warn);box-shadow:0 0 0 3px rgba(245,158,11,.12)}
+.plausibility-item.fail .plausibility-state{background:var(--bad);box-shadow:0 0 0 3px rgba(239,68,68,.12)}
+.plausibility-item.info .plausibility-state{background:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,.12)}
+.plausibility-item strong{display:block}.plausibility-item p{margin:3px 0 0;color:var(--muted);line-height:1.4}
+@media (max-width:720px){.plausibility-header{display:block}.plausibility-badge{margin-top:8px}}
+
+
+/* v1.0.2 C09: transparenter Berechnungsweg */
+.calculation-trace-panel{border:1px solid var(--line);border-radius:18px;padding:0 16px 16px;margin:0 0 16px;background:rgba(255,255,255,.025)}
+.calculation-trace-panel summary{cursor:pointer;padding:16px 0;font-weight:900;list-style-position:inside}
+.calculation-trace-panel>p{margin:0 0 12px;color:var(--muted);line-height:1.45}
+.calculation-trace-list{display:grid;gap:9px}
+.calculation-trace-item{display:grid;grid-template-columns:32px minmax(0,1fr);gap:11px;padding:11px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(56,189,248,.035)}
+.calculation-trace-item.warn{border-color:rgba(245,158,11,.45);background:rgba(245,158,11,.06)}
+.calculation-trace-item.pass{border-color:rgba(34,197,94,.35)}
+.calculation-trace-number{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;font-size:.8rem;font-weight:900;background:rgba(56,189,248,.1)}
+.calculation-trace-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+.calculation-trace-heading span{font-weight:900;white-space:nowrap}
+.calculation-trace-item p{margin:4px 0 0;color:var(--muted);line-height:1.42}
+@media (max-width:720px){.calculation-trace-panel{padding:0 13px 13px}.calculation-trace-heading{display:block}.calculation-trace-heading span{display:block;margin-top:3px;white-space:normal}}
+
+
+/* v1.0.2 C16: Release-Polishing und Sicherheit */
+.euro-warning{border:2px solid var(--bad);border-radius:16px;padding:14px 16px;margin:0 0 14px;background:rgba(239,68,68,.11)}
+.euro-warning-heading{display:flex;gap:12px;align-items:flex-start}.euro-warning-heading strong{display:block;color:var(--bad);font-size:1.05rem}.euro-warning-heading p{margin:4px 0 0;line-height:1.4}
+.euro-warning-icon{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--bad);color:#fff;font-weight:900;flex:0 0 auto}
+.euro-warning-confirm{display:flex;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;border-radius:12px;background:rgba(239,68,68,.1);font-weight:900;cursor:pointer}.euro-warning-confirm input{width:21px;height:21px;accent-color:var(--bad)}
+.feedback-panel-flat{padding:9px 12px;margin:-6px 0 14px;border-radius:12px;background:rgba(56,189,248,.035)}
+.feedback-flat-head{display:flex;align-items:center;gap:8px}.feedback-flat-head span{margin-left:auto;color:var(--muted);font-size:.84rem}.feedback-panel-flat .slider-labels{font-size:.72rem;margin-top:6px}.feedback-panel-flat #feedbackSlider{margin:5px 0}.feedback-panel-flat .feedback-readout{justify-content:flex-end;align-items:center;font-size:.82rem}.feedback-panel-flat .feedback-readout strong{margin-left:6px}
+.plausibility-actions{display:flex;align-items:center;gap:8px}.plausibility-toggle{padding:7px 10px;border-radius:10px;font-size:.78rem}
+.parameter-header-badges{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}.parameter-source-top{margin:12px 0 0;padding:10px 12px;border-left:3px solid var(--accent);background:rgba(56,189,248,.045);border-radius:9px;color:var(--muted)}
+.help-btn{display:inline-flex;align-items:center;justify-content:center;min-width:24px;width:24px;height:24px;padding:0;border-radius:50%;font-weight:900;line-height:1}
+@media (max-width:720px){.plausibility-actions{align-items:flex-start;flex-direction:column}.parameter-header-badges{justify-content:flex-start}.feedback-flat-head{flex-wrap:wrap}.feedback-flat-head span{width:100%;margin-left:0}.euro-warning-confirm{align-items:flex-start}}
+
+#resultCard.awaiting-euro-confirmation > :not(h2):not(#euroConnectorWarning){display:none!important}

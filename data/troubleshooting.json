@@ -3,8 +3,8 @@
     "title": "Fehlerdiagnose",
     "device": "STAHLWERK CTM-250 Puls Pro",
     "sourceId": "stahlwerk-ctm250-manual-2025",
-    "sourceLabel": "Bedienungsanleitung CTM-250 Puls Pro, FAQ S. 45–47",
-    "note": "Gerät vor Prüf-, Reinigungs- oder Anschlussarbeiten ausschalten und vom Stromnetz trennen. Arbeiten im Geräteinneren gehören in fachkundige Hände."
+    "sourceLabel": "STAHLWERK CTM-250 Puls Pro FAQ S. 45–47 und ergänzende allgemeine Schweißpraxis",
+    "note": "Gerät vor Prüf-, Reinigungs- oder Anschlussarbeiten ausschalten und vom Stromnetz trennen. Arbeiten im Geräteinneren gehören in fachkundige Hände. Allgemeine Fehlerbilder sind ausdrücklich nicht als direkte Herstellerangaben gekennzeichnet."
   },
   "categories": [
     {
@@ -22,6 +22,10 @@
     {
       "id": "migmag",
       "label": "MIG / MAG / FLUX"
+    },
+    {
+      "id": "wig",
+      "label": "WIG DC"
     },
     {
       "id": "plasma",
@@ -277,6 +281,197 @@
       ],
       "priority": "warning",
       "sourcePages": "47"
+    },
+    {
+      "id": "general-lack-of-fusion",
+      "category": "general",
+      "processes": [
+        "mag",
+        "mig",
+        "fcaw_s",
+        "wig",
+        "mma"
+      ],
+      "symptom": "Bindefehler oder unzureichende Verschmelzung",
+      "causes": [
+        "Wärmeeintrag ist für Materialdicke, Nahtform oder Schweißgeschwindigkeit zu gering.",
+        "Brenner- beziehungsweise Elektrodenwinkel erreicht die Nahtflanken nicht ausreichend.",
+        "Oxide, Zunder, Rost, Lack oder Schlacke verhindern eine sichere Verschmelzung."
+      ],
+      "actions": [
+        "Nahtbereich und Zwischenlagen metallisch sauber vorbereiten.",
+        "Schweißgeschwindigkeit, Winkel und Lichtbogenführung an einer Probenaht korrigieren.",
+        "Strom beziehungsweise Wärmeeintrag nur innerhalb der zulässigen Prozess- und Gerätedaten schrittweise anpassen."
+      ],
+      "priority": "warning",
+      "sourceLabel": "Allgemeine Schweißpraxis",
+      "sourcePages": "–",
+      "sourceType": "general-practice"
+    },
+    {
+      "id": "general-undercut",
+      "category": "general",
+      "processes": [
+        "mag",
+        "mig",
+        "fcaw_s",
+        "wig",
+        "mma"
+      ],
+      "symptom": "Einbrandkerben an den Nahträndern",
+      "causes": [
+        "Lichtbogen ist zu lang oder die Spannung ist im Verhältnis zum Prozess zu hoch.",
+        "Schweißgeschwindigkeit oder Pendelbewegung ist ungeeignet.",
+        "Brenner- beziehungsweise Elektrodenwinkel konzentriert den Lichtbogen ungünstig am Nahtrand."
+      ],
+      "actions": [
+        "Lichtbogen kürzer und gleichmäßiger führen.",
+        "Geschwindigkeit und Winkel an einer Probenaht schrittweise korrigieren.",
+        "Spannung oder Strom nur innerhalb der freigegebenen Bereiche anpassen."
+      ],
+      "priority": "warning",
+      "sourceLabel": "Allgemeine Schweißpraxis",
+      "sourcePages": "–",
+      "sourceType": "general-practice"
+    },
+    {
+      "id": "general-spatter",
+      "category": "general",
+      "processes": [
+        "mag",
+        "mig",
+        "fcaw_s",
+        "mma"
+      ],
+      "symptom": "Übermäßige Spritzerbildung",
+      "causes": [
+        "Strom, Spannung und Drahtvorschub sind nicht aufeinander abgestimmt.",
+        "Massekontakt, Polung oder Lichtbogenlänge sind ungeeignet.",
+        "Werkstück, Draht oder Elektrode sind verunreinigt beziehungsweise feucht."
+      ],
+      "actions": [
+        "Massekontakt, Polung und Verbrauchsmittel prüfen.",
+        "Spannung, Drahtvorschub oder Strom in kleinen Schritten an einer Probenaht abstimmen.",
+        "Werkstück und Zusatzwerkstoff sauber und trocken verwenden."
+      ],
+      "priority": "warning",
+      "sourceLabel": "Allgemeine Schweißpraxis",
+      "sourcePages": "–",
+      "sourceType": "general-practice"
+    },
+    {
+      "id": "general-distortion",
+      "category": "general",
+      "processes": [
+        "mag",
+        "mig",
+        "fcaw_s",
+        "wig",
+        "mma"
+      ],
+      "symptom": "Werkstück verzieht sich stark",
+      "causes": [
+        "Wärmeeintrag oder Schweißzeit ist für Bauteil und Nahtfolge zu hoch.",
+        "Heftung, Spannvorrichtung oder Schweißreihenfolge ist ungünstig.",
+        "Zu lange zusammenhängende Nähte erwärmen das Bauteil einseitig."
+      ],
+      "actions": [
+        "Bauteil ausreichend heften und geeignete Spannmittel verwenden.",
+        "Nahtfolge, Pilgerschritt oder abschnittsweises Schweißen prüfen.",
+        "Wärmeeintrag und Zwischenlagentemperatur entsprechend Werkstoff und Aufgabe begrenzen."
+      ],
+      "priority": "warning",
+      "sourceLabel": "Allgemeine Schweißpraxis",
+      "sourcePages": "–",
+      "sourceType": "general-practice"
+    },
+    {
+      "id": "wig-tungsten-contamination",
+      "category": "wig",
+      "processes": [
+        "wig"
+      ],
+      "symptom": "Wolframelektrode verunreinigt oder Naht enthält Wolfram",
+      "causes": [
+        "Wolframelektrode berührt Schmelzbad oder Zusatzwerkstoff.",
+        "Elektrodenspitze ist beschädigt, ungeeignet angeschliffen oder überlastet.",
+        "Gasabdeckung ist unzureichend und die Elektrode oxidiert."
+      ],
+      "actions": [
+        "Verunreinigten Bereich der Elektrode vollständig entfernen und neu anschleifen.",
+        "Passenden Elektrodendurchmesser verwenden und Strombereich prüfen.",
+        "Gasweg, Gasnachströmung und Brennerhaltung kontrollieren."
+      ],
+      "priority": "warning",
+      "sourceLabel": "Allgemeine WIG-Schweißpraxis",
+      "sourcePages": "–",
+      "sourceType": "general-practice"
+    },
+    {
+      "id": "wig-porosity-oxidation",
+      "category": "wig",
+      "processes": [
+        "wig"
+      ],
+      "symptom": "WIG-Naht porig, dunkel oder stark oxidiert",
+      "causes": [
+        "Schutzgasabdeckung ist durch Zugluft, Leckage oder ungeeigneten Gasfluss gestört.",
+        "Werkstück, Zusatzstab oder Wolframelektrode sind verschmutzt.",
+        "Brenner wird zu weit entfernt oder zu stark geneigt geführt."
+      ],
+      "actions": [
+        "Gasflasche, Druckminderer, Schlauch und Brenner auf Dichtheit prüfen.",
+        "Nahtbereich, Zusatzstab und Elektrode metallisch sauber halten.",
+        "Brennerabstand und Winkel an einer Probenaht korrigieren und Zugluft vermeiden."
+      ],
+      "priority": "warning",
+      "sourceLabel": "Allgemeine WIG-Schweißpraxis",
+      "sourcePages": "–",
+      "sourceType": "general-practice"
+    },
+    {
+      "id": "flux-slag-inclusion",
+      "category": "migmag",
+      "processes": [
+        "fcaw_s"
+      ],
+      "symptom": "Schlackeneinschlüsse bei selbstschützendem Fülldraht",
+      "causes": [
+        "Schlacke der vorherigen Lage wurde nicht vollständig entfernt.",
+        "Brennerwinkel oder Schweißrichtung lässt Schlacke vor das Schmelzbad laufen.",
+        "Wärmeeintrag oder Nahtvorbereitung ist für die Verbindung ungeeignet."
+      ],
+      "actions": [
+        "Jede Lage vollständig entschlacken und metallisch reinigen.",
+        "Brennerwinkel und Zugtechnik gemäß Drahtdatenblatt prüfen.",
+        "Nahtvorbereitung und Parameter an einer Probenaht kontrollieren."
+      ],
+      "priority": "warning",
+      "sourceLabel": "Allgemeine Fülldraht-Schweißpraxis",
+      "sourcePages": "–",
+      "sourceType": "general-practice"
+    },
+    {
+      "id": "plasma-heavy-dross",
+      "category": "plasma",
+      "processes": [
+        "plasma"
+      ],
+      "symptom": "Starker Grat oder Schlacke an der Schnittunterseite",
+      "causes": [
+        "Schnittgeschwindigkeit ist nicht auf Material und Schneidstrom abgestimmt.",
+        "Düse oder Elektrode sind verschlissen.",
+        "Luftdruck beziehungsweise Luftqualität ist unzureichend."
+      ],
+      "actions": [
+        "Schnittgeschwindigkeit an einem Probeschnitt schrittweise anpassen.",
+        "Gerät ausschalten und Verschleißteile kontrollieren.",
+        "Druckluftversorgung, Wasserabscheider und dokumentierten Arbeitsdruck prüfen."
+      ],
+      "priority": "warning",
+      "sourceLabel": "Allgemeine Plasma-Schneidpraxis",
+      "sourcePages": "–",
+      "sourceType": "general-practice"
     }
   ]
 }

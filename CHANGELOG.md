@@ -1,3 +1,11 @@
+## 1.0.2 – C10
+
+- Herstellerdatensätze werden bei Mehrfachtreffern nach Materialstärke, Stromnähe, Draht- beziehungsweise Elektrodendurchmesser und Datensatzspezifität priorisiert.
+- Die Kalibrierung nutzt für die Referenzauswahl nun den geometrisch korrigierten Strombedarf statt nur den unveränderten Formelgrundstrom.
+- Herstellervergleich zeigt die Qualität der Zuordnung und den zugehörigen Materialbereich transparent an.
+- Bestehende Herstellerwerte, Berechnungsformeln und Gerätegrenzen bleiben unverändert.
+- README, Datenstatus, Versionsstand und Offline-Cache auf Build C10 aktualisiert.
+
 # Changelog
 
 ## 1.0.2 – C09

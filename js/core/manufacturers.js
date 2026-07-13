@@ -86,20 +86,59 @@ function formatValue(value, unit, digits = 0) {
   return `${Number(value).toFixed(digits)} ${unit}`;
 }
 
-export function selectPrimaryReference(references, result) {
+function normalizedDistance(value, min, max) {
+  if (value === null || value === undefined || min === null || min === undefined || max === null || max === undefined) return 1;
+  const low = Number(min);
+  const high = Number(max);
+  const span = Math.max(high - low, 0.1);
+  const middle = (low + high) / 2;
+  return Math.abs(Number(value) - middle) / span;
+}
+
+function referenceSpecificity(reference, context = {}) {
+  let score = 0;
+  score += normalizedDistance(context.thickness, reference.thicknessMinMm, reference.thicknessMaxMm) * 5;
+  score += normalizedDistance(context.amps, reference.currentMinA, reference.currentMaxA) * 2;
+
+  if (reference.wireMm !== null && reference.wireMm !== undefined) {
+    score += Math.abs(Number(context.wire || 0) - Number(reference.wireMm)) < 0.05 ? -2 : 5;
+  }
+  if (reference.electrodeDiameterMm !== null && reference.electrodeDiameterMm !== undefined) {
+    score += Math.abs(Number(context.electrode || 0) - Number(reference.electrodeDiameterMm)) < 0.05 ? -3 : 6;
+  }
+
+  const thicknessSpan = reference.thicknessMinMm !== null && reference.thicknessMaxMm !== null
+    ? Math.max(Number(reference.thicknessMaxMm) - Number(reference.thicknessMinMm), 0)
+    : 99;
+  score += thicknessSpan * 0.1;
+  if (reference.confidence === 'manufacturer-manual') score -= 1;
+  return score;
+}
+
+function buildMatchQuality(reference, context = {}) {
+  const thicknessDistance = normalizedDistance(context.thickness, reference.thicknessMinMm, reference.thicknessMaxMm);
+  const currentDistance = normalizedDistance(context.amps, reference.currentMinA, reference.currentMaxA);
+  const exactElectrode = reference.electrodeDiameterMm === null || reference.electrodeDiameterMm === undefined
+    || Math.abs(Number(context.electrode || 0) - Number(reference.electrodeDiameterMm)) < 0.05;
+  const exactWire = reference.wireMm === null || reference.wireMm === undefined
+    || Math.abs(Number(context.wire || 0) - Number(reference.wireMm)) < 0.05;
+  const state = thicknessDistance <= 0.5 && currentDistance <= 0.5 && exactElectrode && exactWire
+    ? 'exact'
+    : thicknessDistance <= 1 && exactElectrode && exactWire
+      ? 'close'
+      : 'orientation';
+  const label = state === 'exact' ? 'Sehr genaue Zuordnung' : state === 'close' ? 'Passende Zuordnung' : 'Orientierungswert';
+  return { state, label };
+}
+
+export function selectPrimaryReference(references, result, context = {}) {
   if (!references.length) return null;
-  return [...references].sort((a, b) => {
-    const aMid = rangeMid(a.currentMinA, a.currentMaxA);
-    const bMid = rangeMid(b.currentMinA, b.currentMaxA);
-    if (aMid === null && bMid === null) return 0;
-    if (aMid === null) return 1;
-    if (bMid === null) return -1;
-    return Math.abs(Number(result.amps) - aMid) - Math.abs(Number(result.amps) - bMid);
-  })[0];
+  const scoringContext = { ...context, amps: result?.amps };
+  return [...references].sort((a, b) => referenceSpecificity(a, scoringContext) - referenceSpecificity(b, scoringContext))[0];
 }
 
 export function buildManufacturerComparison(result, references, data) {
-  const primary = selectPrimaryReference(references, result);
+  const primary = selectPrimaryReference(references, result, result);
   if (!primary) {
     return {
       available: false,
@@ -115,6 +154,8 @@ export function buildManufacturerComparison(result, references, data) {
   const manufacturer = getManufacturerName(data, primary.manufacturerId);
   const sourceLabels = (primary.sourceIds || []).map(id => getSourceLabel(data, id)).filter(Boolean);
   const device = primary.deviceFamily || primary.deviceProfileId || 'Herstellerdaten';
+  const matchQuality = buildMatchQuality(primary, result);
+  const thicknessRange = formatRange(primary.thicknessMinMm, primary.thicknessMaxMm, 'mm', 1);
 
   return {
     available: true,
@@ -125,6 +166,8 @@ export function buildManufacturerComparison(result, references, data) {
     confidence: primary.confidence || 'orientation',
     comment: primary.comment || '',
     sourceLabels,
+    matchQuality,
+    referenceThickness: thicknessRange,
     amp: {
       ...amp,
       calculated: formatValue(result.amps, 'A', 0),

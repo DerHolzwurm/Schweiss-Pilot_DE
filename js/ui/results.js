@@ -61,7 +61,8 @@ function renderManufacturerComparison(comparison, isCut, enabled = true) {
   }
 
   panel.classList.remove('compare-missing');
-  const meta = `${comparison.manufacturer} · ${comparison.device} · ${comparison.matches} passender Datensatz${comparison.matches === 1 ? '' : 'e'}`;
+  const matchLabel = comparison.matchQuality?.label ? ` · ${comparison.matchQuality.label}` : '';
+  const meta = `${comparison.manufacturer} · ${comparison.device} · ${comparison.matches} passender Datensatz${comparison.matches === 1 ? '' : 'e'}${matchLabel}`;
   setText('manufacturerCompareMeta', meta);
   setText('manufacturerCompareBadge', comparison.amp?.text || 'Vergleich');
   setCompareItem('cmpAmp', comparison.amp);
@@ -72,6 +73,7 @@ function renderManufacturerComparison(comparison, isCut, enabled = true) {
   setHidden('cmpFeedItem', isCut || comparison.feed?.state === 'missing');
 
   const extras = [];
+  if (comparison.referenceThickness && comparison.referenceThickness !== '–') extras.push(`Materialbereich: ${comparison.referenceThickness}`);
   if (comparison.gas) extras.push(`Gas: ${comparison.gas}`);
   if (comparison.gasFlow) extras.push(`Gasdurchfluss: ${comparison.gasFlow}`);
   if (comparison.airPressure) extras.push(`Druckluft: ${comparison.airPressure}`);

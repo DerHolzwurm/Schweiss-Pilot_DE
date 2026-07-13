@@ -333,8 +333,6 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const manufacturerReferences = manufacturerComparisonEnabled
     ? findManufacturerReferences(manufacturerInput, data, selectedManufacturerId)
     : [];
-  const primaryManufacturerReference = selectPrimaryReference(allManufacturerReferences, { amps: formulaCurrent });
-
   const manufacturerSummary = !manufacturerComparisonEnabled
     ? 'Herstellervergleich ist ausgeblendet.'
     : manufacturerReferences.length
@@ -346,6 +344,11 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const theoreticalCurrent = formulaCurrent;
   const geometryFactor = joint.factor * position.factor * shape.factor;
   const uncalibratedCurrent = theoreticalCurrent * geometryFactor;
+  const primaryManufacturerReference = selectPrimaryReference(
+    allManufacturerReferences,
+    { amps: uncalibratedCurrent },
+    { thickness, wire: input.wire, electrode: input.electrode }
+  );
   const genericRange = getGenericRange(process, uncalibratedCurrent, isCut);
   const electrodeRange = electrodeData ? { min: Number(electrodeData.currentMinA), max: Number(electrodeData.currentMaxA) } : null;
   const currentRange = process.id === 'mma' && electrodeRange
@@ -388,7 +391,7 @@ export function calculateWelding(input, data, feedbackTrim = 0) {
   const travelSpeed = calculateTravelSpeed(process, thickness);
   const heatInput = calculateHeatInput(volt, amps, travelSpeed);
   const manufacturerComparison = manufacturerComparisonEnabled
-    ? buildManufacturerComparison({ amps, volt, wfs, processType: process.type }, manufacturerReferences, data)
+    ? buildManufacturerComparison({ amps, volt, wfs, processType: process.type, thickness, wire, electrode: input.electrode }, manufacturerReferences, data)
     : { available: false, disabled: true, note: 'Herstellervergleich ist deaktiviert.' };
   const plausibility = buildPlausibilityChecks({
     process,

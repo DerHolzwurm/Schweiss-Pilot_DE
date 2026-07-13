@@ -164,6 +164,7 @@
 .diagnostic-columns ul,.diagnostic-columns ol{margin:0;padding-left:20px}
 .diagnostic-columns li+li{margin-top:6px}
 .diagnostic-item footer{margin-top:12px;color:var(--muted);font-size:.82rem}
+.diagnostic-item-source.general-practice{border-top:1px solid var(--line);padding-top:10px}
 .diagnostic-source{margin-top:18px;border:1px solid var(--line);border-radius:14px;padding:12px;color:var(--muted);background:rgba(56,189,248,.05)}
 .diagnostic-source strong{color:var(--text)}
 .diagnostic-source span{display:inline-block;margin-top:5px}

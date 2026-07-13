@@ -1,3 +1,25 @@
+
+## 1.0.2-C12 - Development
+
+### Added
+- WIG-DC-Kategorie in der Fehlerdiagnose.
+- Zusätzliche Fehlerbilder zu Bindefehlern, Einbrandkerben, Spritzern, Verzug, Wolframverunreinigung, Gasabdeckung, Schlackeneinschlüssen und Plasmaschnitt-Grat.
+- Eintragsbezogene Quellenkennzeichnung zur klaren Trennung zwischen CTM-250-Handbuch und allgemeiner Schweißpraxis.
+
+### Changed
+- Suchbereich und Einleitung der Fehlerdiagnose erweitert.
+- Datenstatus, README, Version und Service-Worker-Cache auf Build C12 aktualisiert.
+
+### Files
+- README.md
+- CHANGELOG.md
+- index.html
+- version.json
+- sw.js
+- css/components.css
+- data/troubleshooting.json
+- js/features/diagnostics.js
+
 ## 1.0.2 – C11
 
 ### Added

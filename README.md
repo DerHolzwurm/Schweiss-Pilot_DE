@@ -1,6 +1,6 @@
 # SchweißPilot
 
-**Version 1.0.2 · Build C11 · Development**
+**Version 1.0.2 · Build C12 · Development**
 
 Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und stellt gerätebezogene Anschluss- und Parameterinformationen bereit.
 
@@ -66,6 +66,8 @@ Validiert wurden:
 - Filter nach Verfahren
 - Ursachen und sichere Prüfschritte
 - CTM-250-FAQ als strukturierte Datenbasis
+- zusätzliche, eindeutig gekennzeichnete Fehlerbilder der allgemeinen Schweißpraxis
+- WIG-DC-Diagnose sowie Hinweise zu Bindefehlern, Einbrandkerben, Spritzern, Verzug und Schlackeneinschlüssen
 
 ### Progressive Web App
 
@@ -90,6 +92,7 @@ Validiert wurden:
 | C09 | Nachvollziehbarer Berechnungsweg mit Zwischenwerten und Rundungstransparenz |
 | C10 | Präzisere Herstellerzuordnung und transparente Qualität des gewählten Vergleichsdatensatzes |
 | C11 | Erweiterte Anzeige vorhandener technischer STAHLWERK-Referenzdaten im Parameter-Tab |
+| C12 | Erweiterte Fehlerdiagnose mit WIG DC und klarer Trennung zwischen Hersteller-FAQ und allgemeiner Schweißpraxis |
 
 ## Bekannte Grenzen
 

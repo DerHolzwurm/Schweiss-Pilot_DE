@@ -200,3 +200,11 @@
 .parameter-warning img{display:block;width:100%;max-height:250px;object-fit:contain;background:#fff;border-radius:10px}.parameter-warning p{margin:10px 0 0;line-height:1.45}
 .parameter-source{margin:14px 0 0;color:var(--muted);font-size:.86rem;line-height:1.45}
 @media (max-width:720px){.parameter-header,.parameter-table-header{display:block}.parameter-status,.parameter-count{margin-top:10px}.parameter-controls,.parameter-grid{grid-template-columns:1fr}.parameter-list>div{grid-template-columns:1fr;gap:3px}.parameter-connection,.parameter-panel{padding:13px}.parameter-warning img{max-height:none}}
+
+
+/* v1.0.2 C03: Übergabe vom Parameterbereich an den Rechner */
+.parameter-actions{display:flex;align-items:center;gap:14px;margin:-2px 0 18px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(56,189,248,.045)}
+.parameter-actions p{margin:0;color:var(--muted);line-height:1.4}
+.parameter-actions button{flex:0 0 auto}
+.parameter-actions button:disabled{opacity:.5;cursor:not-allowed}
+@media (max-width:720px){.parameter-actions{align-items:stretch;flex-direction:column}.parameter-actions button{width:100%}}

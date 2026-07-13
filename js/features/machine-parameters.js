@@ -10,6 +10,29 @@ function formatRange(min, max, unit) {
   return `${String(min).replace('.', ',')}–${String(max).replace('.', ',')} ${unit}`;
 }
 
+
+function calculatorProcessId(processId) {
+  const supported = new Set(['plasma', 'fcaw_s', 'mag', 'mig', 'mma', 'wig_dc']);
+  return supported.has(processId) ? processId : null;
+}
+
+function openInCalculator(processId) {
+  const targetProcess = calculatorProcessId(processId);
+  const calculatorSelect = document.getElementById('process');
+  const calculatorTab = document.querySelector('.tab[data-target="calculator"]');
+  if (!targetProcess || !calculatorSelect || !calculatorTab) return false;
+
+  const available = Array.from(calculatorSelect.options).some(option => option.value === targetProcess);
+  if (!available) return false;
+
+  calculatorSelect.value = targetProcess;
+  calculatorSelect.dispatchEvent(new Event('input', { bubbles: true }));
+  calculatorTab.click();
+  calculatorSelect.focus({ preventScroll: true });
+  document.getElementById('processBox')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  return true;
+}
+
 function processRangeId(processId) {
   if (processId === 'mig') return 'mig';
   return processId;
@@ -49,6 +72,8 @@ function renderRanges(rows) {
 export function initMachineParameters(database, manufacturerDatabase) {
   const deviceSelect = document.getElementById('parameterDevice');
   const processSelect = document.getElementById('parameterProcess');
+  const openCalculatorButton = document.getElementById('parameterOpenCalculator');
+  const transferHint = document.getElementById('parameterTransferHint');
   if (!deviceSelect || !processSelect || !database?.devices?.length) return;
 
   deviceSelect.innerHTML = database.devices.map(device => `<option value="${escapeHtml(device.id)}">${escapeHtml(device.manufacturer)} ${escapeHtml(device.model)}</option>`).join('');
@@ -96,9 +121,24 @@ export function initMachineParameters(database, manufacturerDatabase) {
     warningImage.classList.toggle('hidden', !device.warningImage);
     document.getElementById('parameterWarningText').textContent = device.warningText || '';
     document.getElementById('parameterSource').textContent = `Quelle: ${device.source}. Anschlussarbeiten nur bei ausgeschaltetem und vom Stromnetz getrenntem Gerät durchführen.`;
+
+    const canTransfer = Boolean(calculatorProcessId(process.id));
+    if (openCalculatorButton) {
+      openCalculatorButton.disabled = !canTransfer;
+      openCalculatorButton.dataset.processId = process.id;
+    }
+    if (transferHint) {
+      transferHint.textContent = canTransfer
+        ? `Übernimmt ${process.label} in den Rechner. Material und weitere Eingaben bleiben unverändert.`
+        : 'Dieses Verfahren kann derzeit nicht in den Rechner übernommen werden.';
+    }
   }
 
   deviceSelect.addEventListener('change', populateProcesses);
   processSelect.addEventListener('change', render);
+  openCalculatorButton?.addEventListener('click', () => {
+    const processId = openCalculatorButton.dataset.processId || processSelect.value;
+    openInCalculator(processId);
+  });
   populateProcesses();
 }

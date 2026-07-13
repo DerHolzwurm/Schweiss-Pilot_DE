@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 – C03
+
+- Gewähltes Verfahren kann aus dem Parameter-Tab direkt in den Rechner übernommen werden.
+- Bestehende Rechnerlogik aktualisiert nach der Übergabe automatisch die verfahrensabhängigen Eingabefelder.
+- Material und weitere Nutzereingaben bleiben bei der Übergabe erhalten, sofern die Rechnerlogik keine verfahrensbedingte Korrektur verlangt.
+- Übergabeschaltfläche mit dynamischem Verfahrenstext und sicherer Verfügbarkeitsprüfung ergänzt.
+- Datenstatus, README, Versionsstand und Offline-Cache auf C03 aktualisiert.
+
 ## 1.0.2 – C02
 
 - Geräte- und Verfahrensauswahl im Parameter-Tab wird lokal gespeichert.

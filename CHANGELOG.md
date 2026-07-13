@@ -1,3 +1,25 @@
+## 1.0.2-C15 - Release Candidate
+
+### Changed
+- Versionsstatus auf Release Candidate und Build C15 aktualisiert.
+- README um den Release-Candidate-Status und die abschließende Prüfphase ergänzt.
+- Datenstatus in der App auf die Release-Vorbereitung abgestimmt.
+- Service-Worker-Cache auf `schweisspilot-v1.0.2-c15` erhöht.
+
+### Added
+- Verbindliche Release-Prüfliste für GitHub Pages, Installation, Offlinebetrieb und alle Hauptmodule ergänzt.
+
+### Unchanged
+- Keine Berechnungsformeln, Herstellerwerte, Gerätelimits oder sichtbaren Kernfunktionen verändert.
+
+### Files
+- README.md
+- CHANGELOG.md
+- RELEASE_CHECKLIST.md
+- index.html
+- version.json
+- sw.js
+
 ## 1.0.2-C14 - Development
 
 ### Changed

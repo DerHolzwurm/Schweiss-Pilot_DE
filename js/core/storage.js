@@ -3,6 +3,11 @@ export const storage = {
     try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; }
   },
   set(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch {
+      return false;
+    }
   }
 };

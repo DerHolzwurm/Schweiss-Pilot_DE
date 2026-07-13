@@ -1,3 +1,7 @@
+import { storage } from '../core/storage.js';
+
+const SELECTION_KEY = 'schweisspilot.machineParameters.selection';
+
 const escapeHtml = value => String(value ?? '').replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
 
 function formatRange(min, max, unit) {
@@ -49,16 +53,25 @@ export function initMachineParameters(database, manufacturerDatabase) {
 
   deviceSelect.innerHTML = database.devices.map(device => `<option value="${escapeHtml(device.id)}">${escapeHtml(device.manufacturer)} ${escapeHtml(device.model)}</option>`).join('');
 
+  const savedSelection = storage.get(SELECTION_KEY, {});
+  if (database.devices.some(device => device.id === savedSelection.deviceId)) {
+    deviceSelect.value = savedSelection.deviceId;
+  }
+
   function selectedDevice() {
     return database.devices.find(device => device.id === deviceSelect.value) || database.devices[0];
   }
 
   function populateProcesses() {
     const device = selectedDevice();
-    const previous = processSelect.value;
+    const previous = processSelect.value || (savedSelection.deviceId === device.id ? savedSelection.processId : '');
     processSelect.innerHTML = device.processes.map(process => `<option value="${escapeHtml(process.id)}">${escapeHtml(process.label)}</option>`).join('');
     if (device.processes.some(process => process.id === previous)) processSelect.value = previous;
     render();
+  }
+
+  function saveSelection(deviceId, processId) {
+    storage.set(SELECTION_KEY, { deviceId, processId });
   }
 
   function render() {
@@ -66,6 +79,7 @@ export function initMachineParameters(database, manufacturerDatabase) {
     const process = device.processes.find(item => item.id === processSelect.value) || device.processes[0];
     if (!process) return;
     processSelect.value = process.id;
+    saveSelection(device.id, process.id);
 
     document.getElementById('parameterManufacturer').textContent = `${device.manufacturer} · ${device.model}`;
     document.getElementById('parameterProcessTitle').textContent = process.label;

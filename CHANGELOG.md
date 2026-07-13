@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.2 – C02
+
+- Geräte- und Verfahrensauswahl im Parameter-Tab wird lokal gespeichert.
+- Gültige Auswahl wird beim nächsten App-Start automatisch wiederhergestellt.
+- Lokale Speicherung gegen blockierten oder nicht verfügbaren Browser-Speicher abgesichert.
+- Datenstatus-Text bereinigt und auf Build C02 aktualisiert.
+- README auf Version 1.0.2 und den aktuellen Entwicklungsbranch gebracht.
+- Service-Worker-Cache auf C02 erhöht.
+
 ## 1.0.2 – C01
 
 - Neuer Tab „Parameter“ zwischen Rechner und Lexikon.

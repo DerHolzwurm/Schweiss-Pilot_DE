@@ -1,8 +1,8 @@
 # SchweißPilot
 
-**Version 1.0.1 · Build C15 · Release Candidate**
+**Version 1.0.2 · Build C02 · Development**
 
-Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und gleicht Ergebnisse optional mit validierten Richtwerten des **STAHLWERK CTM-250 Puls Pro** ab.
+Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und stellt gerätebezogene Anschluss- und Parameterinformationen bereit.
 
 ## Funktionen
 
@@ -18,9 +18,26 @@ Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPil
 - Live-Nahtfeedback und Feinkorrektur
 - Gerätelimits mit transparenten Warnhinweisen
 
+### Parameter
+
+Der Tab **Parameter** enthält derzeit das Geräteprofil:
+
+- STAHLWERK CTM-250 Puls Pro
+
+Verfügbar sind gerätebezogene Anschlussbilder und Hinweise für:
+
+- CUT / Plasmaschneiden
+- FLUX / selbstschützender Fülldraht
+- MAG / Stahl
+- MIG / Aluminium
+- MMA / Elektrode
+- WIG DC / Stahl und Edelstahl
+
+Die zuletzt gewählte Geräte- und Verfahrenskombination wird lokal gespeichert und beim nächsten App-Start wiederhergestellt. Vorhandene Hersteller-Richtwerte werden aus der zentralen Herstellerdatenbank eingebunden; fehlende Werte bleiben bewusst leer.
+
 ### Hersteller- und Gerätebezug
 
-Für Version 1.0.1 sind ausschließlich Herstellerdaten des **STAHLWERK CTM-250 Puls Pro** freigegeben. Die Richtwerte stammen aus der Bedienungsanleitung, Stand 05/2025.
+Für Version 1.0.2 sind ausschließlich Herstellerdaten des **STAHLWERK CTM-250 Puls Pro** freigegeben. Die Richtwerte stammen aus der Bedienungsanleitung, Stand 05/2025.
 
 Validiert wurden:
 
@@ -55,25 +72,12 @@ Validiert wurden:
 - Dark Mode
 - Service Worker und Manifest
 
-## Änderungen seit Version 1.0.0
+## Entwicklung Version 1.0.2
 
 | Build | Schwerpunkt |
 |---|---|
-| C01 | Referenzwerte, Slider und empfohlene Einstellungen |
-| C02 | Version, Build, Branch und Status |
-| C03 | Nahtarten, Materialformen und Illustrationssystem |
-| C04 | vereinfachter Plasma-Workflow |
-| C05/C05a | Info-Buttons, Tooltips und globaler Hilfeschalter |
-| C06 | erweiterte Berechnungs- und Referenzstruktur |
-| C07/C07.5 | Herstellerdatenbank und CTM-250-Geräteprofil |
-| C08 | Vergleich berechneter Werte mit Herstellerbereichen |
-| C09 | neue modulare Berechnungsengine |
-| C10/C10.5 | MMA-Elektrodendurchmesser und empfohlene Materialstärke |
-| C11 | Gerätelimits und Warnhinweise |
-| C12 | optionaler Herstellervergleich |
-| C13 | CTM-250-Troubleshooting |
-| C14 | finale Überarbeitung der Illustrationen |
-| C15 | Validierung und Begrenzung der Herstellerdaten auf STAHLWERK |
+| C01 | Neuer datengetriebener Parameter-Tab mit Geräte- und Verfahrensauswahl |
+| C02 | Persistente Parameter-Auswahl, Datenstatus-Bereinigung und Dokumentationsabgleich |
 
 ## Bekannte Grenzen
 
@@ -88,14 +92,23 @@ Validiert wurden:
 Aktueller Branch:
 
 ```text
-Entwicklung-V1.0.1
+Entwicklung-V1.0.2
 ```
 
-Merge-Reihenfolge:
+Vorgesehene Merge-Reihenfolge:
 
 ```text
-Entwicklung-V1.0.1 -> develop -> main -> tag v1.0.1
+Entwicklung-V1.0.2 -> develop -> main -> tag v1.0.2
 ```
+
+## Roadmap Version 1.0.2
+
+- Berechnungsengine anhand der endgültigen Projektformeln validieren
+- Werte gegen das STAHLWERK-Handbuch prüfen
+- Spannungen, Drahtvorschub und Wärmeeintrag plausibilisieren
+- weitere STAHLWERK-Daten integrieren
+- Herstellerdatenbank und Vergleich erweitern
+- zusätzliche Fehlerbilder und Plausibilitätsprüfungen ergänzen
 
 ## Roadmap Version 1.1.0
 

@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 1,
+  "status": "manual-grounded",
+  "devices": [
+    {
+      "id": "stahlwerk-ctm-250-puls-pro",
+      "manufacturer": "STAHLWERK",
+      "model": "CTM-250 Puls Pro",
+      "source": "Bedienungsanleitung CTM-250 Puls Pro – Anschlussdarstellungen und vorhandene Hersteller-Richtwerte",
+      "processes": [
+        {
+          "id": "plasma",
+          "label": "CUT / Plasmaschneiden",
+          "image": "assets/images/parameters/ctm250-cut.png",
+          "connection": [
+            {
+              "label": "Massezange",
+              "value": "linke CUT-Buchse"
+            },
+            {
+              "label": "Plasma-Schlauchpaket",
+              "value": "oberer CUT-Anschluss"
+            }
+          ],
+          "settings": [
+            {
+              "label": "Verfahren am Gerät",
+              "value": "CUT"
+            },
+            {
+              "label": "Prozessgas",
+              "value": "Druckluft / Plasmagas gemäß Bedienungsanleitung"
+            }
+          ],
+          "steps": [
+            "Gerät ausschalten und vom Stromnetz trennen.",
+            "Massezange an der in der Anschlussgrafik gekennzeichneten CUT-Buchse anschließen.",
+            "Plasma-Schlauchpaket am oberen CUT-Anschluss befestigen.",
+            "Vor Inbetriebnahme alle Verbindungen und die Druckluftversorgung kontrollieren.",
+            "Am Gerät das Verfahren CUT auswählen."
+          ],
+          "reference": [
+            {
+              "label": "Verbrauchsmittel",
+              "value": "Plasmabrenner-Verschleißteile gemäß Brennertyp und Bedienungsanleitung"
+            },
+            {
+              "label": "Prozessmedium",
+              "value": "Druckluft"
+            },
+            {
+              "label": "Arbeitsdruck",
+              "value": "3,5–4,0 bar"
+            },
+            {
+              "label": "Hersteller-Tabelle",
+              "value": "Keine materialdickenabhängige CUT-Stromtabelle hinterlegt"
+            }
+          ]
+        },
+        {
+          "id": "fcaw_s",
+          "label": "FLUX / selbstschützender Fülldraht",
+          "image": "assets/images/parameters/ctm250-flux.png",
+          "connection": [
+            {
+              "label": "Massezange",
+              "value": "linke Buchse"
+            },
+            {
+              "label": "Stromversorgung EURO-Zentralanschluss",
+              "value": "rechte Buchse"
+            }
+          ],
+          "settings": [
+            {
+              "label": "Verfahren am Gerät",
+              "value": "MIG/MAG/FLUX gemäß Geräteauswahl"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "kein Schutzgas erforderlich"
+            },
+            {
+              "label": "Polarität",
+              "value": "DCEN / Brenner Minus prüfen"
+            }
+          ],
+          "steps": [
+            "Gerät ausschalten und vom Stromnetz trennen.",
+            "Massezange links anschließen.",
+            "Stromversorgungskabel des EURO-Zentralanschlusses rechts anschließen.",
+            "Selbstschützenden Fülldraht und passende Polarität kontrollieren.",
+            "Verfahren am Gerät auswählen und mit einem niedrigen Startwert beginnen."
+          ],
+          "reference": [
+            {
+              "label": "Zusatzwerkstoff",
+              "value": "Selbstschützender Fülldraht"
+            },
+            {
+              "label": "Drahtdurchmesser",
+              "value": "0,8–1,6 mm gemäß vorhandenen Hersteller-Richtwerten"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "Nicht erforderlich"
+            },
+            {
+              "label": "Polarität",
+              "value": "DCEN / Brenner Minus vor Verwendung prüfen"
+            }
+          ]
+        },
+        {
+          "id": "mag",
+          "label": "MAG / Stahl",
+          "image": "assets/images/parameters/ctm250-mig-mag.png",
+          "connection": [
+            {
+              "label": "Stromversorgung EURO-Zentralanschluss",
+              "value": "linke Buchse"
+            },
+            {
+              "label": "Massezange",
+              "value": "rechte Buchse"
+            }
+          ],
+          "settings": [
+            {
+              "label": "Verfahren am Gerät",
+              "value": "MIG/MAG"
+            },
+            {
+              "label": "Polarität",
+              "value": "DCEP / Brenner Plus"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "CO₂ oder MIX 18 (82 % Ar / 18 % CO₂)"
+            }
+          ],
+          "steps": [
+            "Gerät ausschalten und vom Stromnetz trennen.",
+            "Stromversorgungskabel des EURO-Zentralanschlusses links anschließen.",
+            "Massezange rechts anschließen.",
+            "Schutzgas, Draht und Drahtführung kontrollieren.",
+            "Am Gerät MIG/MAG auswählen und die Handbuch-Richtwerte als Startbereich verwenden."
+          ],
+          "reference": [
+            {
+              "label": "Zusatzwerkstoff",
+              "value": "Massivdraht für un- und niedriglegierte Stähle"
+            },
+            {
+              "label": "Drahtdurchmesser",
+              "value": "0,8–1,6 mm gemäß vorhandenen Hersteller-Richtwerten"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "CO₂ oder MIX 18 (82 % Ar / 18 % CO₂)"
+            },
+            {
+              "label": "Polarität",
+              "value": "DCEP / Brenner Plus"
+            }
+          ]
+        },
+        {
+          "id": "mig",
+          "label": "MIG / Aluminium",
+          "image": "assets/images/parameters/ctm250-mig-mag.png",
+          "connection": [
+            {
+              "label": "Stromversorgung EURO-Zentralanschluss",
+              "value": "linke Buchse"
+            },
+            {
+              "label": "Massezange",
+              "value": "rechte Buchse"
+            }
+          ],
+          "settings": [
+            {
+              "label": "Verfahren am Gerät",
+              "value": "MIG/MAG"
+            },
+            {
+              "label": "Polarität",
+              "value": "DCEP / Brenner Plus"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "Argon 4.6"
+            }
+          ],
+          "steps": [
+            "Gerät ausschalten und vom Stromnetz trennen.",
+            "Stromversorgungskabel des EURO-Zentralanschlusses links anschließen.",
+            "Massezange rechts anschließen.",
+            "Aluminiumdraht, passende Drahtführung und Argonversorgung kontrollieren.",
+            "Am Gerät MIG/MAG auswählen und zunächst eine Probenaht durchführen."
+          ],
+          "reference": [
+            {
+              "label": "Zusatzwerkstoff",
+              "value": "Aluminium-Schweißdraht passend zum Grundwerkstoff"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "Argon 4.6"
+            },
+            {
+              "label": "Drahtführung",
+              "value": "Für Aluminium geeignete Drahtführung verwenden"
+            },
+            {
+              "label": "Hersteller-Tabelle",
+              "value": "Keine freigegebene materialdickenabhängige MIG-Aluminium-Tabelle hinterlegt"
+            }
+          ]
+        },
+        {
+          "id": "mma",
+          "label": "MMA / Elektrode",
+          "image": "assets/images/parameters/ctm250-mma.png",
+          "connection": [
+            {
+              "label": "Linke Buchse",
+              "value": "Massezange oder Elektrodenzange – abhängig von der Elektrode"
+            },
+            {
+              "label": "Rechte Buchse",
+              "value": "Elektrodenzange oder Massezange – abhängig von der Elektrode"
+            }
+          ],
+          "settings": [
+            {
+              "label": "Verfahren am Gerät",
+              "value": "MMA"
+            },
+            {
+              "label": "Polarität",
+              "value": "Elektrodenhersteller beachten"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "kein Schutzgas"
+            }
+          ],
+          "steps": [
+            "Gerät ausschalten und vom Stromnetz trennen.",
+            "Polungsangabe auf Verpackung oder Datenblatt der Elektrode prüfen.",
+            "Masse- und Elektrodenzange entsprechend der geforderten Polarität anschließen.",
+            "Elektrodendurchmesser und Strombereich abgleichen.",
+            "Am Gerät MMA auswählen und eine Probeschweißung durchführen."
+          ],
+          "reference": [
+            {
+              "label": "Zusatzwerkstoff",
+              "value": "Stabelektrode passend zu Werkstoff und Anwendung"
+            },
+            {
+              "label": "Elektrodendurchmesser",
+              "value": "1,6–5,0 mm gemäß vorhandenen Hersteller-Richtwerten"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "Nicht erforderlich"
+            },
+            {
+              "label": "Polarität",
+              "value": "Elektrodenverpackung oder Datenblatt beachten"
+            }
+          ]
+        },
+        {
+          "id": "wig_dc",
+          "label": "WIG DC / Stahl und Edelstahl",
+          "image": "assets/images/parameters/ctm250-wig.png",
+          "connection": [
+            {
+              "label": "Massezange",
+              "value": "mittlere Buchse"
+            },
+            {
+              "label": "WIG-Brenner",
+              "value": "oberer WIG-Anschluss"
+            }
+          ],
+          "settings": [
+            {
+              "label": "Verfahren am Gerät",
+              "value": "TIG / WIG"
+            },
+            {
+              "label": "Polarität",
+              "value": "DCEN / Elektrode Minus"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "Argon 4.6"
+            }
+          ],
+          "steps": [
+            "Gerät ausschalten und vom Stromnetz trennen.",
+            "Massezange an der mittleren Buchse anschließen.",
+            "WIG-Brenner am oberen WIG-Anschluss befestigen.",
+            "Argonversorgung, Wolframelektrode und Brenneraufbau kontrollieren.",
+            "Am Gerät TIG/WIG auswählen und Startstrom vorsichtig einstellen."
+          ],
+          "reference": [
+            {
+              "label": "Wolframelektrode",
+              "value": "Für DC-WIG geeignete Wolframelektrode gemäß Herstellerangabe"
+            },
+            {
+              "label": "Schutzgas",
+              "value": "Argon 4.6"
+            },
+            {
+              "label": "Zusatzwerkstoff",
+              "value": "Werkstoffgerechter WIG-Schweißstab bei Bedarf"
+            },
+            {
+              "label": "Gerätegrenze",
+              "value": "Kein AC-WIG-Geräteprofil für das CTM-250 Puls Pro"
+            }
+          ]
+        }
+      ],
+      "warningImage": "assets/images/parameters/ctm250-warning.png",
+      "warningText": "Das Stromversorgungskabel des EURO-Zentralanschlusses ist ausschließlich für MIG/MAG vorgesehen. Bei anderen Verfahren ist es aus den Gerätebuchsen zu entfernen, da andernfalls HF-Störungen und Maschinenschäden möglich sind."
+    }
+  ]
+}

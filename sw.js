@@ -1,4 +1,4 @@
-const CACHE_NAME = 'schweisspilot-v1.0.2-c05';
+const CACHE_NAME = 'schweisspilot-v1.0.2-c07';
 const ASSETS = [
   './',
   './index.html',
@@ -10,6 +10,7 @@ const ASSETS = [
   './css/responsive.css',
   './js/main.js',
   './js/core/app.js',
+  './js/core/device-manager.js',
   './js/core/calculations.js',
   './js/core/manufacturers.js',
   './js/core/config.js',
@@ -37,6 +38,7 @@ const ASSETS = [
   './data/sources.json',
   './data/troubleshooting.json',
   './data/machine-parameters.json',
+  './data/devices.json',
   './assets/images/parameters/ctm250-cut.png',
   './assets/images/parameters/ctm250-flux.png',
   './assets/images/parameters/ctm250-mig-mag.png',

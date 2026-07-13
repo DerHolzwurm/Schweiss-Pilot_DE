@@ -7,5 +7,6 @@ export const paths = {
   manufacturers: './data/manufacturers.json',
   sources: './data/sources.json',
   troubleshooting: './data/troubleshooting.json',
-  machineParameters: './data/machine-parameters.json'
+  machineParameters: './data/machine-parameters.json',
+  devices: './data/devices.json'
 };

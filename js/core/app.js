@@ -7,7 +7,7 @@ export async function loadJson(path) {
 }
 
 export async function loadAppData() {
-  const [version, welding, corrections, lexicon, help, manufacturers, sources, troubleshooting, machineParameters] = await Promise.all([
+  const [version, welding, corrections, lexicon, help, manufacturers, sources, troubleshooting, machineParameters, devices] = await Promise.all([
     loadJson(paths.version),
     loadJson(paths.processes),
     loadJson(paths.corrections),
@@ -16,7 +16,8 @@ export async function loadAppData() {
     loadJson(paths.manufacturers),
     loadJson(paths.sources),
     loadJson(paths.troubleshooting),
-    loadJson(paths.machineParameters)
+    loadJson(paths.machineParameters),
+    loadJson(paths.devices)
   ]);
   return {
     version,
@@ -25,6 +26,7 @@ export async function loadAppData() {
     lexicon,
     help,
     troubleshooting,
-    machineParameters
+    machineParameters,
+    devices
   };
 }

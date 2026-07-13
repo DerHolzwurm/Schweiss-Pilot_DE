@@ -1,6 +1,6 @@
 # SchweißPilot
 
-**Version 1.0.2 · Build C05 · Development**
+**Version 1.0.2 · Build C07 · Development**
 
 Offlinefähiger Schweißparameter-Assistent als Progressive Web App. SchweißPilot ermittelt praxisnahe Startwerte, visualisiert Schweißsituationen und stellt gerätebezogene Anschluss- und Parameterinformationen bereit.
 
@@ -33,7 +33,7 @@ Verfügbar sind gerätebezogene Anschlussbilder und Hinweise für:
 - MMA / Elektrode
 - WIG DC / Stahl und Edelstahl
 
-Die zuletzt gewählte Geräte- und Verfahrenskombination wird lokal gespeichert und beim nächsten App-Start wiederhergestellt. Das ausgewählte Verfahren kann direkt in den Rechner übernommen werden; die vorhandene Rechnerlogik aktualisiert anschließend die verfahrensabhängigen Eingabefelder. Vorhandene Hersteller-Richtwerte werden aus der zentralen Herstellerdatenbank eingebunden; fehlende Werte bleiben bewusst leer. Zusätzlich zeigt der Tab verfahrensbezogene Gerätegrenzen, Einschaltdauer, Netz- und Eingangsstromdaten sowie die im Geräteprofil dokumentierten Einschränkungen.
+Die zuletzt gewählte Geräte- und Verfahrenskombination wird lokal gespeichert und beim nächsten App-Start wiederhergestellt. Das ausgewählte Verfahren kann direkt in den Rechner übernommen werden; die vorhandene Rechnerlogik aktualisiert anschließend die verfahrensabhängigen Eingabefelder. Vorhandene Hersteller-Richtwerte werden aus der zentralen Herstellerdatenbank eingebunden; fehlende Werte bleiben bewusst leer. Zusätzlich zeigt der Tab verfahrensbezogene Gerätegrenzen, Einschaltdauer, Netz- und Eingangsstromdaten, Prozessreferenzen sowie die im Geräteprofil dokumentierten Einschränkungen. Geräte- und Verfahrensdaten werden zentral aus `data/devices.json` geladen; neue Geräte können dadurch ohne Umbau der Anzeige-Logik ergänzt werden.
 
 ### Hersteller- und Gerätebezug
 
@@ -81,6 +81,8 @@ Validiert wurden:
 | C03 | Direkte Übernahme des gewählten Verfahrens aus dem Parameter-Tab in den Rechner |
 | C04 | Gerätegrenzen, technische Gerätedaten und validierte Einschränkungen im Parameter-Tab |
 | C05 | Transparente Quellen- und Statuskennzeichnung für Hersteller-Richtwerte |
+| C06 | Verfahrensbezogene Prozessreferenzen für Verbrauchsmittel, Gase und dokumentierte Grenzen |
+| C07 | Zentrale modulare Gerätedatenbank und einheitlicher Gerätezugriff |
 
 ## Bekannte Grenzen
 

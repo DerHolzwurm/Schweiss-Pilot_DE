@@ -1,4 +1,5 @@
 import { storage } from '../core/storage.js';
+import { createDeviceCatalog } from '../core/device-manager.js';
 
 const SELECTION_KEY = 'schweisspilot.machineParameters.selection';
 
@@ -175,22 +176,33 @@ function renderRanges(rows, sourceDatabase) {
   renderProvenance(rows, sourceDatabase);
 }
 
+
+function renderProcessReference(entries) {
+  const target = document.getElementById('parameterProcessReference');
+  const panel = document.getElementById('parameterProcessReferencePanel');
+  if (!target || !panel) return;
+  const items = Array.isArray(entries) ? entries : [];
+  renderDefinitionList(target, items);
+  panel.classList.toggle('hidden', items.length === 0);
+}
+
 export function initMachineParameters(database, manufacturerDatabase, sourceDatabase) {
   const deviceSelect = document.getElementById('parameterDevice');
   const processSelect = document.getElementById('parameterProcess');
   const openCalculatorButton = document.getElementById('parameterOpenCalculator');
   const transferHint = document.getElementById('parameterTransferHint');
-  if (!deviceSelect || !processSelect || !database?.devices?.length) return;
+  const catalog = createDeviceCatalog(database);
+  if (!deviceSelect || !processSelect || !catalog.devices.length) return;
 
-  deviceSelect.innerHTML = database.devices.map(device => `<option value="${escapeHtml(device.id)}">${escapeHtml(device.manufacturer)} ${escapeHtml(device.model)}</option>`).join('');
+  deviceSelect.innerHTML = catalog.devices.map(device => `<option value="${escapeHtml(device.id)}">${escapeHtml(device.manufacturer)} ${escapeHtml(device.model)}</option>`).join('');
 
   const savedSelection = storage.get(SELECTION_KEY, {});
-  if (database.devices.some(device => device.id === savedSelection.deviceId)) {
+  if (catalog.devices.some(device => device.id === savedSelection.deviceId)) {
     deviceSelect.value = savedSelection.deviceId;
   }
 
   function selectedDevice() {
-    return database.devices.find(device => device.id === deviceSelect.value) || database.devices[0];
+    return catalog.findDevice(deviceSelect.value);
   }
 
   function populateProcesses() {
@@ -207,7 +219,7 @@ export function initMachineParameters(database, manufacturerDatabase, sourceData
 
   function render() {
     const device = selectedDevice();
-    const process = device.processes.find(item => item.id === processSelect.value) || device.processes[0];
+    const process = catalog.findProcess(device, processSelect.value);
     if (!process) return;
     processSelect.value = process.id;
     saveSelection(device.id, process.id);
@@ -220,6 +232,7 @@ export function initMachineParameters(database, manufacturerDatabase, sourceData
     renderDefinitionList(document.getElementById('parameterConnections'), process.connection || []);
     renderDefinitionList(document.getElementById('parameterSettings'), process.settings || []);
     document.getElementById('parameterSteps').innerHTML = (process.steps || []).map(step => `<li>${escapeHtml(step)}</li>`).join('');
+    renderProcessReference(process.reference || []);
     renderDeviceProfile(deviceProfileFor(manufacturerDatabase, device.id), process.id);
     renderRanges(rangesFor(manufacturerDatabase, device.id, process.id), sourceDatabase);
 

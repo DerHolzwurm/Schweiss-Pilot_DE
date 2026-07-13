@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.2 – C07
+
+- Geräte- und Verfahrensdaten in die zentrale Datei `data/devices.json` ausgelagert.
+- Einheitlichen Gerätezugriff über `js/core/device-manager.js` ergänzt.
+- Prozessreferenzen für CUT, FLUX, MAG, MIG Aluminium, MMA und WIG DC integriert.
+- Datenladeweg, Offline-Cache, README und Datenstatus auf Build C07 aktualisiert.
+- Keine vorhandenen Berechnungs- oder Herstellerwerte verändert.
+
 ## 1.0.2 – C05
 
 - Quellen- und Validierungsstatus für jeden Hersteller-Richtwert im Parameter-Tab ergänzt.
